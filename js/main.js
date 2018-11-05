@@ -113,8 +113,10 @@ function drawLinks(data) {
     .enter()
     .append('path')
     .attr('class', 'link')
-    .attr('transform', d => {
+    .attr('transform', (d, i) => {
+      console.log(i);
       if (!d.from || !d.to) {
+        console.log(d);
         // skip if no trip exists
         return;
       }
