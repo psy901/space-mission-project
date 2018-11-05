@@ -1,0 +1,163 @@
+{"name": "name", "success": "success", "type": "type", "from": "from", "to": "to", "object": "object", "launch": "launch", "finish": "finish", "cospar": "cospar", "agency": "agency"}
+{"name": "Mars 1M", "success": "False", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "1960-10-10", "finish": "1960-10-10", "cospar": "MARSNK1", "agency": "soviet"}
+{"name": "Mars 2M", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1960-10-14", "finish": "1960-10-14", "cospar": "MARSNK2", "agency": "soviet"}
+{"name": "Sputnik 7", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1961-02-04", "finish": "1961-02-26", "cospar": "", "agency": "soviet"}
+{"name": "Venera 1", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1961-02-12", "finish": "1961-02-19", "cospar": "", "agency": "soviet"}
+{"name": "Mariner 1", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1962-07-22", "finish": "1962-07-22", "cospar": "", "agency": "nasa"}
+{"name": "Mariner 2", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1962-08-27", "finish": "1963-01-03", "cospar": "", "agency": "nasa"}
+{"name": "Sputnik 20", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1962-09-01", "finish": "1962-09-06", "cospar": "", "agency": "soviet"}
+{"name": "Sputnik 21", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1962-09-12", "finish": "1962-09-14", "cospar": "", "agency": "soviet"}
+{"name": "Sputnik 22", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1962-10-24", "finish": "1962-10-29", "cospar": "", "agency": "soviet"}
+{"name": "Mars 1", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1962-11-01", "finish": "1963-03-21", "cospar": "", "agency": "soviet"}
+{"name": "Sputnik 24", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1962-11-04", "finish": "1962-11-25", "cospar": "", "agency": "soviet"}
+{"name": "Cosmos 21", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1963-11-11", "finish": "1963-11-14", "cospar": "", "agency": "soviet"}
+{"name": "Venera 1964A", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1964-02-19", "finish": "1964-02-19", "cospar": "", "agency": "soviet"}
+{"name": "Venera 1964B", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1964-03-01", "finish": "1964-03-01", "cospar": "", "agency": "soviet"}
+{"name": "Cosmos 27", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1964-03-27", "finish": "1964-03-27", "cospar": "", "agency": "soviet"}
+{"name": "Zond 1", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1964-04-02", "finish": "1964-04-02", "cospar": "", "agency": "soviet"}
+{"name": "Mariner 3", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1964-11-05", "finish": "1964-11-05", "cospar": "", "agency": "nasa"}
+{"name": "Mariner 4", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "1964-11-28", "finish": "1967-12-21", "cospar": "", "agency": "nasa"}
+{"name": "Zond 2", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1964-11-30", "finish": "1965-08-06", "cospar": "", "agency": "soviet"}
+{"name": "Venera 2", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1965-11-12", "finish": "1966-03-04", "cospar": "", "agency": "soviet"}
+{"name": "Venera 3", "success": "False", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1965-11-16", "finish": "1966-03-01", "cospar": "", "agency": "soviet"}
+{"name": "Cosmos 96", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1965-11-23", "finish": "1965-12-09", "cospar": "", "agency": "soviet"}
+{"name": "Venera 1965A", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1965-11-26", "finish": "1965-11-26", "cospar": "", "agency": "soviet"}
+{"name": "Unnamed", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1967-03-27", "finish": "1967-03-27", "cospar": "", "agency": "soviet"}
+{"name": "Venera 4", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1967-06-12", "finish": "1967-10-18", "cospar": "", "agency": "soviet"}
+{"name": "Mariner 5", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1967-06-14", "finish": "1967-11-01", "cospar": "", "agency": "nasa"}
+{"name": "Cosmos 167", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1967-06-17", "finish": "1967-06-25", "cospar": "", "agency": "soviet"}
+{"name": "Venera 5", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1969-01-05", "finish": "1969-05-16", "cospar": "", "agency": "soviet"}
+{"name": "Venera 6", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1969-01-10", "finish": "1969-05-17", "cospar": "", "agency": "soviet"}
+{"name": "Mariner 6", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "1969-02-25", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Mars 1969A", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1969-03-27", "finish": "1969-03-27", "cospar": "", "agency": "soviet"}
+{"name": "Mariner 7", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "1969-03-27", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Mars 1969B", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1969-04-02", "finish": "1969-04-02", "cospar": "", "agency": "soviet"}
+{"name": "Venera 7", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1970-08-17", "finish": "", "cospar": "", "agency": "soviet"}
+{"name": "Cosmos 359", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1970-08-22", "finish": "1970-08-22", "cospar": "", "agency": "soviet"}
+{"name": "Mariner 8", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1971-05-08", "finish": "1971-05-08", "cospar": "", "agency": "nasa"}
+{"name": "Cosmos 419", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1971-05-10", "finish": "1971-05-12", "cospar": "", "agency": "soviet"}
+{"name": "Mars 2", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1971-05-19", "finish": "1971-11-27", "cospar": "", "agency": "soviet"}
+{"name": "Mars 2", "success": "False", "type": "lander", "from": "mars", "to": "mars", "object": "planet", "launch": "1971-11-27", "finish": "1971-11-27", "cospar": "", "agency": "soviet"}
+{"name": "Mars 3", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1971-05-28", "finish": "1971-12-02", "cospar": "1971-049A", "agency": "soviet"}
+{"name": "Mars 3", "success": "True", "type": "lander", "from": "mars", "to": "mars", "object": "planet", "launch": "1971-12-02", "finish": "1971-12-02", "cospar": "1971-049A", "agency": "soviet"}
+{"name": "Mariner 9", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1971-05-30", "finish": "1972-10-27", "cospar": "", "agency": "nasa"}
+{"name": "Pioneer 10", "success": "True", "type": "flyby", "from": "earth", "to": "jupiter", "object": "planet", "launch": "1972-03-03", "finish": "1973-12-04", "cospar": "", "agency": "nasa"}
+{"name": "Pioneer 10", "success": "True", "type": "ongoing", "from": "jupiter", "to": "heliopause", "object": "asteroid", "launch": "1973-12-04", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Venera 8", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1972-03-27", "finish": "1972-07-22", "cospar": "", "agency": "soviet"}
+{"name": "Cosmos 482", "success": "False", "type": "towards", "from": "earth", "to": "venus", "object": "planet", "launch": "1972-03-31", "finish": "1972-04-03", "cospar": "", "agency": "soviet"}
+{"name": "Pioneer 11", "success": "True", "type": "flyby", "from": "earth", "to": "jupiter", "object": "planet", "launch": "1973-04-06", "finish": "1974-12-03", "cospar": "", "agency": "nasa"}
+{"name": "Pioneer 11", "success": "True", "type": "flyby", "from": "jupiter", "to": "saturn", "object": "planet", "launch": "1974-12-03", "finish": "1979-09-01", "cospar": "", "agency": "nasa"}
+{"name": "Pioneer 11", "success": "True", "type": "ongoing", "from": "saturn", "to": "heliopauseb", "object": "asteroid", "launch": "1979-09-01", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Mars 4", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "1973-07-21", "finish": "", "cospar": "", "agency": "soviet"}
+{"name": "Mars 5", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1973-07-25", "finish": "", "cospar": "", "agency": "soviet"}
+{"name": "Mars 6", "success": "False", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "1973-08-05", "finish": "", "cospar": "", "agency": "soviet"}
+{"name": "Mars 7", "success": "False", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "1973-08-09", "finish": "", "cospar": "1973-053A", "agency": "soviet"}
+{"name": "Mariner 10", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1973-11-03", "finish": "1974-02-05", "cospar": "", "agency": "nasa"}
+{"name": "Mariner 10", "success": "True", "type": "flyby", "from": "venus", "to": "mercury", "object": "planet", "launch": "1974-02-05", "finish": "1974-03-29", "cospar": "", "agency": "nasa"}
+{"name": "Mariner 10", "success": "True", "type": "flyby", "from": "mercury", "to": "mercury", "object": "planet", "launch": "1974-03-29", "finish": "1974-09-21", "cospar": "", "agency": "nasa"}
+{"name": "Mariner 10", "success": "True", "type": "flyby", "from": "mercury", "to": "mercury", "object": "planet", "launch": "1974-09-21", "finish": "1975-03-16", "cospar": "", "agency": "nasa"}
+{"name": "Venera 9", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "1975-06-08", "finish": "1975-10-20", "cospar": "", "agency": "soviet"}
+{"name": "Venera 9", "success": "True", "type": "lander", "from": "venus", "to": "venus", "object": "planet", "launch": "1975-10-20", "finish": "1975-10-22", "cospar": "", "agency": "soviet"}
+{"name": "Venera 10", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "1975-06-14", "finish": "1975-10-23", "cospar": "", "agency": "soviet"}
+{"name": "Venera 10", "success": "True", "type": "lander", "from": "venus", "to": "venus", "object": "planet", "launch": "1975-10-23", "finish": "1975-10-25", "cospar": "", "agency": "soviet"}
+{"name": "Viking 1", "success": "True", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "1975-08-20", "finish": "1980-08-17", "cospar": "", "agency": "nasa"}
+{"name": "Viking 2", "success": "True", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "1975-09-09", "finish": "1980-04-11", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 2", "success": "True", "type": "flyby", "from": "earth", "to": "jupiter", "object": "planet", "launch": "1977-08-20", "finish": "1979-07-09", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 2", "success": "True", "type": "flyby", "from": "jupiter", "to": "saturn", "object": "planet", "launch": "1979-07-09", "finish": "1981-08-26", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 2", "success": "True", "type": "flyby", "from": "saturn", "to": "uranus", "object": "planet", "launch": "1981-08-26", "finish": "1986-01-24", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 2", "success": "True", "type": "flyby", "from": "uranus", "to": "neptune", "object": "planet", "launch": "1986-01-24", "finish": "1989-08-25", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 2", "success": "True", "type": "ongoing", "from": "neptune", "to": "heliopause2", "object": "asteroid", "launch": "1989-08-25", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 1", "success": "True", "type": "flyby", "from": "earth", "to": "jupiter", "object": "planet", "launch": "1977-09-05", "finish": "1979-03-05", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 1", "success": "True", "type": "flyby", "from": "jupiter", "to": "saturn", "object": "planet", "launch": "1979-03-05", "finish": "1980-11-12", "cospar": "", "agency": "nasa"}
+{"name": "Voyager 1", "success": "True", "type": "ongoing", "from": "saturn", "to": "heliopause1", "object": "asteroid", "launch": "1980-11-12", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Pioneer Venus Orbiter", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "1978-05-20", "finish": "1992-10-08", "cospar": "", "agency": "nasa"}
+{"name": "Pioneer Venus Probe Bus", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1978-08-08", "finish": "1978-12-09", "cospar": "", "agency": "nasa"}
+{"name": "Venera 11", "success": "True", "type": "lander", "from": "earth", "to": "venus", "object": "planet", "launch": "1978-09-09", "finish": "1978-12-25", "cospar": "", "agency": "soviet"}
+{"name": "Venera 12", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1978-09-14", "finish": "1978-12-21", "cospar": "", "agency": "soviet"}
+{"name": "Venera 12", "success": "True", "type": "lander", "from": "venus", "to": "venus", "object": "planet", "launch": "1978-12-21", "finish": "1978-12-21", "cospar": "", "agency": "soviet"}
+{"name": "Venera 13", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1981-10-30", "finish": "1982-03-01", "cospar": "", "agency": "soviet"}
+{"name": "Venera 13", "success": "True", "type": "lander", "from": "venus", "to": "venus", "object": "planet", "launch": "1982-03-01", "finish": "1982-03-01", "cospar": "", "agency": "soviet"}
+{"name": "Venera 14", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1981-11-04", "finish": "1982-03-05", "cospar": "", "agency": "soviet"}
+{"name": "Venera 14", "success": "True", "type": "lander", "from": "venus", "to": "venus", "object": "planet", "launch": "1982-03-05", "finish": "1982-03-05", "cospar": "", "agency": "soviet"}
+{"name": "Venera 15", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "1983-06-02", "finish": "1984-07-01", "cospar": "", "agency": "soviet"}
+{"name": "Venera 16", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "1983-06-07", "finish": "1984-07-01", "cospar": "", "agency": "soviet"}
+{"name": "Vega 1", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1984-12-15", "finish": "1985-06-11", "cospar": "1984-125A", "agency": "soviet"}
+{"name": "Vega 1", "success": "True", "type": "lander", "from": "venus", "to": "venus", "object": "planet", "launch": "1985-06-11", "finish": "1985-06-11", "cospar": "1984-125A", "agency": "soviet"}
+{"name": "Vega 1", "success": "True", "type": "flyby", "from": "venus", "to": "1P/Halley", "object": "asteroid", "launch": "1985-06-11", "finish": "1986-03-06", "cospar": "1984-125A", "agency": "soviet"}
+{"name": "Vega 2", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1984-12-21", "finish": "1985-06-15", "cospar": "", "agency": "soviet"}
+{"name": "Vega 2", "success": "True", "type": "flyby", "from": "venus", "to": "1P/Halley", "object": "asteroid", "launch": "1985-06-15", "finish": "1986-03-07", "cospar": "", "agency": "soviet"}
+{"name": "Giotto", "success": "True", "type": "flyby", "from": "earth", "to": "1P/Halley", "object": "asteroid", "launch": "1984-07-02", "finish": "1986-03-14", "cospar": "", "agency": "esa"}
+{"name": "Giotto", "success": "True", "type": "flyby", "from": "1P/Halley", "to": "26P/Grigg-Skjellerup", "object": "asteroid", "launch": "1986-03-14", "finish": "1992-07-10", "cospar": "", "agency": "esa"}
+{"name": "Suisei", "success": "True", "type": "flyby", "from": "earth", "to": "1P/Halley", "object": "asteroid", "launch": "1985-08-19", "finish": "1985-08-19", "cospar": "", "agency": "jaxa"}
+{"name": "Suisei", "success": "False", "type": "flyby", "from": "1P/Halley", "to": "21P/Giacobini-Zinner", "object": "asteroid", "launch": "1985-08-19", "finish": "1998-11-24", "cospar": "", "agency": "jaxa"}
+{"name": "ICE", "success": "True", "type": "flyby", "from": "earth", "to": "21P/Giacobini-Zinner", "object": "asteroid", "launch": "1984-08-12", "finish": "1985-09-11", "cospar": "", "agency": "nasa"}
+{"name": "ICE", "success": "True", "type": "flyby", "from": "21P/Giacobini-Zinner", "to": "1P/Halley", "object": "asteroid", "launch": "1985-09-11", "finish": "1986-05-01", "cospar": "", "agency": "nasa"}
+{"name": "Phobos 1", "success": "False", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1988-07-07", "finish": "1988-09-02", "cospar": "", "agency": "soviet"}
+{"name": "Phobos 2", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1988-07-12", "finish": "1989-03-27", "cospar": "1988-059A", "agency": "soviet"}
+{"name": "Magellan", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "1989-05-04", "finish": "1994-10-13", "cospar": "1989-033B", "agency": "nasa"}
+{"name": "Galileo", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1989-10-18", "finish": "1990-02-10", "cospar": "1989-084B", "agency": "nasa"}
+{"name": "Galileo", "success": "True", "type": "flyby", "from": "venus", "to": "(951) Gaspra", "object": "asteroid", "launch": "1990-02-10", "finish": "1991-10-29", "cospar": "1989-084B", "agency": "nasa"}
+{"name": "Galileo", "success": "True", "type": "flyby", "from": "(951) Gaspra", "to": "(243) Ida", "object": "asteroid", "launch": "1991-10-29", "finish": "1993-08-28", "cospar": "1989-084B", "agency": "nasa"}
+{"name": "Galileo", "success": "True", "type": "orbit", "from": "(243) Ida", "to": "jupiter", "object": "planet", "launch": "1993-08-28", "finish": "1995-12-08", "cospar": "1989-084B", "agency": "nasa"}
+{"name": "Ulysses", "success": "True", "type": "flyby", "from": "earth", "to": "jupiter", "object": "planet", "launch": "1990-10-06", "finish": "2009-06-30", "cospar": "", "agency": "esa"}
+{"name": "Mars Observer", "success": "False", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "1992-09-25", "finish": "1993-08-21", "cospar": "1992-063A", "agency": "nasa"}
+{"name": "Mars Global Surveyor", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1996-11-07", "finish": "2006-11-02", "cospar": "1996-062A", "agency": "nasa"}
+{"name": "Mars 96", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1996-11-16", "finish": "1996-11-17", "cospar": "", "agency": "roscosmos"}
+{"name": "Mars Pathfinder", "success": "True", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "1996-12-04", "finish": "1997-09-27", "cospar": "1996-068A", "agency": "nasa"}
+{"name": "Cassini-Huygens", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "1997-10-15", "finish": "1998-04-26", "cospar": "1997-061A", "agency": "nasa"}
+{"name": "Cassini-Huygens", "success": "True", "type": "flyby", "from": "venus", "to": "venus", "object": "planet", "launch": "1998-04-26", "finish": "1999-06-24", "cospar": "1997-061A", "agency": "nasa"}
+{"name": "Cassini-Huygens", "success": "True", "type": "flyby", "from": "venus", "to": "jupiter", "object": "planet", "launch": "1999-06-24", "finish": "2000-12-30", "cospar": "1997-061A", "agency": "nasa"}
+{"name": "Cassini-Huygens", "success": "True", "type": "orbit", "from": "jupiter", "to": "saturn", "object": "planet", "launch": "2000-12-30", "finish": "2004-07-01", "cospar": "1997-061A", "agency": "nasa"}
+{"name": "Cassini-Huygens", "success": "True", "type": "lander", "from": "saturn", "to": "titan", "object": "asteroid", "launch": "2004-07-01", "finish": "2005-01-14", "cospar": "1997-061A", "agency": "nasa"}
+{"name": "Nozomi (Planet-B)", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "1998-07-03", "finish": "2003-12-14", "cospar": "", "agency": "jaxa"}
+{"name": "Mars Climate Orbiter", "success": "False", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "1998-12-10", "finish": "1999-09-23", "cospar": "1998-073A", "agency": "nasa"}
+{"name": "Mars Polar Lander", "success": "False", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "1999-01-03", "finish": "", "cospar": "1999-001A", "agency": "nasa"}
+{"name": "Mars Odyssey", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "2001-04-07", "finish": "", "cospar": "2001-014A", "agency": "nasa"}
+{"name": "Mars Express", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "2003-06-02", "finish": "2003-12-25", "cospar": "", "agency": "esa"}
+{"name": "Mars Express", "success": "False", "type": "lander", "from": "mars", "to": "mars", "object": "planet", "launch": "2003-12-25", "finish": "2003-12-25", "cospar": "", "agency": "esa"}
+{"name": "Spirit (MER-A)", "success": "True", "type": "rover", "from": "earth", "to": "mars", "object": "planet", "launch": "2003-06-10", "finish": "2010-03-22", "cospar": "", "agency": "nasa"}
+{"name": "Opportunity (MER-B)", "success": "True", "type": "rover", "from": "earth", "to": "mars", "object": "planet", "launch": "2003-07-08", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Rosetta", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "2004-03-02", "finish": "2007-02-25", "cospar": "", "agency": "esa"}
+{"name": "Rosetta", "success": "True", "type": "flyby", "from": "mars", "to": "(2867) &#352;teins", "object": "asteroid", "launch": "2007-02-25", "finish": "2008-09-05", "cospar": "", "agency": "esa"}
+{"name": "Rosetta", "success": "True", "type": "flyby", "from": "(2867) &#352;teins", "to": "(21) Lutetia", "object": "asteroid", "launch": "2008-09-05", "finish": "2010-07-10", "cospar": "", "agency": "esa"}
+{"name": "Rosetta", "success": "True", "type": "orbit", "from": "(21) Lutetia", "to": "67P/Churyumov-Gerasimenko", "object": "asteroid", "launch": "2010-07-10", "finish": "2014-08-06", "cospar": "", "agency": "esa"}
+{"name": "MESSENGER", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "2004-08-03", "finish": "2006-10-24", "cospar": "", "agency": "nasa"}
+{"name": "MESSENGER", "success": "True", "type": "orbit", "from": "venus", "to": "mercury", "object": "planet", "launch": "2006-10-24", "finish": "2011-03-18", "cospar": "", "agency": "nasa"}
+{"name": "Mars Reconnaissance Orbiter", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "2005-08-12", "finish": "", "cospar": "2005-029A", "agency": "nasa"}
+{"name": "Venus Express", "success": "True", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "2005-11-09", "finish": "2015-01-18", "cospar": "", "agency": "esa"}
+{"name": "New Horizons", "success": "True", "type": "flyby", "from": "earth", "to": "(132524) APL", "object": "asteroid", "launch": "2006-01-17", "finish": "2006-06-13", "cospar": "", "agency": "nasa"}
+{"name": "New Horizons", "success": "True", "type": "flyby", "from": "(132524) APL", "to": "jupiter", "object": "planet", "launch": "2006-06-13", "finish": "2007-02-28", "cospar": "", "agency": "nasa"}
+{"name": "New Horizons", "success": "True", "type": "flyby", "from": "jupiter", "to": "pluto", "object": "asteroid", "launch": "2007-02-28", "finish": "2015-06-14", "cospar": "", "agency": "nasa"}
+{"name": "New Horizons", "success": "True", "type": "ongoing", "from": "pluto", "to": "2014 MU69", "object": "asteroid", "launch": "2015-06-14", "finish": "2019-01-01", "cospar": "", "agency": "nasa"}
+{"name": "New Horizons", "success": "True", "type": "ongoing", "from": "2014 MU69", "to": "heliopause3", "object": "asteroid", "launch": "2019-01-01", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Phoenix", "success": "True", "type": "lander", "from": "earth", "to": "mars", "object": "planet", "launch": "2007-08-04", "finish": "2008-11-10", "cospar": "", "agency": "nasa"}
+{"name": "Dawn", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "2007-09-27", "finish": "2009-02-17", "cospar": "", "agency": "nasa"}
+{"name": "Dawn", "success": "True", "type": "orbit", "from": "mars", "to": "vesta", "object": "asteroid", "launch": "2009-02-17", "finish": "2011-07-16", "cospar": "", "agency": "nasa"}
+{"name": "Dawn", "success": "True", "type": "orbit", "from": "vesta", "to": "ceres", "object": "asteroid", "launch": "2011-07-16", "finish": "2015-03-06", "cospar": "", "agency": "nasa"}
+{"name": "NEAR", "success": "True", "type": "orbit", "from": "earth", "to": "(433) Eros", "object": "asteroid", "launch": "1996-02-17", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Deep Space 1", "success": "True", "type": "flyby", "from": "earth", "to": "(9969) Braille", "object": "asteroid", "launch": "1998-10-24", "finish": "2001-09-22", "cospar": "", "agency": "nasa"}
+{"name": "Deep Space 1", "success": "True", "type": "orbit", "from": "(9969) Braille", "to": "19P/Borrelly", "object": "asteroid", "launch": "2001-09-22", "finish": "2001-09-22", "cospar": "", "agency": "nasa"}
+{"name": "CONTOUR", "success": "False", "type": "flyby", "from": "earth", "to": "2P/Encke", "object": "asteroid", "launch": "2002-07-02", "finish": "2003-11-03", "cospar": "", "agency": "nasa"}
+{"name": "CONTOUR", "success": "False", "type": "flyby", "from": "2P/Encke", "to": "73P/Schwassmann-Wachmann", "object": "asteroid", "launch": "2003-11-03", "finish": "2006-06-18", "cospar": "", "agency": "nasa"}
+{"name": "Deep Impact", "success": "True", "type": "flyby", "from": "earth", "to": "9P/Tempel", "object": "asteroid", "launch": "2005-01-12", "finish": "2005-07-04", "cospar": "2005-001A", "agency": "nasa"}
+{"name": "Deep Impact", "success": "True", "type": "flyby", "from": "9P/Tempel", "to": "103P/Hartley", "object": "asteroid", "launch": "2005-07-04", "finish": "2010-11-04", "cospar": "2005-001A", "agency": "nasa"}
+{"name": "Stardust", "success": "True", "type": "flyby", "from": "earth", "to": "(5535) Annefrank", "object": "asteroid", "launch": "1999-02-07", "finish": "2002-11-02", "cospar": "", "agency": "nasa"}
+{"name": "Stardust", "success": "True", "type": "flyby", "from": "(5535) Annefrank", "to": "81P/Wild", "object": "asteroid", "launch": "2002-11-02", "finish": "2004-01-02", "cospar": "", "agency": "nasa"}
+{"name": "Stardust", "success": "True", "type": "lander", "from": "81P/Wild", "to": "earth", "object": "planet", "launch": "2004-01-02", "finish": "2006-01-15", "cospar": "", "agency": "nasa"}
+{"name": "Stardust", "success": "True", "type": "flyby", "from": "earth", "to": "9P/Tempel", "object": "asteroid", "launch": "2006-01-15", "finish": "2011-02-14", "cospar": "", "agency": "nasa"}
+{"name": "Akatsuki (Planet-C)", "success": "False", "type": "orbit", "from": "earth", "to": "venus", "object": "planet", "launch": "2010-05-20", "finish": "2010-12-06", "cospar": "2010-020D", "agency": "jaxa"}
+{"name": "Akatsuki (Planet-C)", "success": "True", "type": "orbit", "from": "venus", "to": "venus", "object": "planet", "launch": "2010-12-06", "finish": "2015-12-07", "cospar": "2010-020D", "agency": "jaxa"}
+{"name": "Juno", "success": "True", "type": "orbit", "from": "earth", "to": "jupiter", "object": "planet", "launch": "2011-08-05", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Phobos-Grunt", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "2011-11-08", "finish": "2012-01-15", "cospar": "", "agency": "roscosmos"}
+{"name": "Yinghuo-1", "success": "False", "type": "towards", "from": "earth", "to": "mars", "object": "planet", "launch": "2011-11-08", "finish": "2012-01-15", "cospar": "", "agency": "cnsa"}
+{"name": "Curiosity (Mars Science Laboratory)", "success": "True", "type": "rover", "from": "earth", "to": "mars", "object": "planet", "launch": "2011-11-26", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Mars Orbiter Mission", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "2013-11-05", "finish": "", "cospar": "", "agency": "isro"}
+{"name": "MAVEN", "success": "True", "type": "orbit", "from": "earth", "to": "mars", "object": "planet", "launch": "2013-11-18", "finish": "", "cospar": "", "agency": "nasa"}
+{"name": "Hayabusa", "success": "True", "type": "orbit", "from": "earth", "to": "(25143) Itokawa", "object": "asteroid", "launch": "2003-05-09", "finish": "2005-10-04", "cospar": "", "agency": "jaxa"}
+{"name": "Hayabusa", "success": "False", "type": "lander", "from": "(25143) Itokawa", "to": "(25143) Itokawa", "object": "asteroid", "launch": "2005-10-04", "finish": "2005-11-19", "cospar": "", "agency": "jaxa"}
+{"name": "Hayabusa", "success": "True", "type": "lander", "from": "(25143) Itokawa", "to": "earth", "object": "planet", "launch": "2005-11-19", "finish": "2010-06-13", "cospar": "", "agency": "jaxa"}
+{"name": "Hayabusa 2", "success": "True", "type": "flyby", "from": "earth", "to": "earth", "object": "planet", "launch": "2014-12-03", "finish": "2015-12-03", "cospar": "2014-076A", "agency": "jaxa"}
+{"name": "Hayabusa 2", "success": "True", "type": "ongoing", "from": "earth", "to": "(162173) 1999 JU3", "object": "asteroid", "launch": "2015-12-03", "finish": "2018-06", "cospar": "2014-076A", "agency": "jaxa"}
+{"name": "Chang'e 2", "success": "True", "type": "flyby", "from": "earth", "to": "(4179) Toutatis", "object": "asteroid", "launch": "2010-10-01", "finish": "", "cospar": "", "agency": "cnsa"}
+{"name": "ExoMars Trace Gas Orbiter", "success": "True", "type": "ongoing", "from": "earth", "to": "mars", "object": "planet", "launch": "2016-03-14", "finish": "", "cospar": "2016-017A", "agency": "esa"}
+{"name": "OSIRIS-REx", "success": "True", "type": "ongoing", "from": "earth", "to": "(101955) Bennu", "object": "asteroid", "launch": "2016-09-08", "finish": "", "cospar": "", "agency": "nasa"}

@@ -1,0 +1,11 @@
+{
+  "name": "space-mission-project",
+  "version": "1.0.0",
+  "description": "space-mission-project for cs7450",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "To Infinity And Beyond",
+  "license": "MIT"
+}
