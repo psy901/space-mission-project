@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+  </style>
+</head>
+
+<body>
+  <script>
+    const svgContainer = d3.select("body")
+  		.append("svg")
+  		.attr("width","560")
+  		.attr("height","900");
+
+    const ellipses = [
+  		{"cx":  25, "cy":  25, "rx": 15, "ry": 20},
+  		{"cx":  75, "cy":  75, "rx": 15, "ry": 20},
+  		{"cx": 125, "cy": 125, "rx": 15, "ry": 20},
+  		{"cx": 175, "cy": 175, "rx": 15, "ry": 20}
+		];
+
+    const svgEllipses = svgContainer
+  		.selectAll("ellipse")
+  		.data(ellipses)
+  		.enter()
+  		.append("ellipse");
+
+    svgEllipses
+    	.attr("cx", (d,i) => { return d.cx; })
+    	.attr("cy", (d,i) => { return d.cy; })
+    	.attr("rx", (d,i) => { return d.rx; })
+    	.attr("ry", (d,i) => { return d.ry; });
+    
+    svgEllipses.filter(':first-child').attr('fill', 'blue');
+  </script>
+</body>
+
