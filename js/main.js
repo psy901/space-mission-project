@@ -1,3 +1,7 @@
+/********************************************************* 
+ * Define the global layout 
+ *********************************************************/
+
 const svgWidth = 1400;
 const svgHeight = 1500;
 const margin = {
@@ -16,7 +20,41 @@ const svg = d3
 const canvasWidth = svgWidth - margin.l - margin.r;
 const canvasHeight = svgHeight - margin.t - margin.b;
 
-/* Global Variables  */
+const chartWidth = 400;
+const chartHeight = 300
+
+var stackedChart = svg.append('g')
+  .attr('transform', 'translate('+[margin.l, canvasHeight - 500]+')');
+
+/********************************************************* 
+ * Define layout for the plot parts
+ *********************************************************/
+
+// Define axis
+var x = d3.scaleTime()
+  .range([0, chartWidth]);
+
+var y = d3.scaleLinear()
+  .range([chartHeight, 0]);
+
+var xAxis = d3.axisBottom()
+  .scale(x);
+
+var yAxis = d3.axisLeft()
+  .scale(y);
+
+var stack = d3.stack();
+
+var area = d3.area()
+  .x(function(d) { 
+    return x(d.data.launch); })
+  .y0(function(d) { return y(d[0]); })
+  .y1(function(d) { return y(d[1]); });
+
+
+
+
+/* Global Variables */
 let nodes;
 let links = [];
 const radius = 5;
@@ -24,6 +62,7 @@ const yOffsetFixed = 700;
 const planetColors = {
   // TODO: define planet colors here
 };
+
 // read nodes
 d3.json('./data/graph.json', data => {
   nodes = data.nodes;
@@ -31,7 +70,9 @@ d3.json('./data/graph.json', data => {
 
 // reads the parsed file
 d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
-  // console.log(data);
+  /*********************************************************
+   * Draw the graph part 
+   *********************************************************/
   const plot = svg
     .append('g')
     .attr('class', 'plot')
@@ -54,7 +95,165 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
 
   // Draw Links
   drawLinks(data);
+
+  /*********************************************************
+   * Draw the stacked area chart
+   *********************************************************/
+
+  // Parse the data by decade
+  var dataByDecade = parseDataByDecade(data);
+
+  var destByDate = parseDataByDest(data)
+  
+  // Draw stacked area chart by planet
+  drawStackedAreas(data, dataByDecade, destByDate);
+
+  // Draw time line chart
+
 });
+
+function date2decade(date) {
+  year = date.split('-')[0];
+  decade = decade = year[2] * 10;
+  return decade
+}
+
+function parseDataByDecade(data){
+  var dataByDecade = {}
+  data.forEach(function(d) {
+    // Parse the decade
+    decade = date2decade(d.launch)
+
+    // Add the data
+    if (dataByDecade.hasOwnProperty(decade)) {
+      dataByDecade[decade].push(d);
+    }
+    else {
+      dataByDecade[decade] = [d];
+    }
+  });
+  return dataByDecade;
+}
+
+function parseDataByDest(data){
+
+  // Get the all destinations
+  var destination_dist = {}
+  data.forEach(function(d) {
+    dest = d['to']['name'];
+    if (destination_dist.hasOwnProperty(dest)) {
+      destination_dist[dest] = destination_dist[dest] + 1;
+    }
+    else {
+      destination_dist[dest] = 1;
+    }
+  });
+
+  // Make empty table
+  var destByDate = {};
+  destByDate['launch'] = [];
+  for(var dest in destination_dist) {
+    destByDate[dest] = [];
+  }
+  
+  // Get destination data by date
+  data.forEach(function(d){
+    date = d['launch'];
+    dest = d['to']['name'];
+    destByDate['launch'].push(date);
+    for (var key in destination_dist) {
+      if (key == dest){
+        destByDate[key].push(1);
+      }
+      else{
+        destByDate[key].push(0); 
+      }
+    }
+  });
+
+  console.log(destByDate);
+  return destByDate;
+}
+
+function drawStackedAreas(data, dataByDecade, destByDate) {
+  console.log('Draw Stacked Area chart');
+
+  // Set x domain: the range of the launch dates
+  x.domain(d3.extent(data, function(d) {
+    return d.launch; 
+  }));
+
+  // Set y domain: the range of 0 to max(sum(# instances)) for each decade
+  var maxNumMissions = -1;
+  for (var key in dataByDecade) {
+    var val = dataByDecade[key];
+    var numMissions = val.length;
+    if (maxNumMissions < numMissions){
+      maxNumMissions = numMissions;
+    }
+  };
+  y.domain([0, maxNumMissions]);
+
+  // Get stacks of data
+  // var keys = destByDate.columns.filter(function(key) { return key !== 'launch'; })
+  var keys = Object.keys(destByDate).filter(function(key) { return key !== 'launch'; });
+  stack.keys(keys);
+  console.log(keys);
+  console.log(destByDate);
+  console.log(stack(destByDate));
+  
+  var layer = stackedChart.selectAll(".layer")
+    .data(stack(data))
+    .enter().append("g")
+    .attr("class", "layer");
+
+  console.log(1);
+  var z = d3.scaleOrdinal(d3.schemeCategory10);
+
+  layer.append("path")
+    .attr("class", "area")
+    .style("fill", function(d) { 
+      console.log(d);
+      return z(d.key); 
+    })
+    .attr("d", area);
+  console.log(1);
+
+  // var browser = svg.selectAll('.browser')
+  //   .data(stack(data))
+  //   .enter().append('g')
+  //   .attr('class', function(d){ return 'browser ' + d.key; })
+  //   .attr('fill-opacity', 0.5);
+
+  // stack.order(d3.stackOrderNone);
+  // stack.offset(d3.stackOffsetNone);
+
+  // console.log(stack(data));
+
+  // browser.append('path')
+  //     .attr('class', 'area')
+  //     .attr('d', area)
+  //     .style('fill', function(d) { return color(d.key); });
+      
+  // browser.append('text')
+  //     .datum(function(d) { return d; })
+  //     .attr('transform', function(d) { return 'translate(' + x(data[13].date) + ',' + y(d[13][1]) + ')'; })
+  //     .attr('x', -6) 
+  //     .attr('dy', '.35em')
+  //     .style("text-anchor", "start")
+  //     .text(function(d) { return d.key; })
+  //     .attr('fill-opacity', 1);
+
+  // Axes
+  stackedChart.append('g')
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + chartHeight + ")")
+    .call(xAxis);
+
+  stackedChart.append('g')
+    .attr('class', 'y axis')
+    .call(yAxis);
+}
 
 function drawNodes(nodes) {
   // console.log(nodes);
@@ -114,9 +313,9 @@ function drawLinks(data) {
     .append('path')
     .attr('class', 'link')
     .attr('transform', (d, i) => {
-      console.log(i);
+      // console.log(i);
       if (!d.from || !d.to) {
-        console.log(d);
+        // console.log(d);
         // skip if no trip exists
         return;
       }
