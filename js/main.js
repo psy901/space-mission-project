@@ -18,6 +18,7 @@ const canvasHeight = svgHeight - margin.t - margin.b;
 
 /* Global Variables  */
 let nodes;
+let planets;
 let links = [];
 const radius = 5;
 const yOffsetFixed = 700;
@@ -27,6 +28,7 @@ const planetColors = {
 // read nodes
 d3.json('./data/graph.json', data => {
   nodes = data.nodes;
+  planets = data.planets;
 });
 
 // reads the parsed file
@@ -54,27 +56,31 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
 
   // Draw Links
   drawLinks(data);
+  // drawLinks2(data);
 });
 
 function drawNodes(nodes) {
   // console.log(nodes);
 
+  const filteredData = nodes.filter(d => planets.includes(d.name));
+
   const xScale = d3
     .scaleLinear()
-    .domain([0, nodes.length - 1])
+    .domain([0, filteredData.length - 1])
     .range([radius, canvasWidth - radius]);
 
   // set eaeh node's x and y position
-  nodes.forEach(function(d, i) {
+  filteredData.forEach(function(d, i) {
     d.x = xScale(i);
     d.y = yOffsetFixed;
   });
 
   // TODO: chnage the color using the planetColors
   const color = d3.scaleOrdinal(d3.schemeCategory10);
+  // console.log(nodes.filter(d => planets.includes(d.name)));
   d3.select('.plot')
     .selectAll('.node')
-    .data(nodes)
+    .data(filteredData)
     .enter()
     .append('circle')
     .attr('class', 'node')
@@ -91,6 +97,28 @@ function drawNodes(nodes) {
     });
 }
 
+function drawLinks2(data) {
+  // filteredData contains only the links between major planets, no cosmos or asteroid
+  const filteredData = data.filter(
+    d => planets.includes(d.from) && planets.includes(d.to)
+  );
+
+  // TODO: make a dictionary for duplicate links e.g. { 'earthToMars': 1}
+  filteredData.forEach(d => {
+    d.from = nodes.filter(node => d.from == node.name)[0];
+    d.to = nodes.filter(node => d.to == node.name)[0];
+
+    d.link = {};
+    d.link.cx = Math.abs(d.from.x + d.to.x) / 2;
+    d.link.cy = yOffsetFixed;
+
+    // TODO: add cx, cy, rx, ry
+  });
+
+  console.log(filteredData);
+  // d3.select('.plot').selectAll('.links').data(filteredData).enter().append()
+}
+
 function drawLinks(data) {
   // arc returning methods
   const angleScale = d3
@@ -105,18 +133,27 @@ function drawLinks(data) {
   });
 
   // console.log(data);
-
+  console.log(
+    data.filter(
+      d => planets.includes(d.to.name) && planets.includes(d.from.name)
+    )
+  );
   // add data
+
   d3.select('.plot')
     .selectAll('.links')
-    .data(data)
+    .data(
+      data.filter(
+        d => planets.includes(d.to.name) && planets.includes(d.from.name)
+      )
+    )
     .enter()
     .append('path')
     .attr('class', 'link')
     .attr('transform', (d, i) => {
-      console.log(i);
+      // console.log(i);
       if (!d.from || !d.to) {
-        console.log(d);
+        // console.log(d);
         // skip if no trip exists
         return;
       }
@@ -139,7 +176,6 @@ function drawLinks(data) {
       // creates a smooth curve
       const points = d3.range(0, Math.ceil(xDist / 3));
       angleScale.domain([0, points.length - 1]);
-
       return arc(points);
     });
 }

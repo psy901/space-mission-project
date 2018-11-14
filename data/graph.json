@@ -40,5 +40,15 @@
     { "name": "(162173) 1999 JU3" },
     { "name": "(4179) Toutatis" },
     { "name": "(101955) Bennu" }
+  ],
+  "planets": [
+    "mercury",
+    "venus",
+    "earth",
+    "mars",
+    "jupiter",
+    "saturn",
+    "uranus",
+    "neptune"
   ]
 }
