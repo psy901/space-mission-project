@@ -1,0 +1,6 @@
+name,success,type,from,to,object,launch,finish,cospar,agency,country
+Vega 1,True,flyby,venus,1P/Halley,asteroid,1985-06-11,1986-03-06,1984-125A,soviet,Soviet Union
+Vega 2,True,flyby,venus,1P/Halley,asteroid,1985-06-15,1986-03-07,,soviet,Soviet Union
+Giotto,True,flyby,earth,1P/Halley,asteroid,1984-07-02,1986-03-14,,esa,EU
+Suisei,True,flyby,earth,1P/Halley,asteroid,1985-08-19,1985-08-19,,jaxa,Japan
+ICE,True,flyby,21P/Giacobini-Zinner,1P/Halley,asteroid,1985-09-11,1986-05-01,,nasa,USA

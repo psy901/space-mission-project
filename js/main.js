@@ -52,8 +52,6 @@ var area = d3.area()
   .y1(function(d) { return y(d[1]); });
 
 
-
-
 /* Global Variables */
 let nodes;
 let planets;
@@ -102,80 +100,7 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
    * Draw the stacked area chart
    *********************************************************/
 
-  // Parse the data by decade
-  var dataByDecade = parseDataByDecade(data);
-
-  var destByDate = parseDataByDest(data)
-  
-  // Draw stacked area chart by planet
-  drawStackedAreas(data, dataByDecade, destByDate);
-
-  // Draw time line chart
-
 });
-
-function date2decade(date) {
-  year = date.split('-')[0];
-  decade = decade = year[2] * 10;
-  return decade
-}
-
-function parseDataByDecade(data){
-  var dataByDecade = {}
-  data.forEach(function(d) {
-    // Parse the decade
-    decade = date2decade(d.launch)
-
-    // Add the data
-    if (dataByDecade.hasOwnProperty(decade)) {
-      dataByDecade[decade].push(d);
-    }
-    else {
-      dataByDecade[decade] = [d];
-    }
-  });
-  return dataByDecade;
-}
-
-function parseDataByDest(data){
-
-  // Get the all destinations
-  var destination_dist = {}
-  data.forEach(function(d) {
-    dest = d['to']['name'];
-    if (destination_dist.hasOwnProperty(dest)) {
-      destination_dist[dest] = destination_dist[dest] + 1;
-    }
-    else {
-      destination_dist[dest] = 1;
-    }
-  });
-
-  // Make empty table
-  var destByDate = {};
-  destByDate['launch'] = [];
-  for(var dest in destination_dist) {
-    destByDate[dest] = [];
-  }
-  
-  // Get destination data by date
-  data.forEach(function(d){
-    date = d['launch'];
-    dest = d['to']['name'];
-    destByDate['launch'].push(date);
-    for (var key in destination_dist) {
-      if (key == dest){
-        destByDate[key].push(1);
-      }
-      else{
-        destByDate[key].push(0); 
-      }
-    }
-  });
-
-  console.log(destByDate);
-  return destByDate;
-}
 
 function drawStackedAreas(data, dataByDecade, destByDate) {
   console.log('Draw Stacked Area chart');

@@ -9,8 +9,8 @@ var parseDate = d3.timeParse('%Y');
 
 var formatSi = d3.format(".3s");
 
-var formatNumber = d3.format(".1f"),
-    formatBillion = function(x) { return formatNumber(x / 1e9); };
+// var formatNumber = d3.format(".1f"),
+//     formatBillion = function(x) { return formatNumber(x / 1e9); };
 
 var x = d3.scaleTime()
     .range([0, width]);
@@ -24,8 +24,8 @@ var xAxis = d3.axisBottom()
     .scale(x);
 
 var yAxis = d3.axisLeft()
-    .scale(y)
-    .tickFormat(formatBillion);
+    .scale(y);
+    // .tickFormat(formatBillion);
 
 var area = d3.area()
     .x(function(d) { 
@@ -36,12 +36,14 @@ var area = d3.area()
 var stack = d3.stack()
 
 var svg = d3.select('body').append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
+  .attr('width', width + margin.left + margin.right)
+  .attr('height', height + margin.top + margin.bottom)
   .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-d3.csv('data.csv', function(error, data) {
+console.log('sdfsdf');
+
+d3.csv('stacked-mars.csv', function(error, data) {
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== 'date'; }));
   var keys = data.columns.filter(function(key) { return key !== 'date'; })
   data.forEach(function(d) {
