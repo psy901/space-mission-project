@@ -1,5 +1,5 @@
-/********************************************************* 
- * Define the global layout 
+/*********************************************************
+ * Define the global layout
  *********************************************************/
 
 const svgWidth = 1400;
@@ -21,45 +21,45 @@ const canvasWidth = svgWidth - margin.l - margin.r;
 const canvasHeight = svgHeight - margin.t - margin.b;
 
 const chartWidth = 400;
-const chartHeight = 300
+const chartHeight = 300;
 
-var stackedChart = svg.append('g')
-  .attr('transform', 'translate('+[margin.l, canvasHeight - 500]+')');
+var stackedChart = svg
+  .append('g')
+  .attr('transform', 'translate(' + [margin.l, canvasHeight - 500] + ')');
 
-/********************************************************* 
+/*********************************************************
  * Define layout for the plot parts
  *********************************************************/
 
 // Define axis
-var x = d3.scaleTime()
-  .range([0, chartWidth]);
+var x = d3.scaleTime().range([0, chartWidth]);
 
-var y = d3.scaleLinear()
-  .range([chartHeight, 0]);
+var y = d3.scaleLinear().range([chartHeight, 0]);
 
-var xAxis = d3.axisBottom()
-  .scale(x);
+var xAxis = d3.axisBottom().scale(x);
 
-var yAxis = d3.axisLeft()
-  .scale(y);
+var yAxis = d3.axisLeft().scale(y);
 
 var stack = d3.stack();
 
-var area = d3.area()
-  .x(function(d) { 
-    return x(d.data.launch); })
-  .y0(function(d) { return y(d[0]); })
-  .y1(function(d) { return y(d[1]); });
-
-
-
+var area = d3
+  .area()
+  .x(function(d) {
+    return x(d.data.launch);
+  })
+  .y0(function(d) {
+    return y(d[0]);
+  })
+  .y1(function(d) {
+    return y(d[1]);
+  });
 
 /* Global Variables */
 let nodes;
 let planets;
 let links = [];
 const radius = 5;
-const yOffsetFixed = 700;
+const yOffsetFixed = 500;
 const planetColors = {
   // TODO: define planet colors here
 };
@@ -73,7 +73,7 @@ d3.json('./data/graph.json', data => {
 // reads the parsed file
 d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   /*********************************************************
-   * Draw the graph part 
+   * Draw the graph part
    *********************************************************/
   const plot = svg
     .append('g')
@@ -96,7 +96,8 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   drawNodes(nodes);
 
   // Draw Links
-  drawLinks(data);
+  // drawLinks(data);
+  drawLinks2(data);
 
   /*********************************************************
    * Draw the stacked area chart
@@ -105,48 +106,44 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   // Parse the data by decade
   var dataByDecade = parseDataByDecade(data);
 
-  var destByDate = parseDataByDest(data)
-  
+  var destByDate = parseDataByDest(data);
+
   // Draw stacked area chart by planet
-  drawStackedAreas(data, dataByDecade, destByDate);
+  // drawStackedAreas(data, dataByDecade, destByDate);
 
   // Draw time line chart
-
 });
 
 function date2decade(date) {
   year = date.split('-')[0];
   decade = decade = year[2] * 10;
-  return decade
+  return decade;
 }
 
-function parseDataByDecade(data){
-  var dataByDecade = {}
+function parseDataByDecade(data) {
+  var dataByDecade = {};
   data.forEach(function(d) {
     // Parse the decade
-    decade = date2decade(d.launch)
+    decade = date2decade(d.launch);
 
     // Add the data
     if (dataByDecade.hasOwnProperty(decade)) {
       dataByDecade[decade].push(d);
-    }
-    else {
+    } else {
       dataByDecade[decade] = [d];
     }
   });
   return dataByDecade;
 }
 
-function parseDataByDest(data){
-
+function parseDataByDest(data) {
   // Get the all destinations
-  var destination_dist = {}
+  var destination_dist = {};
   data.forEach(function(d) {
     dest = d['to']['name'];
     if (destination_dist.hasOwnProperty(dest)) {
       destination_dist[dest] = destination_dist[dest] + 1;
-    }
-    else {
+    } else {
       destination_dist[dest] = 1;
     }
   });
@@ -154,26 +151,25 @@ function parseDataByDest(data){
   // Make empty table
   var destByDate = {};
   destByDate['launch'] = [];
-  for(var dest in destination_dist) {
+  for (var dest in destination_dist) {
     destByDate[dest] = [];
   }
-  
+
   // Get destination data by date
-  data.forEach(function(d){
+  data.forEach(function(d) {
     date = d['launch'];
     dest = d['to']['name'];
     destByDate['launch'].push(date);
     for (var key in destination_dist) {
-      if (key == dest){
+      if (key == dest) {
         destByDate[key].push(1);
-      }
-      else{
-        destByDate[key].push(0); 
+      } else {
+        destByDate[key].push(0);
       }
     }
   });
 
-  console.log(destByDate);
+  // console.log(destByDate);
   return destByDate;
 }
 
@@ -181,45 +177,52 @@ function drawStackedAreas(data, dataByDecade, destByDate) {
   console.log('Draw Stacked Area chart');
 
   // Set x domain: the range of the launch dates
-  x.domain(d3.extent(data, function(d) {
-    return d.launch; 
-  }));
+  x.domain(
+    d3.extent(data, function(d) {
+      return d.launch;
+    })
+  );
 
   // Set y domain: the range of 0 to max(sum(# instances)) for each decade
   var maxNumMissions = -1;
   for (var key in dataByDecade) {
     var val = dataByDecade[key];
     var numMissions = val.length;
-    if (maxNumMissions < numMissions){
+    if (maxNumMissions < numMissions) {
       maxNumMissions = numMissions;
     }
-  };
+  }
   y.domain([0, maxNumMissions]);
 
   // Get stacks of data
   // var keys = destByDate.columns.filter(function(key) { return key !== 'launch'; })
-  var keys = Object.keys(destByDate).filter(function(key) { return key !== 'launch'; });
+  var keys = Object.keys(destByDate).filter(function(key) {
+    return key !== 'launch';
+  });
   stack.keys(keys);
-  console.log(keys);
-  console.log(destByDate);
-  console.log(stack(destByDate));
-  
-  var layer = stackedChart.selectAll(".layer")
-    .data(stack(data))
-    .enter().append("g")
-    .attr("class", "layer");
+  // console.log(keys);
+  // console.log(destByDate);
+  // console.log(stack(destByDate));
 
-  console.log(1);
+  var layer = stackedChart
+    .selectAll('.layer')
+    .data(stack(data))
+    .enter()
+    .append('g')
+    .attr('class', 'layer');
+
+  // console.log(1);
   var z = d3.scaleOrdinal(d3.schemeCategory10);
 
-  layer.append("path")
-    .attr("class", "area")
-    .style("fill", function(d) { 
-      console.log(d);
-      return z(d.key); 
+  layer
+    .append('path')
+    .attr('class', 'area')
+    .style('fill', function(d) {
+      // console.log(d);
+      return z(d.key);
     })
-    .attr("d", area);
-  console.log(1);
+    .attr('d', area);
+  // console.log(1);
 
   // var browser = svg.selectAll('.browser')
   //   .data(stack(data))
@@ -236,23 +239,25 @@ function drawStackedAreas(data, dataByDecade, destByDate) {
   //     .attr('class', 'area')
   //     .attr('d', area)
   //     .style('fill', function(d) { return color(d.key); });
-      
+
   // browser.append('text')
   //     .datum(function(d) { return d; })
   //     .attr('transform', function(d) { return 'translate(' + x(data[13].date) + ',' + y(d[13][1]) + ')'; })
-  //     .attr('x', -6) 
+  //     .attr('x', -6)
   //     .attr('dy', '.35em')
   //     .style("text-anchor", "start")
   //     .text(function(d) { return d.key; })
   //     .attr('fill-opacity', 1);
 
   // Axes
-  stackedChart.append('g')
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + chartHeight + ")")
+  stackedChart
+    .append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0,' + chartHeight + ')')
     .call(xAxis);
 
-  stackedChart.append('g')
+  stackedChart
+    .append('g')
     .attr('class', 'y axis')
     .call(yAxis);
 }
@@ -260,7 +265,9 @@ function drawStackedAreas(data, dataByDecade, destByDate) {
 function drawNodes(nodes) {
   // console.log(nodes);
 
-  const filteredData = nodes.filter(d => planets.includes(d.name));
+  // const filteredData = nodes.filter(d => planets.includes(d.name));
+  // FIXME: revert
+  const filteredData = nodes;
 
   const xScale = d3
     .scaleLinear()
@@ -297,24 +304,63 @@ function drawNodes(nodes) {
 
 function drawLinks2(data) {
   // filteredData contains only the links between major planets, no cosmos or asteroid
-  const filteredData = data.filter(
-    d => planets.includes(d.from) && planets.includes(d.to)
-  );
+  // FIXME: revert
+  // const filteredData = data.filter(
+    // d => planets.includes(d.from) && planets.includes(d.to)
+  // );
+
+  const filteredData = data;
+  // set clip-path
+  const clipPath = d3
+    .select('.plot')
+    .append('clipPath')
+    .attr('id', 'cut-off-bottom')
+    .append('rect')
+    .attr('height', 300)
+    .attr('width', 1300)
+    .attr('x', 0)
+    .attr('y', 200);
 
   // TODO: make a dictionary for duplicate links e.g. { 'earthToMars': 1}
+  linkCount = {};
+
   filteredData.forEach(d => {
     d.from = nodes.filter(node => d.from == node.name)[0];
     d.to = nodes.filter(node => d.to == node.name)[0];
 
+    const key = d.from.name + '_to_' + d.to.name;
+    linkCount[key] = linkCount[key] ? linkCount[key] + 1 : 1;
+    const linkNumber = linkCount[key];
+
     d.link = {};
+    d.link.link = key;
+    d.link.linkNumber = linkNumber;
     d.link.cx = Math.abs(d.from.x + d.to.x) / 2;
     d.link.cy = yOffsetFixed;
+    d.link.rx = Math.abs(d.link.cx - d.to.x);
+    d.link.ry = 30 + linkNumber * 5;
 
-    // TODO: add cx, cy, rx, ry
+    // console.log(d);
   });
 
-  console.log(filteredData);
-  // d3.select('.plot').selectAll('.links').data(filteredData).enter().append()
+  
+  const ellipses = d3
+  .select('.plot')
+  .selectAll('.arc')
+  // .data(filteredData.filter(d => d.link.link == 'earth_to_venus'))
+  .data(filteredData)
+  .enter()
+  .append('ellipse')
+  .attr('clip-path', 'url(#cut-off-bottom)')
+  .attr('class', 'link')
+  .attr('cx', d => d.link.cx)
+  .attr('cy', d => d.link.cy)
+  .attr('rx', d => d.link.rx)
+  .attr('ry', d => d.link.ry)
+  
+  
+  console.log(linkCount);
+  // console.log(filteredData);
 }
 
 function drawLinks(data) {
@@ -331,11 +377,11 @@ function drawLinks(data) {
   });
 
   // console.log(data);
-  console.log(
-    data.filter(
-      d => planets.includes(d.to.name) && planets.includes(d.from.name)
-    )
-  );
+  // console.log(
+  // data.filter(
+  // d => planets.includes(d.to.name) && planets.includes(d.from.name)
+  // )
+  // );
   // add data
 
   d3.select('.plot')
