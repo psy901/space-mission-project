@@ -1,0 +1,5 @@
+name,success,type,from,to,object,launch,finish,cospar,agency,country
+Mariner 10,True,flyby,venus,mercury,planet,1974-02-05,1974-03-29,,nasa,USA
+Mariner 10,True,flyby,mercury,mercury,planet,1974-03-29,1974-09-21,,nasa,USA
+Mariner 10,True,flyby,mercury,mercury,planet,1974-09-21,1975-03-16,,nasa,USA
+MESSENGER,True,orbit,venus,mercury,planet,2006-10-24,2011-03-18,,nasa,USA

@@ -1,0 +1,54 @@
+to,type,success,success_rate,total
+mars,flyby,6,0.75,8
+mars,towards,0,0.0,15
+venus,towards,0,0.0,16
+venus,flyby,12,1.0,12
+venus,lander,13,0.9285714285714286,14
+mars,orbit,11,0.8461538461538461,13
+mars,lander,5,0.5,10
+jupiter,flyby,7,1.0,7
+heliopause,ongoing,1,1.0,1
+saturn,flyby,3,1.0,3
+heliopauseb,ongoing,1,1.0,1
+mercury,flyby,3,1.0,3
+venus,orbit,8,0.8888888888888888,9
+uranus,flyby,1,1.0,1
+neptune,flyby,1,1.0,1
+heliopause2,ongoing,1,1.0,1
+heliopause1,ongoing,1,1.0,1
+1P/Halley,flyby,5,1.0,5
+26P/Grigg-Skjellerup,flyby,1,1.0,1
+21P/Giacobini-Zinner,flyby,1,0.5,2
+(951) Gaspra,flyby,1,1.0,1
+(243) Ida,flyby,1,1.0,1
+jupiter,orbit,2,1.0,2
+saturn,orbit,1,1.0,1
+titan,lander,1,1.0,1
+mars,rover,3,1.0,3
+(2867) &#352;teins,flyby,1,1.0,1
+(21) Lutetia,flyby,1,1.0,1
+67P/Churyumov-Gerasimenko,orbit,1,1.0,1
+mercury,orbit,1,1.0,1
+(132524) APL,flyby,1,1.0,1
+pluto,flyby,1,1.0,1
+2014 MU69,ongoing,1,1.0,1
+heliopause3,ongoing,1,1.0,1
+vesta,orbit,1,1.0,1
+ceres,orbit,1,1.0,1
+(433) Eros,orbit,1,1.0,1
+(9969) Braille,flyby,1,1.0,1
+19P/Borrelly,orbit,1,1.0,1
+2P/Encke,flyby,0,0.0,1
+73P/Schwassmann-Wachmann,flyby,0,0.0,1
+9P/Tempel,flyby,2,1.0,2
+103P/Hartley,flyby,1,1.0,1
+(5535) Annefrank,flyby,1,1.0,1
+81P/Wild,flyby,1,1.0,1
+earth,lander,2,1.0,2
+(25143) Itokawa,orbit,1,1.0,1
+(25143) Itokawa,lander,0,0.0,1
+earth,flyby,1,1.0,1
+(162173) 1999 JU3,ongoing,1,1.0,1
+(4179) Toutatis,flyby,1,1.0,1
+mars,ongoing,1,1.0,1
+(101955) Bennu,ongoing,1,1.0,1

@@ -10,7 +10,14 @@
 </head>
 
 <body>
-  <div id="main"></div>
+  <div id="main">
+    <div>
+    	<select class="custom-select" id="categorySelect" onchange="onCategoryChanged()">
+          <option selected value="show-planets">Show Planets</option>
+          <option value="show-all">Show All</option>
+    </select>
+    </div>
+  </div>
 </body>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>

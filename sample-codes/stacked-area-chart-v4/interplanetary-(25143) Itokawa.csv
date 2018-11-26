@@ -1,0 +1,3 @@
+name,success,type,from,to,object,launch,finish,cospar,agency,country
+Hayabusa,True,orbit,earth,(25143) Itokawa,asteroid,2003-05-09,2005-10-04,,jaxa,Japan
+Hayabusa,False,lander,(25143) Itokawa,(25143) Itokawa,asteroid,2005-10-04,2005-11-19,,jaxa,Japan

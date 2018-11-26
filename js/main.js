@@ -56,6 +56,7 @@ var area = d3
 
 /* Global Variables */
 let nodes;
+let datum;
 let planets;
 let links = [];
 const radius = 5;
@@ -80,24 +81,8 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
     .attr('class', 'plot')
     .attr('transform', `translate(${margin.l}, ${margin.t})`);
 
-  // FIXME: remove later if not used
-  let tempNodes = d3
-    .nest()
-    .key(d => d.from)
-    .rollup(leaves => {
-      // console.log(leaves);
-      const source = d3.map(leaves, d => d.from).keys();
-      const target = d3.map(leaves, d => d.to).keys();
-      return { target };
-    })
-    .entries(data);
-
-  // Draw Nodes
-  drawNodes(nodes);
-
-  // Draw Links
-  // drawLinks(data);
-  drawLinks2(data);
+  datum = data;
+  updateArcChart('show-planets');
 
   /*********************************************************
    * Draw the stacked area chart
@@ -109,7 +94,7 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   var destByDate = parseDataByDest(data);
 
   // Draw stacked area chart by planet
-  // drawStackedAreas(data, dataByDecade, destByDate);
+  drawStackedAreas(data, dataByDecade, destByDate);
 
   // Draw time line chart
 });
@@ -262,33 +247,34 @@ function drawStackedAreas(data, dataByDecade, destByDate) {
     .call(yAxis);
 }
 
-function drawNodes(nodes) {
-  // console.log(nodes);
-
-  // const filteredData = nodes.filter(d => planets.includes(d.name));
-  // FIXME: revert
-  const filteredData = nodes;
+function drawNodes(filteredNodes) {
 
   const xScale = d3
     .scaleLinear()
-    .domain([0, filteredData.length - 1])
+    .domain([0, filteredNodes.length - 1])
     .range([radius, canvasWidth - radius]);
 
   // set eaeh node's x and y position
-  filteredData.forEach(function(d, i) {
+  filteredNodes.forEach(function(d, i) {
     d.x = xScale(i);
     d.y = yOffsetFixed;
   });
 
   // TODO: chnage the color using the planetColors
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-  // console.log(nodes.filter(d => planets.includes(d.name)));
-  d3.select('.plot')
+
+  const prevNodes = d3
+    .select('.plot')
     .selectAll('.node')
-    .data(filteredData)
+    .data(filteredNodes);
+
+  const nodesEnter = prevNodes
     .enter()
     .append('circle')
-    .attr('class', 'node')
+    .attr('class', 'node');
+
+  nodesEnter
+    .merge(prevNodes)
     .attr('id', d => d.name)
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
@@ -300,16 +286,13 @@ function drawNodes(nodes) {
     .on('mouseout', d => {
       // TODO: add any mouseout function here
     });
+
+  prevNodes.exit().remove();
 }
 
-function drawLinks2(data) {
+function drawLinks(filteredData) {
   // filteredData contains only the links between major planets, no cosmos or asteroid
-  // FIXME: revert
-  // const filteredData = data.filter(
-    // d => planets.includes(d.from) && planets.includes(d.to)
-  // );
 
-  const filteredData = data;
   // set clip-path
   const clipPath = d3
     .select('.plot')
@@ -321,49 +304,67 @@ function drawLinks2(data) {
     .attr('x', 0)
     .attr('y', 200);
 
-  // TODO: make a dictionary for duplicate links e.g. { 'earthToMars': 1}
+  // make a dictionary for duplicate links e.g. { 'earthToMars': 1}
   linkCount = {};
 
-  filteredData.forEach(d => {
-    d.from = nodes.filter(node => d.from == node.name)[0];
-    d.to = nodes.filter(node => d.to == node.name)[0];
+  // console.log(filteredData);
+  let count = 0;
 
-    const key = d.from.name + '_to_' + d.to.name;
+  // generate arc info for each arc
+  filteredData.forEach(d => {
+    // console.log('before', d.from); // earth
+    d.fromInfo = nodes.filter(node => d.from == node.name)[0];
+    d.toInfo = nodes.filter(node => d.to == node.name)[0];
+    // console.log('after', d.from);
+
+    // if (!d.from || !d.to) {
+    // console.log(d);
+      // count += 1;
+      // return;
+    // }
+    // console.log('...');
+    // console.log(d);
+
+    const key = d.fromInfo.name + '_to_' + d.toInfo.name;
+    
     linkCount[key] = linkCount[key] ? linkCount[key] + 1 : 1;
     const linkNumber = linkCount[key];
 
     d.link = {};
     d.link.link = key;
     d.link.linkNumber = linkNumber;
-    d.link.cx = Math.abs(d.from.x + d.to.x) / 2;
+    d.link.cx = Math.abs(d.fromInfo.x + d.toInfo.x) / 2;
     d.link.cy = yOffsetFixed;
-    d.link.rx = Math.abs(d.link.cx - d.to.x);
+    d.link.rx = Math.abs(d.link.cx - d.toInfo.x);
     d.link.ry = 30 + linkNumber * 5;
 
-    // console.log(d);
   });
 
-  
-  const ellipses = d3
-  .select('.plot')
-  .selectAll('.arc')
-  // .data(filteredData.filter(d => d.link.link == 'earth_to_venus'))
-  .data(filteredData)
-  .enter()
-  .append('ellipse')
-  .attr('clip-path', 'url(#cut-off-bottom)')
-  .attr('class', 'link')
-  .attr('cx', d => d.link.cx)
-  .attr('cy', d => d.link.cy)
-  .attr('rx', d => d.link.rx)
-  .attr('ry', d => d.link.ry)
-  
-  
-  console.log(linkCount);
-  // console.log(filteredData);
+  console.log(count);
+  const prevArcs = d3
+    .select('.plot')
+    .selectAll('.arc')
+    .data(filteredData);
+
+  const arcsEnter = prevArcs
+    .enter()
+    .append('ellipse')
+    .attr('clip-path', 'url(#cut-off-bottom)')
+    .attr('class', 'arc');
+
+  arcsEnter
+    .merge(prevArcs)
+    .attr('cx', d => d.link.cx)
+    .attr('cy', d => d.link.cy)
+    .attr('rx', d => d.link.rx)
+    .attr('ry', d => d.link.ry);
+
+  prevArcs.exit().remove();
 }
 
-function drawLinks(data) {
+// FIXME: remove later if not needed
+/*
+function drawHalfCircles(data) {
   // arc returning methods
   const angleScale = d3
     .scaleLinear()
@@ -376,14 +377,6 @@ function drawLinks(data) {
     d.to = nodes.filter(node => d.to == node.name)[0];
   });
 
-  // console.log(data);
-  // console.log(
-  // data.filter(
-  // d => planets.includes(d.to.name) && planets.includes(d.from.name)
-  // )
-  // );
-  // add data
-
   d3.select('.plot')
     .selectAll('.links')
     .data(
@@ -395,9 +388,7 @@ function drawLinks(data) {
     .append('path')
     .attr('class', 'link')
     .attr('transform', (d, i) => {
-      // console.log(i);
       if (!d.from || !d.to) {
-        // console.log(d);
         // skip if no trip exists
         return;
       }
@@ -422,4 +413,35 @@ function drawLinks(data) {
       angleScale.domain([0, points.length - 1]);
       return arc(points);
     });
+}
+*/
+function onCategoryChanged() {
+  const select = d3.select('#categorySelect').node();
+  const filterKey = select.options[select.selectedIndex].value;
+  updateArcChart(filterKey);
+}
+
+function updateArcChart(filterKey) {
+  // filter the data for 'nodes' and 'data'
+
+  const filteredNodes =
+    filterKey == 'show-planets'
+      ? nodes.filter(d => planets.includes(d.name))
+      : nodes;
+
+
+  // console.log(filteredNodes);
+
+  // Draw Nodes
+  drawNodes(filteredNodes);
+
+  // console.log(datum);
+  const filteredData =
+    filterKey == 'show-planets'
+      ? datum.filter(d => planets.includes(d.from) && planets.includes(d.to))
+      : datum;
+
+  // console.log(filteredData);
+  // Draw Links
+  drawLinks(filteredData);
 }

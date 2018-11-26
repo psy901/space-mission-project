@@ -1,0 +1,11 @@
+object,type,success,success_rate,total
+planet,flyby,34,0.9444444444444444,36
+planet,towards,0,0.0,31
+planet,lander,20,0.7692307692307693,26
+planet,orbit,23,0.8846153846153846,26
+asteroid,ongoing,8,1.0,8
+asteroid,flyby,20,0.8695652173913043,23
+asteroid,lander,1,0.5,2
+planet,rover,3,1.0,3
+asteroid,orbit,6,1.0,6
+planet,ongoing,1,1.0,1
