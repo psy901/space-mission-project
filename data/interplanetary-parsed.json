@@ -118,8 +118,8 @@
 {"name": "Spirit (MER-A)", "success": "True", "type": "rover", "from": "earth", "to": "mars", "object": "planet", "launch": "2003-06-10", "finish": "2010-03-22", "cospar": "", "agency": "nasa"}
 {"name": "Opportunity (MER-B)", "success": "True", "type": "rover", "from": "earth", "to": "mars", "object": "planet", "launch": "2003-07-08", "finish": "", "cospar": "", "agency": "nasa"}
 {"name": "Rosetta", "success": "True", "type": "flyby", "from": "earth", "to": "mars", "object": "planet", "launch": "2004-03-02", "finish": "2007-02-25", "cospar": "", "agency": "esa"}
-{"name": "Rosetta", "success": "True", "type": "flyby", "from": "mars", "to": "(2867) &#352;teins", "object": "asteroid", "launch": "2007-02-25", "finish": "2008-09-05", "cospar": "", "agency": "esa"}
-{"name": "Rosetta", "success": "True", "type": "flyby", "from": "(2867) &#352;teins", "to": "(21) Lutetia", "object": "asteroid", "launch": "2008-09-05", "finish": "2010-07-10", "cospar": "", "agency": "esa"}
+{"name": "Rosetta", "success": "True", "type": "flyby", "from": "mars", "to": "(2867) Steins", "object": "asteroid", "launch": "2007-02-25", "finish": "2008-09-05", "cospar": "", "agency": "esa"}
+{"name": "Rosetta", "success": "True", "type": "flyby", "from": "(2867) Steins", "to": "(21) Lutetia", "object": "asteroid", "launch": "2008-09-05", "finish": "2010-07-10", "cospar": "", "agency": "esa"}
 {"name": "Rosetta", "success": "True", "type": "orbit", "from": "(21) Lutetia", "to": "67P/Churyumov-Gerasimenko", "object": "asteroid", "launch": "2010-07-10", "finish": "2014-08-06", "cospar": "", "agency": "esa"}
 {"name": "MESSENGER", "success": "True", "type": "flyby", "from": "earth", "to": "venus", "object": "planet", "launch": "2004-08-03", "finish": "2006-10-24", "cospar": "", "agency": "nasa"}
 {"name": "MESSENGER", "success": "True", "type": "orbit", "from": "venus", "to": "mercury", "object": "planet", "launch": "2006-10-24", "finish": "2011-03-18", "cospar": "", "agency": "nasa"}

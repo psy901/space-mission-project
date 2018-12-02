@@ -118,8 +118,8 @@ Mars Express,False,lander,mars,mars,planet,2003-12-25,2003-12-25,,esa
 Spirit (MER-A),True,rover,earth,mars,planet,2003-06-10,2010-03-22,,nasa
 Opportunity (MER-B),True,rover,earth,mars,planet,2003-07-08,,,nasa
 Rosetta,True,flyby,earth,mars,planet,2004-03-02,2007-02-25,,esa
-Rosetta,True,flyby,mars,(2867) &#352;teins,asteroid,2007-02-25,2008-09-05,,esa
-Rosetta,True,flyby,(2867) &#352;teins,(21) Lutetia,asteroid,2008-09-05,2010-07-10,,esa
+Rosetta,True,flyby,mars,(2867) Steins,asteroid,2007-02-25,2008-09-05,,esa
+Rosetta,True,flyby,(2867) Steins,(21) Lutetia,asteroid,2008-09-05,2010-07-10,,esa
 Rosetta,True,orbit,(21) Lutetia,67P/Churyumov-Gerasimenko,asteroid,2010-07-10,2014-08-06,,esa
 MESSENGER,True,flyby,earth,venus,planet,2004-08-03,2006-10-24,,nasa
 MESSENGER,True,orbit,venus,mercury,planet,2006-10-24,2011-03-18,,nasa
