@@ -59,7 +59,8 @@ let nodes;
 let datum;
 let planets;
 let links = [];
-const radius = 5;
+const planetRadius = 12;
+const nonPlanetRadius = 7;
 const yOffsetFixed = 500;
 const planetColors = {
   // TODO: define planet colors here
@@ -94,7 +95,8 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   var destByDate = parseDataByDest(data);
 
   // Draw stacked area chart by planet
-  drawStackedAreas(data, dataByDecade, destByDate);
+  // FIXME: what do do with it?
+  // drawStackedAreas(data, dataByDecade, destByDate);
 
   // Draw time line chart
 });
@@ -248,25 +250,24 @@ function drawStackedAreas(data, dataByDecade, destByDate) {
 }
 
 function drawNodes(filteredNodes) {
-
-  const xScale = d3
-    .scaleLinear()
-    .domain([0, filteredNodes.length - 1])
-    .range([radius, canvasWidth - radius]);
-
-  // set eaeh node's x and y position
-  filteredNodes.forEach(function(d, i) {
-    d.x = xScale(i);
-    d.y = yOffsetFixed;
-  });
+  // const earth = filteredNodes.filter(node => node.name == 'earth');
+  // console.log(earth)
 
   // TODO: chnage the color using the planetColors
+
+  const nodeTip = d3
+    .tip()
+    .attr('class', 'd3-tip')
+    .offset([45, 0])
+    .html(d => {
+      return '<strong>' + d['name'] + '</strong>';
+    });
+  svg.call(nodeTip);
+
   const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-  const prevNodes = d3
-    .select('.plot')
-    .selectAll('.node')
-    .data(filteredNodes);
+  const canvas = d3.select('.plot');
+  const prevNodes = canvas.selectAll('.node').data(filteredNodes);
 
   const nodesEnter = prevNodes
     .enter()
@@ -275,16 +276,22 @@ function drawNodes(filteredNodes) {
 
   nodesEnter
     .merge(prevNodes)
-    .attr('id', d => d.name)
+    // .transition()
+    // .duration(600)
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
-    .attr('r', radius)
+    .attr('r', d => planets.includes(d.name) ? planetRadius : nonPlanetRadius)
     .style('fill', d => color(d.name))
-    .on('mouseover', d => {
-      // TODO: add any mouseover function here
-    })
-    .on('mouseout', d => {
-      // TODO: add any mouseout function here
+    .on('mouseover', nodeTip.show)
+    .on('mouseout', nodeTip.hide);
+
+  nodesEnter
+    .append('text')
+    .attr('class', 'nodeName')
+    .attr('x', d => d.x - 20)
+    .attr('y', d => d.y + 20)
+    .text(d => {
+      if (planets.includes(d['name'])) return d['name'];
     });
 
   prevNodes.exit().remove();
@@ -299,34 +306,26 @@ function drawLinks(filteredData) {
     .append('clipPath')
     .attr('id', 'cut-off-bottom')
     .append('rect')
-    .attr('height', 300)
+    .attr('height', 400)
     .attr('width', 1300)
     .attr('x', 0)
-    .attr('y', 200);
+    .attr('y', 100);
 
   // make a dictionary for duplicate links e.g. { 'earthToMars': 1}
-  linkCount = {};
+  const linkCount = {};
 
   // console.log(filteredData);
   let count = 0;
 
   // generate arc info for each arc
   filteredData.forEach(d => {
-    // console.log('before', d.from); // earth
     d.fromInfo = nodes.filter(node => d.from == node.name)[0];
     d.toInfo = nodes.filter(node => d.to == node.name)[0];
     // console.log('after', d.from);
-
-    // if (!d.from || !d.to) {
-    // console.log(d);
-      // count += 1;
-      // return;
-    // }
-    // console.log('...');
-    // console.log(d);
+    // console.log(d.fromInfo, d.toInfo)
 
     const key = d.fromInfo.name + '_to_' + d.toInfo.name;
-    
+
     linkCount[key] = linkCount[key] ? linkCount[key] + 1 : 1;
     const linkNumber = linkCount[key];
 
@@ -336,11 +335,11 @@ function drawLinks(filteredData) {
     d.link.cx = Math.abs(d.fromInfo.x + d.toInfo.x) / 2;
     d.link.cy = yOffsetFixed;
     d.link.rx = Math.abs(d.link.cx - d.toInfo.x);
-    d.link.ry = 30 + linkNumber * 5;
-
+    d.link.ry = 30 + linkNumber * 7;
   });
 
-  console.log(count);
+  // console.log(filteredData);
+
   const prevArcs = d3
     .select('.plot')
     .selectAll('.arc')
@@ -350,71 +349,40 @@ function drawLinks(filteredData) {
     .enter()
     .append('ellipse')
     .attr('clip-path', 'url(#cut-off-bottom)')
-    .attr('class', 'arc');
+    .attr('class', 'arc')
+    .attr('id', d => d.name.replace(/[\s()'"]/g, "-"));
 
   arcsEnter
     .merge(prevArcs)
+    // .transition()
+    // .duration(600)
     .attr('cx', d => d.link.cx)
     .attr('cy', d => d.link.cy)
     .attr('rx', d => d.link.rx)
-    .attr('ry', d => d.link.ry);
+    .attr('ry', d => d.link.ry)
+    .on('mouseover', handleMouseOverArc)
+    .on('mouseout', handleMouseOutArc);
 
   prevArcs.exit().remove();
 }
 
-// FIXME: remove later if not needed
-/*
-function drawHalfCircles(data) {
-  // arc returning methods
-  const angleScale = d3
-    .scaleLinear()
-    .range([(3 * Math.PI) / 2, (5 * Math.PI) / 2]);
-  const arc = d3.radialLine().angle(d => angleScale(d));
-
-  // replace 'from' and 'to' of passed 'data' with 'nodes'
-  data.forEach(d => {
-    d.from = nodes.filter(node => d.from == node.name)[0];
-    d.to = nodes.filter(node => d.to == node.name)[0];
-  });
-
-  d3.select('.plot')
-    .selectAll('.links')
-    .data(
-      data.filter(
-        d => planets.includes(d.to.name) && planets.includes(d.from.name)
-      )
-    )
-    .enter()
-    .append('path')
-    .attr('class', 'link')
-    .attr('transform', (d, i) => {
-      if (!d.from || !d.to) {
-        // skip if no trip exists
-        return;
-      }
-      const xOffset = d.from.x + (d.to.x - d.from.x) / 2;
-      const yOffset = yOffsetFixed;
-      return `translate(${xOffset}, ${yOffset})`;
-    })
-    .attr('d', d => {
-      if (!d.from || !d.to) {
-        // skip if no trip exists
-        return;
-      }
-      // distance between two planets
-      const xDist = Math.abs(d.from.x - d.to.x);
-
-      // set the radius of the arc to half of the distance
-      arc.radius(xDist / 2);
-      // console.log(xDist);
-
-      // creates a smooth curve
-      const points = d3.range(0, Math.ceil(xDist / 3));
-      angleScale.domain([0, points.length - 1]);
-      return arc(points);
-    });
+function handleMouseOverArc(d, i) {
+  const hover = d3.select(this);
+  let missionId = hover._groups[0][0].id.replace(/[\s()'"]/g, '-');
+  // console.log(missionId)
+  d3.selectAll('#' + missionId)
+    .style('stroke', 'red')
+    .style('stroke-width', '4px');
 }
-*/
+
+function handleMouseOutArc(d, i) {
+  let missionId = d3.select(this)._groups[0][0].id;
+  missionId = missionId.replace(/[\s()'"]/g, '-');
+  d3.selectAll('#' + missionId)
+    .style('stroke', '#888888')
+    .style('stroke-width', '2px');
+}
+
 function onCategoryChanged() {
   const select = d3.select('#categorySelect').node();
   const filterKey = select.options[select.selectedIndex].value;
@@ -429,8 +397,24 @@ function updateArcChart(filterKey) {
       ? nodes.filter(d => planets.includes(d.name))
       : nodes;
 
+  const distanceExtent = d3.extent(filteredNodes, d =>
+    parseFloat(d['distance'])
+  );
+
+  const distanceScale = d3
+    .scaleLog()
+    .domain(distanceExtent)
+    // .domain([0, filteredNodes.length - 1])
+    .range([planetRadius, canvasWidth - planetRadius]);
 
   // console.log(filteredNodes);
+
+  // set eaeh node's x and y position
+  filteredNodes.forEach(function(d, i) {
+    d.x = distanceScale(d['distance']);
+    // d.x = distanceScale(i);
+    d.y = yOffsetFixed;
+  });
 
   // Draw Nodes
   drawNodes(filteredNodes);
@@ -441,7 +425,6 @@ function updateArcChart(filterKey) {
       ? datum.filter(d => planets.includes(d.from) && planets.includes(d.to))
       : datum;
 
-  // console.log(filteredData);
   // Draw Links
   drawLinks(filteredData);
 }
