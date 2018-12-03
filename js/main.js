@@ -82,6 +82,9 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
     .attr('class', 'plot')
     .attr('transform', `translate(${margin.l}, ${margin.t})`);
 
+  data.forEach(d => {
+    d.name = d.name.replace(/[\s()'"]/g, '_');
+  });
   datum = data;
   updateArcChart('show-planets');
 
@@ -280,7 +283,7 @@ function drawNodes(filteredNodes) {
     // .duration(600)
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
-    .attr('r', d => planets.includes(d.name) ? planetRadius : nonPlanetRadius)
+    .attr('r', d => (planets.includes(d.name) ? planetRadius : nonPlanetRadius))
     .style('fill', d => color(d.name))
     .on('mouseover', nodeTip.show)
     .on('mouseout', nodeTip.hide);
@@ -350,7 +353,7 @@ function drawLinks(filteredData) {
     .append('ellipse')
     .attr('clip-path', 'url(#cut-off-bottom)')
     .attr('class', 'arc')
-    .attr('id', d => d.name.replace(/[\s()'"]/g, "-"));
+    .attr('id', d => d.name.replace(/[\s()'"]/g, '_'));
 
   arcsEnter
     .merge(prevArcs)
@@ -361,14 +364,26 @@ function drawLinks(filteredData) {
     .attr('rx', d => d.link.rx)
     .attr('ry', d => d.link.ry)
     .on('mouseover', handleMouseOverArc)
-    .on('mouseout', handleMouseOutArc);
+    .on('mouseout', handleMouseOutArc)
+    .on('click', handleMouseClick);
 
   prevArcs.exit().remove();
 }
 
+function handleMouseClick(d, i) {
+  const click = d3.select(this);
+  let missionId = click._groups[0][0].id.replace(/[\s()'"]/g, '_');
+  const filteredData = datum.filter(d => d.name == missionId);
+
+  console.log(filteredData);
+  // console.log(datum)
+
+  // TODO: update the left-corner chart
+}
+
 function handleMouseOverArc(d, i) {
   const hover = d3.select(this);
-  let missionId = hover._groups[0][0].id.replace(/[\s()'"]/g, '-');
+  let missionId = hover._groups[0][0].id.replace(/[\s()'"]/g, '_');
   // console.log(missionId)
   d3.selectAll('#' + missionId)
     .style('stroke', 'red')
@@ -377,7 +392,7 @@ function handleMouseOverArc(d, i) {
 
 function handleMouseOutArc(d, i) {
   let missionId = d3.select(this)._groups[0][0].id;
-  missionId = missionId.replace(/[\s()'"]/g, '-');
+  missionId = missionId.replace(/[\s()'"]/g, '_');
   d3.selectAll('#' + missionId)
     .style('stroke', '#888888')
     .style('stroke-width', '2px');

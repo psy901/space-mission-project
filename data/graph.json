@@ -1,9 +1,9 @@
 {
   "nodes": [
-    { "name": "mercury", "distance": 57.9, "size": 3.383},
-    { "name": "venus", "distance": 88.2, "size": 9.49},
+    { "name": "mercury", "distance": 37.9, "size": 3.383},
+    { "name": "venus", "distance": 68.2, "size": 9.49},
     { "name": "earth", "distance": 149.6, "size": 10},
-    { "name": "mars", "distance": 270, "size": 5.32},
+    { "name": "mars", "distance": 290, "size": 5.32},
     { "name": "jupiter", "distance": 778.7, "size": 111.21},
     { "name": "saturn", "distance": 1427, "size": 94.5},
     { "name": "uranus", "distance": 2871, "size": 40.1},
