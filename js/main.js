@@ -4,7 +4,7 @@
 const svgWidth = 1400;
 const svgHeight = 800;
 const margin = {
-  t: 50,
+  t: 0,
   r: 50,
   b: 50,
   l: 50
@@ -64,14 +64,8 @@ var statusArray = ['China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'U
 /*********************************************************
  * Read data
  *********************************************************/
-// read nodes
-d3.json('./data/graph.json', data => {
-  nodes = data.nodes;
-  planets = data.planets;
-});
-
 // Read stacked data
-d3.csv("./data/stacked-mars.csv", function (error, data) {
+d3.csv("./data/stacked-all.csv", function (error, data) {
   if (error) throw error;
   // Convert string values to date, numbers
   parsedData = data.map(function (d) {
@@ -83,9 +77,20 @@ d3.csv("./data/stacked-mars.csv", function (error, data) {
     })
     return dataObject;
    });
-  console.log('Read mars');
+
+  /*********************************************************
+   * Draw the stacked area chart
+   *********************************************************/
+  drawStackedAreas();
 })
 
+// read nodes
+d3.json('./data/graph.json', data => {
+  nodes = data.nodes;
+  planets = data.planets;
+});
+
+// read interplanetary data
 d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   /*********************************************************
    * Draw the graph part
@@ -97,11 +102,6 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
 
   datum = data;
   updateArcChart('show-planets');
-
-  /*********************************************************
-   * Draw the stacked area chart
-   *********************************************************/
-  drawStackedAreas();
 
 });
 
@@ -122,7 +122,9 @@ function drawStackedAreas() {
     .range([sc_height, 0]);
 
   var xAxis = d3.axisBottom(x);
-  var yAxis = d3.axisLeft(y);
+  var yAxis = d3.axisLeft(y)
+    .tickFormat(d3.format("d"))
+    .tickValues([0, 1, 2, 3, 4, 5, 6, 7]);
 
   var gX = content.append("g")
     .attr("transform", "translate(0," + sc_height + ")")
@@ -165,7 +167,7 @@ function drawStackedAreas() {
 
   sc_svg.append("g")
     .attr("class", "legend")
-    .attr("transform", "translate(" + legendOffset.toString() + ",50)");
+    .attr("transform", "translate(" + legendOffset.toString() + ",20)");
 
   sc_svg.select(".legend")
     .call(legend);
