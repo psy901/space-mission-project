@@ -1,58 +1,36 @@
 /*********************************************************
  * Define the global layout
  *********************************************************/
-
 const svgWidth = 1400;
-const svgHeight = 1500;
+const svgHeight = 800;
 const margin = {
-  t: 50,
+  t: 0,
   r: 50,
   b: 50,
   l: 50
 };
 
+// Global layout
+const canvasWidth = svgWidth - margin.l - margin.r;
+const canvasHeight = svgHeight - margin.t - margin.b;
+const chartWidth = 400;
+const chartHeight = 300;
+
+
+/*********************************************************
+ * Generate svg
+ *********************************************************/
 const svg = d3
   .select('#main')
   .append('svg')
   .attr('width', svgWidth)
-  .attr('height', svgHeight)
-  .style('border', '3px #000 solid');
-const canvasWidth = svgWidth - margin.l - margin.r;
-const canvasHeight = svgHeight - margin.t - margin.b;
+  .attr('height', svgHeight);
+  // .style('border', '3px #000 solid');
 
-const chartWidth = 400;
-const chartHeight = 300;
-
-var stackedChart = svg
-  .append('g')
-  .attr('transform', 'translate(' + [margin.l, canvasHeight - 500] + ')');
 
 /*********************************************************
- * Define layout for the plot parts
+ * Define global variables for the upper plot parts
  *********************************************************/
-
-// Define axis
-var x = d3.scaleTime().range([0, chartWidth]);
-
-var y = d3.scaleLinear().range([chartHeight, 0]);
-
-var xAxis = d3.axisBottom().scale(x);
-
-var yAxis = d3.axisLeft().scale(y);
-
-var stack = d3.stack();
-
-var area = d3
-  .area()
-  .x(function(d) {
-    return x(d.data.launch);
-  })
-  .y0(function(d) {
-    return y(d[0]);
-  })
-  .y1(function(d) {
-    return y(d[1]);
-  });
 
 /* Global Variables */
 let nodes;
@@ -66,13 +44,53 @@ const planetColors = {
   // TODO: define planet colors here
 };
 
+
+/*********************************************************
+ * Define global variables for StackedChart
+ *********************************************************/
+var sc_svg = d3.select('#main').append('svg');
+var stackedContainer = d3_container.container()
+  .height(400)
+  .width(400)
+  .margin(10, 10, 50, 50);
+var sc_width = stackedContainer.contentWidth();
+var sc_height = stackedContainer.contentHeight();
+sc_svg.call(stackedContainer);
+var content = stackedContainer.content();
+var dateParse = d3.timeParse('%Y');
+var statusArray = ['China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'USA'];
+
+
+/*********************************************************
+ * Read data
+ *********************************************************/
+// Read stacked data
+d3.csv("./data/stacked-all.csv", function (error, data) {
+  if (error) throw error;
+  // Convert string values to date, numbers
+  parsedData = data.map(function (d) {
+    var dataObject = {
+      date: dateParse(d.date)
+    };
+    statusArray.forEach(function (s) {
+      dataObject[s] = +d[s];
+    })
+    return dataObject;
+   });
+
+  /*********************************************************
+   * Draw the stacked area chart
+   *********************************************************/
+  drawStackedAreas();
+})
+
 // read nodes
 d3.json('./data/graph.json', data => {
   nodes = data.nodes;
   planets = data.planets;
 });
 
-// reads the parsed file
+// read interplanetary data
 d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   /*********************************************************
    * Draw the graph part
@@ -88,168 +106,82 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   datum = data;
   updateArcChart('show-planets');
 
-  /*********************************************************
-   * Draw the stacked area chart
-   *********************************************************/
-
-  // Parse the data by decade
-  var dataByDecade = parseDataByDecade(data);
-
-  var destByDate = parseDataByDest(data);
-
-  // Draw stacked area chart by planet
-  // FIXME: what do do with it?
-  // drawStackedAreas(data, dataByDecade, destByDate);
-
-  // Draw time line chart
 });
 
-function date2decade(date) {
-  year = date.split('-')[0];
-  decade = decade = year[2] * 10;
-  return decade;
-}
+function drawStackedAreas() {
 
-function parseDataByDecade(data) {
-  var dataByDecade = {};
-  data.forEach(function(d) {
-    // Parse the decade
-    decade = date2decade(d.launch);
+  var stack = d3.stack()
+    .keys(statusArray)
+    .offset(d3.stackOffsetDiverging);
 
-    // Add the data
-    if (dataByDecade.hasOwnProperty(decade)) {
-      dataByDecade[decade].push(d);
-    } else {
-      dataByDecade[decade] = [d];
-    }
-  });
-  return dataByDecade;
-}
+  var layers = stack(parsedData);
 
-function parseDataByDest(data) {
-  // Get the all destinations
-  var destination_dist = {};
-  data.forEach(function(d) {
-    dest = d['to']['name'];
-    if (destination_dist.hasOwnProperty(dest)) {
-      destination_dist[dest] = destination_dist[dest] + 1;
-    } else {
-      destination_dist[dest] = 1;
-    }
-  });
+  var x = d3.scaleTime()
+    .domain([parsedData[0].date, parsedData[parsedData.length - 1].date])
+    .range([0, sc_width]);
 
-  // Make empty table
-  var destByDate = {};
-  destByDate['launch'] = [];
-  for (var dest in destination_dist) {
-    destByDate[dest] = [];
-  }
+  var y = d3.scaleLinear()
+    .domain([0, d3.max(layers, stackMax)])
+    .range([sc_height, 0]);
 
-  // Get destination data by date
-  data.forEach(function(d) {
-    date = d['launch'];
-    dest = d['to']['name'];
-    destByDate['launch'].push(date);
-    for (var key in destination_dist) {
-      if (key == dest) {
-        destByDate[key].push(1);
-      } else {
-        destByDate[key].push(0);
-      }
-    }
-  });
+  var xAxis = d3.axisBottom(x);
+  var yAxis = d3.axisLeft(y)
+    .tickFormat(d3.format("d"))
+    .tickValues([0, 1, 2, 3, 4, 5, 6, 7]);
 
-  // console.log(destByDate);
-  return destByDate;
-}
+  var gX = content.append("g")
+    .attr("transform", "translate(0," + sc_height + ")")
+    .attr("class", "axis axis--x")
+    .call(xAxis)
+    .select(".domain")
+    .remove();
 
-function drawStackedAreas(data, dataByDecade, destByDate) {
-  console.log('Draw Stacked Area chart');
-
-  // Set x domain: the range of the launch dates
-  x.domain(
-    d3.extent(data, function(d) {
-      return d.launch;
-    })
-  );
-
-  // Set y domain: the range of 0 to max(sum(# instances)) for each decade
-  var maxNumMissions = -1;
-  for (var key in dataByDecade) {
-    var val = dataByDecade[key];
-    var numMissions = val.length;
-    if (maxNumMissions < numMissions) {
-      maxNumMissions = numMissions;
-    }
-  }
-  y.domain([0, maxNumMissions]);
-
-  // Get stacks of data
-  // var keys = destByDate.columns.filter(function(key) { return key !== 'launch'; })
-  var keys = Object.keys(destByDate).filter(function(key) {
-    return key !== 'launch';
-  });
-  stack.keys(keys);
-  // console.log(keys);
-  // console.log(destByDate);
-  // console.log(stack(destByDate));
-
-  var layer = stackedChart
-    .selectAll('.layer')
-    .data(stack(data))
-    .enter()
-    .append('g')
-    .attr('class', 'layer');
-
-  // console.log(1);
-  var z = d3.scaleOrdinal(d3.schemeCategory10);
-
-  layer
-    .append('path')
-    .attr('class', 'area')
-    .style('fill', function(d) {
-      // console.log(d);
-      return z(d.key);
-    })
-    .attr('d', area);
-  // console.log(1);
-
-  // var browser = svg.selectAll('.browser')
-  //   .data(stack(data))
-  //   .enter().append('g')
-  //   .attr('class', function(d){ return 'browser ' + d.key; })
-  //   .attr('fill-opacity', 0.5);
-
-  // stack.order(d3.stackOrderNone);
-  // stack.offset(d3.stackOffsetNone);
-
-  // console.log(stack(data));
-
-  // browser.append('path')
-  //     .attr('class', 'area')
-  //     .attr('d', area)
-  //     .style('fill', function(d) { return color(d.key); });
-
-  // browser.append('text')
-  //     .datum(function(d) { return d; })
-  //     .attr('transform', function(d) { return 'translate(' + x(data[13].date) + ',' + y(d[13][1]) + ')'; })
-  //     .attr('x', -6)
-  //     .attr('dy', '.35em')
-  //     .style("text-anchor", "start")
-  //     .text(function(d) { return d.key; })
-  //     .attr('fill-opacity', 1);
-
-  // Axes
-  stackedChart
-    .append('g')
-    .attr('class', 'x axis')
-    .attr('transform', 'translate(0,' + chartHeight + ')')
-    .call(xAxis);
-
-  stackedChart
-    .append('g')
-    .attr('class', 'y axis')
+  var gY = content.append("g")
+    .attr("class", "axis axis--y")
     .call(yAxis);
+
+  var colors = statusArray.map(function (d, i) {
+    return d3.interpolateWarm(i / statusArray.length);
+  });
+
+  var colorScale = d3.scaleOrdinal()
+    .domain(statusArray)
+    .range(colors);
+
+  var legendOffset = stackedContainer.margin().left() + 190;
+
+  var legend = d3.legendColor()
+    .shapeWidth(50)
+    .cells(statusArray.length)
+    .orient("vertical")
+    .labelAlign("start")
+    .scale(colorScale);
+
+  var area = d3.area()
+    .x(function (d, i) { return x(d.data.date); })
+    .y0(function (d) { return y(d[0]); })
+    .y1(function (d) { return y(d[1]); })
+    .curve(d3.curveBasis);
+
+  var layerGroups = content.selectAll(".layer")
+    .data(layers)
+    .enter().append("g")
+    .attr("class", "layer");
+
+  sc_svg.append("g")
+    .attr("class", "legend")
+    .attr("transform", "translate(" + legendOffset.toString() + ",20)");
+
+  sc_svg.select(".legend")
+    .call(legend);
+
+  layerGroups.append("path")
+    .attr("d", area)
+    .attr("fill", function (d, i) { return colors[i]; });
+
+  function stackMax(layer) {
+    return d3.max(layer, function (d) { return d[1]; });
+  }
 }
 
 function drawNodes(filteredNodes) {
@@ -340,8 +272,6 @@ function drawLinks(filteredData) {
     d.link.rx = Math.abs(d.link.cx - d.toInfo.x);
     d.link.ry = 30 + linkNumber * 7;
   });
-
-  // console.log(filteredData);
 
   const prevArcs = d3
     .select('.plot')

@@ -18,12 +18,12 @@ var dateParse = d3.timeParse('%Y');
 
 var statusArray = ['China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'USA'];
 
-d3.csv("./data/stacked-jupiter.csv", function (error, loadedData) {
+d3.csv("stacked-mars.csv", function (error, loadedData) {
   if (error) throw error;
   // Convert string values to date, numbers
   var parsedData = loadedData.map(function (d) {
     var dataObject = {
-      date: dateParse(d.date)
+      date: dateParse(d.PrpStatDate)
     };
     statusArray.forEach(function (s) {
       dataObject[s] = +d[s];
@@ -75,6 +75,8 @@ d3.csv("./data/stacked-jupiter.csv", function (error, loadedData) {
     .orient("vertical")
     .labelAlign("start")
     .scale(colorScale);
+
+  // console.log(layers);
 
   var area = d3.area()
     .x(function (d, i) { return x(d.data.date); })
