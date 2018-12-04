@@ -48,28 +48,33 @@ const planetColors = {
 /*********************************************************
  * Define global variables for StackedChart
  *********************************************************/
-var sc_svg = d3.select('#main')
+var sc_svg = d3.select('#main2')
   .append('svg')
   .attr('transfrom', 'translate(-100, 0)');
 var stackedContainer = d3_container.container()
   .height(400)
   .width(500)
-  .margin(10, 10, 50, 50);
+  .margin(10, 80, 50, 50);
 var sc_width = stackedContainer.contentWidth();
 var sc_height = stackedContainer.contentHeight();
 sc_svg.call(stackedContainer);
 var content = stackedContainer.content();
 var dateParse = d3.timeParse('%Y');
-var statusArray = ['China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'USA'];
+var statusArray = ['USA', 'Russia', 'Soviet Union', 'China', 'India', 'Japan', 'EU'];
+// 'China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'USA'];
 
 
 /*********************************************************
  * Define global variables for trellis
  *********************************************************/
-var t_svg = d3.select('#main').select('svg').attr('transfrom', 'translate(-100, 500)');
+var t_svg = d3.select('#main2')
+  .append('svg')
+  .attr('width', 1000)
+  .attr('height', 500);
+
 var t_svgWidth = +t_svg.attr('width');
 var t_svgHeight = +t_svg.attr('height');
-var t_padding = {t: 20, r: 20, b: 60, l: 60};
+var t_padding = {t: 20, r: 10, b: 60, l: 70};
 trellisWidth = t_svgWidth / 4 - t_padding.l - t_padding.r;
 trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
 
@@ -107,7 +112,7 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
 });
 
 // Read stacked data
-d3.csv("./data/stacked-all.csv", function (error, data) {
+d3.csv("./data/stacked-mars.csv", function (error, data) {
   if (error) throw error;
   // Convert string values to date, numbers
   parsedData = data.map(function (d) {
@@ -119,6 +124,8 @@ d3.csv("./data/stacked-all.csv", function (error, data) {
     })
     return dataObject;
    });
+
+  console.log(data);
 
   /*********************************************************
    * Draw the stacked area chart
@@ -243,7 +250,7 @@ function drawTrellis() {
     trellisG.append('text')
       .attr('class', 'y axis-label')
       .attr('transform', 'translate('+[-40, trellisHeight / 4 + 100]+') rotate(270)')
-      .text('Space Agencies');
+      .text('Countries');
 
     //append company labels
     trellisG.append('text')
@@ -258,7 +265,7 @@ function drawStackedAreas() {
 
   var stack = d3.stack()
     .keys(statusArray)
-    .offset(d3.stackOffsetDiverging);
+    .offset(d3.stackOffsetNone);
 
   var layers = stack(parsedData);
 
