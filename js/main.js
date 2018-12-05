@@ -64,6 +64,7 @@ svg.call(nodeTip);
 var sc_svg = d3
   .select('#main2')
   .append('svg')
+  .attr('class', 'legend')
   .attr('transfrom', 'translate(-100, 0)')
   .attr('width', 500)
   .attr('height', 400);
@@ -163,6 +164,7 @@ d3.csv("./data/stacked-mars.csv", function (error, data) {
    *********************************************************/
 
 function drawTrellis() {
+
   t_svg.selectAll('.background')
     .data(['A', 'B', 'C', 'C', 'A', 'B', 'C', 'C']) // dummy data
     .enter()
@@ -228,6 +230,22 @@ function drawTrellis() {
     var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
       .domain(planetNames);
 
+    // Setting for type of missions
+    var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover', 'ongoing']
+    var blue = '#21BFD1';
+    var red = '#E54925';
+    var yellow = '#E5D925';
+    var color_of_type = {
+      'lander': blue, 
+      'towards': 'black', 
+      'orbit': red, 
+      'flyby': yellow, 
+      'rover': blue, 
+      'ongoing': 'white'};
+    var legendColorScale = d3.scaleOrdinal()
+      .domain(typeDomain)
+      .range(blue, 'black', red, yellow, blue);
+
     // add grid
     var xGrid = d3.axisTop(xScale)
       .ticks(5)
@@ -247,15 +265,26 @@ function drawTrellis() {
       .data(function(d){return d.values;})
       .enter()
       .append('circle')
-      .attr('r', 2)
+      .attr('r', 4)
       .attr('cx', function (d) { 
         return xScale(d.launch); 
       })
       .attr('cy',function(d) { 
         return countryScale(d.country) + 10;
       })
-      .attr("fill", "white")
-      .attr("fill-opacity", 1);
+      .attr("fill", function(d) {
+        if (d['success'] == 'False') {
+          return 'none';
+        }
+        else {
+          return color_of_type[d['type']];
+        }
+      })
+      .attr('stroke', function(d) {
+        return color_of_type[d['type']];
+      })
+      .attr('opacity', 1);
+      // .attr("fill-opacity", 1);
 
     // Axis for trellis
     var xAxis = d3.axisBottom(xScale).ticks(5);
@@ -291,7 +320,7 @@ function drawTrellis() {
     // Append country labels
     trellisG.append('text')
       .attr('class', 'company-label')
-      .attr('transform', 'translate('+[40 + trellisWidth / 4, trellisHeight / 4 - 55]+')')
+      .attr('transform', 'translate('+[53 + trellisWidth / 4, trellisHeight / 4 - 55]+')')
       .attr('fill', function(d){
         return colorScale(d.key);
       })
@@ -299,6 +328,15 @@ function drawTrellis() {
         return d.key;
       });
 
+    var trellis_legend = d3.legendColor()
+      .labelFormat(d3.format(".2f"))
+      .shapeWidth(50)
+      .orient('horizontal')
+      .labelAlign('start')
+      .scale(legendColorScale)
+      .useClass(true);
+
+    trellisG.select('trellis').call(trellis_legend);
 }
 
 function drawStackedAreas(parsedData) {
@@ -334,8 +372,8 @@ function drawStackedAreas(parsedData) {
   var xAxis = d3.axisBottom(x);
   var yAxis = d3
     .axisLeft(y)
-    .tickFormat(d3.format('d'))
-    .tickValues([0, 1, 2, 3, 4, 5, 6, 7]);
+    .tickFormat(d3.format('d'));
+    // .tickValues([0, 1, 2, 3, 4, 5, 6, 7]);
 
   var gX = content
     .append('g')
@@ -392,7 +430,6 @@ function drawStackedAreas(parsedData) {
 
   stackAreaCanvas
     .append('g')
-    .attr('class', 'legend')
     .attr('transform', 'translate(' + legendOffset.toString() + ',20)');
 
   stackAreaCanvas.select('.legend').call(legend);
