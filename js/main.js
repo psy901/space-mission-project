@@ -43,12 +43,22 @@ let nodes;
 let datum;
 let planets;
 let links = [];
-const planetRadius = 12;
-const nonPlanetRadius = 7;
+const planetRadius = 10;
+const nonPlanetRadius = 5;
 const yOffsetFixed = 500;
 const planetColors = {
   // TODO: define planet colors here
 };
+
+// tooltip for node
+const nodeTip = d3
+  .tip()
+  .attr('class', 'd3-tip')
+  .offset([65, 5])
+  .html(name => {
+    return '<strong>' + name + '</strong>';
+  });
+  svg.call(nodeTip);
 
 /*********************************************************
  * Define global variables for StackedChart
@@ -105,6 +115,7 @@ trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
 /*********************************************************
  * Read data
  *********************************************************/
+
 // read nodes
 d3.json('./data/graph.json', (error,data) => {
   if (error) {
@@ -392,15 +403,7 @@ function drawStackedAreas() {
 }
 
 function drawNodes(filterKey) {
-  const nodeTip = d3
-    .tip()
-    .attr('class', 'd3-tip')
-    .offset([45, 5])
-    .html(d => {
-      return '<strong>' + d['name'] + '</strong>';
-    });
-  svg.call(nodeTip);
-
+  
   const filteredNodes =
     filterKey == 'show-planets'
       ? nodes.filter(d => planets.includes(d.name))
@@ -450,9 +453,10 @@ function drawNodes(filterKey) {
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
     .attr('r', d => (planets.includes(d.name) ? planetRadius : nonPlanetRadius))
-    .style('fill', d => color(d.name))
-    .on('mouseover', nodeTip.show)
-    .on('mouseout', nodeTip.hide)
+    .attr('class', d => !planets.includes(d.name) ? 'asteroid' : null)
+    // .style('fill', d => color(d.name))
+    .on('mouseover', handleMouseOverNode)
+    .on('mouseout', handleMouseOutNode)
     .on('click', updateStackedAreas);
 
   nodesEnter
@@ -468,7 +472,27 @@ function drawNodes(filterKey) {
   prevNodes.exit().remove();
 }
 
-function drawLinks(filteredData) {
+function handleMouseOverNode() {
+
+  const hover = d3.select(this);
+  let name = hover._groups[0][0].__data__.name;
+  if (!planets.includes(name)) {
+    nodeTip.show(name);
+  }
+
+  // change color here
+  hover.classed('nodeHover', true);
+
+}
+
+function handleMouseOutNode() {
+  const hover = d3.select(this);
+  nodeTip.hide();  
+  hover.classed('nodeHover', false);
+  
+}
+
+function drawArcs(filteredData) {
   // filteredData contains only the links between major planets, no cosmos or asteroid
 
   // set clip-path
@@ -643,11 +667,13 @@ function updateArcChart(filterKey) {
       : datum;
 
   // Draw Links
-  drawLinks(filteredData);
+  drawArcs(filteredData);
+  drawNodes(filterKey)
 }
 
 function updateInfoChart(missionName) {
   const filteredData = datum.filter(d => d.name == missionName);
+  console.log(filteredData)
   if (!missionName) {
     d3.select('.chart').remove();
   } else {

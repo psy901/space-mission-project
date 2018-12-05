@@ -1,6 +1,8 @@
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
+  background-color: black;
+  stroke: #ffffff;
 }
 b {
   font-weight: 900;
@@ -16,13 +18,24 @@ b {
   font-size: 10pt;
   font-weight: 900;
 
-  fill: #000000;
+  fill: #ffffff;
   stroke: #ffffff;
   stroke-width: 0.25px;
 }
 
 .node {
   stroke: #ffffff;
+  z-index: 2;
+  fill: white;
+}
+
+.asteroid {
+  opacity: 0.4;
+  /* fill: none; */
+}
+
+.nodeHover {
+  fill: yellow !important;
 }
 
 .arc {
@@ -36,26 +49,29 @@ b {
 .highlight {
   stroke: red;
   stroke-opacity: 1;
+  stroke-width: 1px;
+}
+
+.d3-tip {
+  color: white;
 }
 
 .nodeName {
-  stroke: black;
+  /* stroke: black; */
 }
 
-.node:hover {
-  fill: orangered;
-}
-
-<<<<<<< HEAD
 .infoChart {
   fill: none;
   stroke: royalblue;
   stroke-width: 2px;
+  font-size: 20px;
+  font-weight: lighter;
 }
 
 .infoDesc {
-  stroke: black;
-=======
+  stroke: #ffffff;
+}
+
 .line-plot {
     fill: none;
     stroke-width: 1.5px;
@@ -84,12 +100,6 @@ b {
   fill: #eee;
 }
 
-/*body {
-  font-family: "Open Sans";
-  margin: 0;
-}*/
-
 #main {
   margin: 20px;
->>>>>>> f0662066bbe68f27d165aaf9eb4c99d1195f662d
 }
