@@ -46,9 +46,7 @@ let links = [];
 const planetRadius = 10;
 const nonPlanetRadius = 5;
 const yOffsetFixed = 500;
-const planetColors = {
-  // TODO: define planet colors here
-};
+let currentPlanet = '';
 
 // tooltip for node
 const nodeTip = d3
@@ -58,57 +56,46 @@ const nodeTip = d3
   .html(name => {
     return '<strong>' + name + '</strong>';
   });
-  svg.call(nodeTip);
+svg.call(nodeTip);
 
 /*********************************************************
  * Define global variables for StackedChart
  *********************************************************/
-var sc_svg = d3.select('#main2')
+var sc_svg = d3
+  .select('#main2')
   .append('svg')
-  .attr('transfrom', 'translate(-100, 0)');
-var stackedContainer = d3_container.container()
-  .height(400)
-  .width(500)
-  .margin(10, 80, 50, 50);
-var sc_width = stackedContainer.contentWidth();
-var sc_height = stackedContainer.contentHeight();
-sc_svg.call(stackedContainer);
-var content = stackedContainer.content();
+  .attr('transfrom', 'translate(-100, 0)')
+  .attr('width', 500)
+  .attr('height', 400)
 var dateParse = d3.timeParse('%Y');
-var statusArray = ['USA', 'Russia', 'Soviet Union', 'China', 'India', 'Japan', 'EU'];
+var statusArray = [
+  'USA',
+  'Russia',
+  'Soviet Union',
+  'China',
+  'India',
+  'Japan',
+  'EU'
+];
 // 'China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'USA'];
-
 
 /*********************************************************
  * Define global variables for trellis
  *********************************************************/
 // Read stacked data
-d3.csv('./data/stacked-all.csv', function(error, data) {
-  if (error) throw error;
-  // Convert string values to date, numbers
-  parsedData = data.map(function(d) {
-    var dataObject = {
-      date: dateParse(d.date)
-    };
-    statusArray.forEach(function(s) {
-      dataObject[s] = +d[s];
-    });
-    return dataObject;
-  });
 
-  /*********************************************************
-   * Draw the stacked area chart
-   *********************************************************/
-  drawStackedAreas();
-});
-var t_svg = d3.select('#main2')
+/*********************************************************
+ * Draw the stacked area chat
+ *********************************************************/
+var t_svg = d3
+  .select('#main2')
   .append('svg')
   .attr('width', 1000)
   .attr('height', 500);
 
 var t_svgWidth = +t_svg.attr('width');
 var t_svgHeight = +t_svg.attr('height');
-var t_padding = {t: 20, r: 10, b: 60, l: 70};
+var t_padding = { t: 20, r: 10, b: 60, l: 70 };
 trellisWidth = t_svgWidth / 4 - t_padding.l - t_padding.r;
 trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
 
@@ -117,9 +104,9 @@ trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
  *********************************************************/
 
 // read nodes
-d3.json('./data/graph.json', (error,data) => {
+d3.json('./data/graph.json', (error, data) => {
   if (error) {
-    console.log('error!')
+    console.log('error!');
     return;
   }
   nodes = data.nodes;
@@ -127,10 +114,10 @@ d3.json('./data/graph.json', (error,data) => {
 });
 
 // read interplanetary data
-d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
+d3.csv('./data/interplanetary-parsed-with-country.csv', (error, data) => {
   if (error) {
-    console.log('error')
-    return
+    console.log('error');
+    return;
   }
   /*********************************************************
    * Draw the arc graph
@@ -145,20 +132,19 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   });
   datum = data;
   updateArcChart('show-planets');
-
+  updateStackedAreas('all');
   /*********************************************************
    * Draw the trellis
    *********************************************************/
   dataset = data;
   drawTrellis();
-
 });
-
+/*
 // Read stacked data
 d3.csv("./data/stacked-mars.csv", function (error, data) {
   if (error) throw error;
   // Convert string values to date, numbers
-  parsedData = data.map(function (d) {
+  marsData = data.map(function (d) {
     var dataObject = {
       date: dateParse(d.date)
     };
@@ -169,16 +155,16 @@ d3.csv("./data/stacked-mars.csv", function (error, data) {
    });
 
   console.log(data);
+  // drawStackedAreas();
+})
 
   /*********************************************************
    * Draw the stacked area chart
    *********************************************************/
-  drawStackedAreas();
-})
-
 
 function drawTrellis() {
-  t_svg.selectAll('.background')
+  t_svg
+    .selectAll('.background')
     .data(['A', 'B', 'C', 'C', 'A', 'B', 'C', 'C']) // dummy data
     .enter()
     .append('rect') // Append 4 rectangles
@@ -186,131 +172,199 @@ function drawTrellis() {
     .attr('width', trellisWidth) // Use our trellis dimensions
     .attr('height', trellisHeight)
     .attr('transform', function(d, i) {
-        // Position based on the matrix array indices.
-        // i = 1 for column 1, row 0)
-        var tx = (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
-        var ty = Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) + t_padding.t;
-        return 'translate('+[tx, ty]+')';
+      // Position based on the matrix array indices.
+      // i = 1 for column 1, row 0)
+      var tx =
+        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+      var ty =
+        Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
+        t_padding.t;
+      return 'translate(' + [tx, ty] + ')';
     });
 
-    var parseDate = d3.timeParse('%Y-%m-%d');
-    var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
-    var agencyDomain = ["soviet", 'nasa','jaxa','esa', 'cnsa','isro','roscosmos']
-    var priceDomain = [0, 223.02];
+  var parseDate = d3.timeParse('%Y-%m-%d');
+  var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
+  var agencyDomain = [
+    'soviet',
+    'nasa',
+    'jaxa',
+    'esa',
+    'cnsa',
+    'isro',
+    'roscosmos'
+  ];
+  var priceDomain = [0, 223.02];
 
-    dataset.forEach(function(price) {
-        price.launch = parseDate(price.launch);
-        price.finish = parseDate(price.finish);
+  dataset.forEach(function(price) {
+    price.launch = parseDate(price.launch);
+    price.finish = parseDate(price.finish);
+  });
 
-    });
+  t_filteredData = dataset.filter(function(d) {
+    return d['object'] == 'planet';
+  });
 
-    t_filteredData = dataset.filter(function (d) {
-        return d['object'] == "planet";
-    });
-
-    var agencyNames = d3.set(dataset.map(function(d) {
-      return d.agency;})
-    ).values();
-
-    var nested = d3.nest()
-      .key(function(c) {
-        return c.to;
+  var agencyNames = d3
+    .set(
+      dataset.map(function(d) {
+        return d.agency;
       })
-      .entries(t_filteredData);
+    )
+    .values();
 
-    var trellisG = t_svg.selectAll('.trellis')
-      .data(nested)
-      .enter()
-      .append('g')
-      .attr('class', 'trellis')
-      .attr('transform', function(d, i) {
-        var tx = (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
-        var ty = Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) + t_padding.t;
-        return 'translate('+[tx, ty]+')';
-      });
+  var nested = d3
+    .nest()
+    .key(function(c) {
+      return c.to;
+    })
+    .entries(t_filteredData);
 
-    var xScale = d3.scaleTime()
-      .domain(dateDomain)
-      .range([0, trellisWidth]);
+  var trellisG = t_svg
+    .selectAll('.trellis')
+    .data(nested)
+    .enter()
+    .append('g')
+    .attr('class', 'trellis')
+    .attr('transform', function(d, i) {
+      var tx =
+        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+      var ty =
+        Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
+        t_padding.t;
+      return 'translate(' + [tx, ty] + ')';
+    });
 
-    agencyScale = d3.scaleBand().domain(agencyNames)
-      .range([trellisHeight, 0]).padding(0.1);
+  var xScale = d3
+    .scaleTime()
+    .domain(dateDomain)
+    .range([0, trellisWidth]);
 
-    var planetNames = nested.map(function(d){
+  agencyScale = d3
+    .scaleBand()
+    .domain(agencyNames)
+    .range([trellisHeight, 0])
+    .padding(0.1);
+
+  var planetNames = nested.map(function(d) {
+    return d.key;
+  });
+
+  var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
+
+  // add grid
+  var xGrid = d3
+    .axisTop(xScale)
+    .ticks(5)
+    .tickSize(-trellisHeight, 0, 0)
+    .tickFormat('');
+
+  trellisG
+    .append('g')
+    .attr('class', 'x grid')
+    .call(xGrid);
+
+  var yGrid = d3
+    .axisLeft(agencyScale)
+    .tickSize(-trellisWidth, 0, 0)
+    .tickFormat('');
+
+  trellisG
+    .append('g')
+    .attr('class', 'y grid')
+    .call(yGrid);
+
+  trellisG
+    .selectAll('circle')
+    .data(function(d) {
+      return d.values;
+    })
+    .enter()
+    .append('circle')
+    .attr('r', 2)
+    .attr('cx', function(d) {
+      return xScale(d.launch);
+    })
+    .attr('cy', function(d) {
+      return agencyScale(d.agency) + 20;
+    })
+    .attr('fill', 'black')
+    .attr('fill-opacity', 0.7);
+
+  // Axis for trellis
+  var xAxis = d3.axisBottom(xScale).ticks(5);
+  trellisG
+    .append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0,' + trellisHeight + ')')
+    .call(xAxis);
+
+  var yAxis = d3.axisLeft(agencyScale);
+  trellisG
+    .append('g')
+    .attr('class', 'y axis')
+    .style('display', (d, i) => {
+      console.log(d.key);
+      if (d.key != 'mars' && d.key != 'mercury') {
+        return 'none';
+      }
+    })
+    .attr('transform', 'translate(0,0)')
+    .call(yAxis);
+
+  // Label axis
+  trellisG
+    .append('text')
+    .attr('class', 'x axis-label')
+    .attr(
+      'transform',
+      'translate(' + [trellisWidth / 4, trellisHeight + 34] + ')'
+    )
+    .text('Launch Date');
+
+  trellisG
+    .append('text')
+    .attr('class', 'y axis-label')
+    .attr(
+      'transform',
+      'translate(' + [-40, trellisHeight / 4 + 100] + ') rotate(270)'
+    )
+    .text('Countries');
+
+  //append company labels
+  trellisG
+    .append('text')
+    .attr('class', 'company-label')
+    .attr(
+      'transform',
+      'translate(' + [trellisWidth / 4, trellisHeight / 4] + ')'
+    )
+    .attr('fill', function(d) {
+      return colorScale(d.key);
+    })
+    .text(function(d) {
       return d.key;
     });
-
-    var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
-      .domain(planetNames);
-
-    // add grid
-    var xGrid = d3.axisTop(xScale)
-      .ticks(5)
-      .tickSize(-trellisHeight, 0, 0)
-      .tickFormat('');
-
-    trellisG.append('g')
-      .attr('class', 'x grid')
-      .call(xGrid);
-
-    var yGrid = d3.axisLeft(agencyScale)
-      .tickSize(-trellisWidth, 0, 0)
-      .tickFormat('')
-
-    trellisG.append('g')
-      .attr('class', 'y grid')
-      .call(yGrid);
-
-    trellisG.selectAll('circle')
-      .data(function(d){return d.values;})
-      .enter()
-      .append('circle')
-      .attr('r', 2)
-      .attr('cx', function (d) { return xScale(d.launch)})
-      .attr('cy',function(d) { return agencyScale(d.agency) + 20;})
-      .attr("fill", "black")
-      .attr("fill-opacity", 0.7);
-
-    // Axis for trellis
-    var xAxis = d3.axisBottom(xScale).ticks(5);
-    trellisG.append('g')
-      .attr('class', 'x axis')
-      .attr('transform', 'translate(0,'+trellisHeight+')')
-      .call(xAxis);
-
-    var yAxis = d3.axisLeft(agencyScale);
-    trellisG.append('g')
-      .attr('class', 'y axis')
-      .attr('transform', 'translate(0,0)')
-      .call(yAxis);
-
-    // Label axis
-    trellisG.append('text')
-      .attr('class', 'x axis-label')
-      .attr('transform', 'translate('+[trellisWidth / 4, trellisHeight + 34]+')')
-      .text('Launch Date');
-
-    trellisG.append('text')
-      .attr('class', 'y axis-label')
-      .attr('transform', 'translate('+[-40, trellisHeight / 4 + 100]+') rotate(270)')
-      .text('Countries');
-
-    //append company labels
-    trellisG.append('text')
-      .attr('class', 'company-label')
-      .attr('transform', 'translate('+[trellisWidth / 4, trellisHeight / 4]+')')
-      .attr('fill', function(d){return colorScale(d.key);})
-      .text(function(d){return d.key;});
-
 }
 
-function drawStackedAreas() {
+function drawStackedAreas(parsedData) {
+  const stackAreaCanvas = sc_svg.append('g').attr('class', 'stackedArea');
+  var stackedContainer = d3_container
+    .container()
+    .height(400)
+    .width(500)
+    .margin(10, 80, 50, 50);
+  var sc_width = stackedContainer.contentWidth();
+  var sc_height = stackedContainer.contentHeight();
+  stackAreaCanvas.call(stackedContainer);
+  var content = stackedContainer.content();
+
   var stack = d3
     .stack()
     .keys(statusArray)
     .offset(d3.stackOffsetNone);
 
   var layers = stack(parsedData);
+  console.log('DRAWING STACKED CHART!');
 
   var x = d3
     .scaleTime()
@@ -377,16 +431,16 @@ function drawStackedAreas() {
     .selectAll('.layer')
     .data(layers)
     .enter()
-    .append("g")
+    .append('g')
     .attr('width', 400)
-    .attr("class", "layer");
+    .attr('class', 'layer');
 
-  sc_svg
+    stackAreaCanvas
     .append('g')
     .attr('class', 'legend')
     .attr('transform', 'translate(' + legendOffset.toString() + ',20)');
 
-  sc_svg.select('.legend').call(legend);
+    stackAreaCanvas.select('.legend').call(legend);
 
   layerGroups
     .append('path')
@@ -403,14 +457,13 @@ function drawStackedAreas() {
 }
 
 function drawNodes(filterKey) {
-  
   const filteredNodes =
     filterKey == 'show-planets'
       ? nodes.filter(d => planets.includes(d.name))
       : nodes;
 
   // const distanceExtent = d3.extent(filteredNodes, d =>
-    // parseFloat(d['distance'])
+  // parseFloat(d['distance'])
   // );
   // console.log(distanceExtent);
   const distanceExtent = [18, 6334];
@@ -453,11 +506,11 @@ function drawNodes(filterKey) {
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
     .attr('r', d => (planets.includes(d.name) ? planetRadius : nonPlanetRadius))
-    .attr('class', d => !planets.includes(d.name) ? 'asteroid' : null)
+    .attr('class', d => (!planets.includes(d.name) ? 'asteroid' : null))
     // .style('fill', d => color(d.name))
     .on('mouseover', handleMouseOverNode)
     .on('mouseout', handleMouseOutNode)
-    .on('click', updateStackedAreas);
+    .on('click', handleMouseClick);
 
   nodesEnter
     .append('text')
@@ -468,12 +521,11 @@ function drawNodes(filterKey) {
     .text(d => {
       if (planets.includes(d['name'])) return d['name'];
     });
-  console.log(prevNodes)
+  // console.log(prevNodes);
   prevNodes.exit().remove();
 }
 
 function handleMouseOverNode() {
-
   const hover = d3.select(this);
   let name = hover._groups[0][0].__data__.name;
   if (!planets.includes(name)) {
@@ -482,14 +534,12 @@ function handleMouseOverNode() {
 
   // change color here
   hover.classed('nodeHover', true);
-
 }
 
 function handleMouseOutNode() {
+  nodeTip.hide();
   const hover = d3.select(this);
-  nodeTip.hide();  
   hover.classed('nodeHover', false);
-  
 }
 
 function drawArcs(filteredData) {
@@ -566,7 +616,7 @@ function drawInfoChart(filteredData) {
     return;
   }
 
-  console.log(filteredData);
+  // console.log(filteredData);
   const chart = d3
     .select('.infoChart')
     .append('g')
@@ -621,8 +671,10 @@ function drawInfoChart(filteredData) {
 
 function handleMouseClick(d, i) {
   const click = d3.select(this);
+  let nodeName = click._groups[0][0].__data__.name;
 
-  // TODO: send planet name to HK's function
+  // call updateStackedChart
+  updateStackedAreas(nodeName);
 }
 
 function handleMouseOverArc(d, i) {
@@ -668,12 +720,12 @@ function updateArcChart(filterKey) {
 
   // Draw Links
   drawArcs(filteredData);
-  drawNodes(filterKey)
+  drawNodes(filterKey);
 }
 
 function updateInfoChart(missionName) {
   const filteredData = datum.filter(d => d.name == missionName);
-  console.log(filteredData)
+  // console.log(filteredData);
   if (!missionName) {
     d3.select('.chart').remove();
   } else {
@@ -681,6 +733,31 @@ function updateInfoChart(missionName) {
   }
 }
 
-function updateStackedAreas() {
+function updateStackedAreas(filterKey) {
   // TODO: update global variable for stacked Chart here
+  if (currentPlanet == filterKey) {
+    console.log(currentPlanet, filterKey);
+    return;
+  }
+  d3.select('.stackedArea').remove();
+  // d3.select('.content').remove();
+  currentPlanet = filterKey;
+  const filename = `stacked-${filterKey}.csv`;
+  console.log(filename);
+
+  d3.csv(`./data/${filename}`, function(error, data) {
+    if (error) throw error;
+    // Convert string values to date, numbers
+    parsedData = data.map(function(d) {
+      var dataObject = {
+        date: dateParse(d.date)
+      };
+      statusArray.forEach(function(s) {
+        dataObject[s] = +d[s];
+      });
+      return dataObject;
+    });
+    drawStackedAreas(parsedData);
+  });
+  // parsedData = if name == 'none' allData if name == mars marsedata...ANGLE_instanced_arrays.VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE
 }
