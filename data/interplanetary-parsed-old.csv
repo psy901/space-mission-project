@@ -1,0 +1,163 @@
+name,success,type,from,to,object,launch,finish,cospar,agency
+Mars 1M,False,flyby,earth,mars,planet,1960-10-10,1960-10-10,MARSNK1,soviet
+Mars 2M,False,towards,earth,mars,planet,1960-10-14,1960-10-14,MARSNK2,soviet
+Sputnik 7,False,towards,earth,venus,planet,1961-02-04,1961-02-26,,soviet
+Venera 1,False,towards,earth,venus,planet,1961-02-12,1961-02-19,,soviet
+Mariner 1,False,towards,earth,venus,planet,1962-07-22,1962-07-22,,nasa
+Mariner 2,True,flyby,earth,venus,planet,1962-08-27,1963-01-03,,nasa
+Sputnik 20,False,towards,earth,venus,planet,1962-09-01,1962-09-06,,soviet
+Sputnik 21,False,towards,earth,venus,planet,1962-09-12,1962-09-14,,soviet
+Sputnik 22,False,towards,earth,mars,planet,1962-10-24,1962-10-29,,soviet
+Mars 1,False,towards,earth,mars,planet,1962-11-01,1963-03-21,,soviet
+Sputnik 24,False,towards,earth,mars,planet,1962-11-04,1962-11-25,,soviet
+Cosmos 21,False,towards,earth,venus,planet,1963-11-11,1963-11-14,,soviet
+Venera 1964A,False,towards,earth,venus,planet,1964-02-19,1964-02-19,,soviet
+Venera 1964B,False,towards,earth,venus,planet,1964-03-01,1964-03-01,,soviet
+Cosmos 27,False,towards,earth,venus,planet,1964-03-27,1964-03-27,,soviet
+Zond 1,False,towards,earth,venus,planet,1964-04-02,1964-04-02,,soviet
+Mariner 3,False,towards,earth,mars,planet,1964-11-05,1964-11-05,,nasa
+Mariner 4,True,flyby,earth,mars,planet,1964-11-28,1967-12-21,,nasa
+Zond 2,False,towards,earth,mars,planet,1964-11-30,1965-08-06,,soviet
+Venera 2,False,towards,earth,venus,planet,1965-11-12,1966-03-04,,soviet
+Venera 3,False,lander,earth,venus,planet,1965-11-16,1966-03-01,,soviet
+Cosmos 96,False,towards,earth,venus,planet,1965-11-23,1965-12-09,,soviet
+Venera 1965A,False,towards,earth,venus,planet,1965-11-26,1965-11-26,,soviet
+Unnamed,False,towards,earth,mars,planet,1967-03-27,1967-03-27,,soviet
+Venera 4,True,lander,earth,venus,planet,1967-06-12,1967-10-18,,soviet
+Mariner 5,True,flyby,earth,venus,planet,1967-06-14,1967-11-01,,nasa
+Cosmos 167,False,towards,earth,venus,planet,1967-06-17,1967-06-25,,soviet
+Venera 5,True,lander,earth,venus,planet,1969-01-05,1969-05-16,,soviet
+Venera 6,True,lander,earth,venus,planet,1969-01-10,1969-05-17,,soviet
+Mariner 6,True,flyby,earth,mars,planet,1969-02-25,,,nasa
+Mars 1969A,False,towards,earth,mars,planet,1969-03-27,1969-03-27,,soviet
+Mariner 7,True,flyby,earth,mars,planet,1969-03-27,,,nasa
+Mars 1969B,False,towards,earth,mars,planet,1969-04-02,1969-04-02,,soviet
+Venera 7,True,lander,earth,venus,planet,1970-08-17,,,soviet
+Cosmos 359,False,towards,earth,venus,planet,1970-08-22,1970-08-22,,soviet
+Mariner 8,False,towards,earth,mars,planet,1971-05-08,1971-05-08,,nasa
+Cosmos 419,False,towards,earth,mars,planet,1971-05-10,1971-05-12,,soviet
+Mars 2,True,orbit,earth,mars,planet,1971-05-19,1971-11-27,,soviet
+Mars 2,False,lander,mars,mars,planet,1971-11-27,1971-11-27,,soviet
+Mars 3,True,orbit,earth,mars,planet,1971-05-28,1971-12-02,1971-049A,soviet
+Mars 3,True,lander,mars,mars,planet,1971-12-02,1971-12-02,1971-049A,soviet
+Mariner 9,True,orbit,earth,mars,planet,1971-05-30,1972-10-27,,nasa
+Pioneer 10,True,flyby,earth,jupiter,planet,1972-03-03,1973-12-04,,nasa
+Pioneer 10,True,ongoing,jupiter,heliopause,asteroid,1973-12-04,,,nasa
+Venera 8,True,lander,earth,venus,planet,1972-03-27,1972-07-22,,soviet
+Cosmos 482,False,towards,earth,venus,planet,1972-03-31,1972-04-03,,soviet
+Pioneer 11,True,flyby,earth,jupiter,planet,1973-04-06,1974-12-03,,nasa
+Pioneer 11,True,flyby,jupiter,saturn,planet,1974-12-03,1979-09-01,,nasa
+Pioneer 11,True,ongoing,saturn,heliopauseb,asteroid,1979-09-01,,,nasa
+Mars 4,True,flyby,earth,mars,planet,1973-07-21,,,soviet
+Mars 5,True,orbit,earth,mars,planet,1973-07-25,,,soviet
+Mars 6,False,lander,earth,mars,planet,1973-08-05,,,soviet
+Mars 7,False,lander,earth,mars,planet,1973-08-09,,1973-053A,soviet
+Mariner 10,True,flyby,earth,venus,planet,1973-11-03,1974-02-05,,nasa
+Mariner 10,True,flyby,venus,mercury,planet,1974-02-05,1974-03-29,,nasa
+Mariner 10,True,flyby,mercury,mercury,planet,1974-03-29,1974-09-21,,nasa
+Mariner 10,True,flyby,mercury,mercury,planet,1974-09-21,1975-03-16,,nasa
+Venera 9,True,orbit,earth,venus,planet,1975-06-08,1975-10-20,,soviet
+Venera 9,True,lander,venus,venus,planet,1975-10-20,1975-10-22,,soviet
+Venera 10,True,orbit,earth,venus,planet,1975-06-14,1975-10-23,,soviet
+Venera 10,True,lander,venus,venus,planet,1975-10-23,1975-10-25,,soviet
+Viking 1,True,lander,earth,mars,planet,1975-08-20,1980-08-17,,nasa
+Viking 2,True,lander,earth,mars,planet,1975-09-09,1980-04-11,,nasa
+Voyager 2,True,flyby,earth,jupiter,planet,1977-08-20,1979-07-09,,nasa
+Voyager 2,True,flyby,jupiter,saturn,planet,1979-07-09,1981-08-26,,nasa
+Voyager 2,True,flyby,saturn,uranus,planet,1981-08-26,1986-01-24,,nasa
+Voyager 2,True,flyby,uranus,neptune,planet,1986-01-24,1989-08-25,,nasa
+Voyager 2,True,ongoing,neptune,heliopause2,asteroid,1989-08-25,,,nasa
+Voyager 1,True,flyby,earth,jupiter,planet,1977-09-05,1979-03-05,,nasa
+Voyager 1,True,flyby,jupiter,saturn,planet,1979-03-05,1980-11-12,,nasa
+Voyager 1,True,ongoing,saturn,heliopause1,asteroid,1980-11-12,,,nasa
+Pioneer Venus Orbiter,True,orbit,earth,venus,planet,1978-05-20,1992-10-08,,nasa
+Pioneer Venus Probe Bus,True,lander,earth,venus,planet,1978-08-08,1978-12-09,,nasa
+Venera 11,True,lander,earth,venus,planet,1978-09-09,1978-12-25,,soviet
+Venera 12,True,flyby,earth,venus,planet,1978-09-14,1978-12-21,,soviet
+Venera 12,True,lander,venus,venus,planet,1978-12-21,1978-12-21,,soviet
+Venera 13,True,flyby,earth,venus,planet,1981-10-30,1982-03-01,,soviet
+Venera 13,True,lander,venus,venus,planet,1982-03-01,1982-03-01,,soviet
+Venera 14,True,flyby,earth,venus,planet,1981-11-04,1982-03-05,,soviet
+Venera 14,True,lander,venus,venus,planet,1982-03-05,1982-03-05,,soviet
+Venera 15,True,orbit,earth,venus,planet,1983-06-02,1984-07-01,,soviet
+Venera 16,True,orbit,earth,venus,planet,1983-06-07,1984-07-01,,soviet
+Vega 1,True,flyby,earth,venus,planet,1984-12-15,1985-06-11,1984-125A,soviet
+Vega 1,True,lander,venus,venus,planet,1985-06-11,1985-06-11,1984-125A,soviet
+Vega 1,True,flyby,venus,1P/Halley,asteroid,1985-06-11,1986-03-06,1984-125A,soviet
+Vega 2,True,flyby,earth,venus,planet,1984-12-21,1985-06-15,,soviet
+Vega 2,True,flyby,venus,1P/Halley,asteroid,1985-06-15,1986-03-07,,soviet
+Giotto,True,flyby,earth,1P/Halley,asteroid,1984-07-02,1986-03-14,,esa
+Giotto,True,flyby,1P/Halley,26P/Grigg-Skjellerup,asteroid,1986-03-14,1992-07-10,,esa
+Suisei,True,flyby,earth,1P/Halley,asteroid,1985-08-19,1985-08-19,,jaxa
+Suisei,False,flyby,1P/Halley,21P/Giacobini-Zinner,asteroid,1985-08-19,1998-11-24,,jaxa
+ICE,True,flyby,earth,21P/Giacobini-Zinner,asteroid,1984-08-12,1985-09-11,,nasa
+ICE,True,flyby,21P/Giacobini-Zinner,1P/Halley,asteroid,1985-09-11,1986-05-01,,nasa
+Phobos 1,False,orbit,earth,mars,planet,1988-07-07,1988-09-02,,soviet
+Phobos 2,True,orbit,earth,mars,planet,1988-07-12,1989-03-27,1988-059A,soviet
+Magellan,True,orbit,earth,venus,planet,1989-05-04,1994-10-13,1989-033B,nasa
+Galileo,True,flyby,earth,venus,planet,1989-10-18,1990-02-10,1989-084B,nasa
+Galileo,True,flyby,venus,(951) Gaspra,asteroid,1990-02-10,1991-10-29,1989-084B,nasa
+Galileo,True,flyby,(951) Gaspra,(243) Ida,asteroid,1991-10-29,1993-08-28,1989-084B,nasa
+Galileo,True,orbit,(243) Ida,jupiter,planet,1993-08-28,1995-12-08,1989-084B,nasa
+Ulysses,True,flyby,earth,jupiter,planet,1990-10-06,2009-06-30,,esa
+Mars Observer,False,flyby,earth,mars,planet,1992-09-25,1993-08-21,1992-063A,nasa
+Mars Global Surveyor,True,orbit,earth,mars,planet,1996-11-07,2006-11-02,1996-062A,nasa
+Mars 96,False,towards,earth,mars,planet,1996-11-16,1996-11-17,,roscosmos
+Mars Pathfinder,True,lander,earth,mars,planet,1996-12-04,1997-09-27,1996-068A,nasa
+Cassini-Huygens,True,flyby,earth,venus,planet,1997-10-15,1998-04-26,1997-061A,nasa
+Cassini-Huygens,True,flyby,venus,venus,planet,1998-04-26,1999-06-24,1997-061A,nasa
+Cassini-Huygens,True,flyby,venus,jupiter,planet,1999-06-24,2000-12-30,1997-061A,nasa
+Cassini-Huygens,True,orbit,jupiter,saturn,planet,2000-12-30,2004-07-01,1997-061A,nasa
+Cassini-Huygens,True,lander,saturn,titan,asteroid,2004-07-01,2005-01-14,1997-061A,nasa
+Nozomi (Planet-B),False,towards,earth,mars,planet,1998-07-03,2003-12-14,,jaxa
+Mars Climate Orbiter,False,orbit,earth,mars,planet,1998-12-10,1999-09-23,1998-073A,nasa
+Mars Polar Lander,False,lander,earth,mars,planet,1999-01-03,,1999-001A,nasa
+Mars Odyssey,True,orbit,earth,mars,planet,2001-04-07,,2001-014A,nasa
+Mars Express,True,orbit,earth,mars,planet,2003-06-02,2003-12-25,,esa
+Mars Express,False,lander,mars,mars,planet,2003-12-25,2003-12-25,,esa
+Spirit (MER-A),True,rover,earth,mars,planet,2003-06-10,2010-03-22,,nasa
+Opportunity (MER-B),True,rover,earth,mars,planet,2003-07-08,,,nasa
+Rosetta,True,flyby,earth,mars,planet,2004-03-02,2007-02-25,,esa
+Rosetta,True,flyby,mars,(2867) Steins,asteroid,2007-02-25,2008-09-05,,esa
+Rosetta,True,flyby,(2867) Steins,(21) Lutetia,asteroid,2008-09-05,2010-07-10,,esa
+Rosetta,True,orbit,(21) Lutetia,67P/Churyumov-Gerasimenko,asteroid,2010-07-10,2014-08-06,,esa
+MESSENGER,True,flyby,earth,venus,planet,2004-08-03,2006-10-24,,nasa
+MESSENGER,True,orbit,venus,mercury,planet,2006-10-24,2011-03-18,,nasa
+Mars Reconnaissance Orbiter,True,orbit,earth,mars,planet,2005-08-12,,2005-029A,nasa
+Venus Express,True,orbit,earth,venus,planet,2005-11-09,2015-01-18,,esa
+New Horizons,True,flyby,earth,(132524) APL,asteroid,2006-01-17,2006-06-13,,nasa
+New Horizons,True,flyby,(132524) APL,jupiter,planet,2006-06-13,2007-02-28,,nasa
+New Horizons,True,flyby,jupiter,pluto,asteroid,2007-02-28,2015-06-14,,nasa
+New Horizons,True,ongoing,pluto,2014 MU69,asteroid,2015-06-14,2019-01-01,,nasa
+New Horizons,True,ongoing,2014 MU69,heliopause3,asteroid,2019-01-01,,,nasa
+Phoenix,True,lander,earth,mars,planet,2007-08-04,2008-11-10,,nasa
+Dawn,True,flyby,earth,mars,planet,2007-09-27,2009-02-17,,nasa
+Dawn,True,orbit,mars,vesta,asteroid,2009-02-17,2011-07-16,,nasa
+Dawn,True,orbit,vesta,ceres,asteroid,2011-07-16,2015-03-06,,nasa
+NEAR,True,orbit,earth,(433) Eros,asteroid,1996-02-17,,,nasa
+Deep Space 1,True,flyby,earth,(9969) Braille,asteroid,1998-10-24,2001-09-22,,nasa
+Deep Space 1,True,orbit,(9969) Braille,19P/Borrelly,asteroid,2001-09-22,2001-09-22,,nasa
+CONTOUR,False,flyby,earth,2P/Encke,asteroid,2002-07-02,2003-11-03,,nasa
+CONTOUR,False,flyby,2P/Encke,73P/Schwassmann-Wachmann,asteroid,2003-11-03,2006-06-18,,nasa
+Deep Impact,True,flyby,earth,9P/Tempel,asteroid,2005-01-12,2005-07-04,2005-001A,nasa
+Deep Impact,True,flyby,9P/Tempel,103P/Hartley,asteroid,2005-07-04,2010-11-04,2005-001A,nasa
+Stardust,True,flyby,earth,(5535) Annefrank,asteroid,1999-02-07,2002-11-02,,nasa
+Stardust,True,flyby,(5535) Annefrank,81P/Wild,asteroid,2002-11-02,2004-01-02,,nasa
+Stardust,True,lander,81P/Wild,earth,planet,2004-01-02,2006-01-15,,nasa
+Stardust,True,flyby,earth,9P/Tempel,asteroid,2006-01-15,2011-02-14,,nasa
+Akatsuki (Planet-C),False,orbit,earth,venus,planet,2010-05-20,2010-12-06,2010-020D,jaxa
+Akatsuki (Planet-C),True,orbit,venus,venus,planet,2010-12-06,2015-12-07,2010-020D,jaxa
+Juno,True,orbit,earth,jupiter,planet,2011-08-05,,,nasa
+Phobos-Grunt,False,towards,earth,mars,planet,2011-11-08,2012-01-15,,roscosmos
+Yinghuo-1,False,towards,earth,mars,planet,2011-11-08,2012-01-15,,cnsa
+Curiosity (Mars Science Laboratory),True,rover,earth,mars,planet,2011-11-26,,,nasa
+Mars Orbiter Mission,True,orbit,earth,mars,planet,2013-11-05,,,isro
+MAVEN,True,orbit,earth,mars,planet,2013-11-18,,,nasa
+Hayabusa,True,orbit,earth,(25143) Itokawa,asteroid,2003-05-09,2005-10-04,,jaxa
+Hayabusa,False,lander,(25143) Itokawa,(25143) Itokawa,asteroid,2005-10-04,2005-11-19,,jaxa
+Hayabusa,True,lander,(25143) Itokawa,earth,planet,2005-11-19,2010-06-13,,jaxa
+Hayabusa 2,True,flyby,earth,earth,planet,2014-12-03,2015-12-03,2014-076A,jaxa
+Hayabusa 2,True,ongoing,earth,(162173) 1999 JU3,asteroid,2015-12-03,2018-06,2014-076A,jaxa
+Chang'e 2,True,flyby,earth,(4179) Toutatis,asteroid,2010-10-01,,,cnsa
+ExoMars Trace Gas Orbiter,True,ongoing,earth,mars,planet,2016-03-14,,2016-017A,esa
+OSIRIS-REx,True,ongoing,earth,(101955) Bennu,asteroid,2016-09-08,,,nasa

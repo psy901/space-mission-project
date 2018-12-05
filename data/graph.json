@@ -1,6 +1,6 @@
 {
   "nodes": [
-    { "name": "mercury", "distance": 37.9, "size": 3.383},
+    { "name": "mercury", "distance": 40, "size": 3.38},
     { "name": "venus", "distance": 68.2, "size": 9.49},
     { "name": "earth", "distance": 149.6, "size": 10},
     { "name": "mars", "distance": 290, "size": 5.32},
