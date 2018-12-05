@@ -163,8 +163,7 @@ d3.csv("./data/stacked-mars.csv", function (error, data) {
    *********************************************************/
 
 function drawTrellis() {
-  t_svg
-    .selectAll('.background')
+  t_svg.selectAll('.background')
     .data(['A', 'B', 'C', 'C', 'A', 'B', 'C', 'C']) // dummy data
     .enter()
     .append('rect') // Append 4 rectangles
@@ -172,282 +171,134 @@ function drawTrellis() {
     .attr('width', trellisWidth) // Use our trellis dimensions
     .attr('height', trellisHeight)
     .attr('transform', function(d, i) {
-      // Position based on the matrix array indices.
-      // i = 1 for column 1, row 0)
-      var tx =
-        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
-      var ty =
-        Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
-        t_padding.t;
-      return 'translate(' + [tx, ty] + ')';
+        // Position based on the matrix array indices.
+        // i = 1 for column 1, row 0)
+        var tx = (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+        var ty = Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) + t_padding.t;
+        return 'translate('+[tx, ty]+')';
     });
 
-  var parseDate = d3.timeParse('%Y-%m-%d');
-  var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
+    var parseDate = d3.timeParse('%Y-%m-%d');
+    var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
+    var countryDomain = ['USA', 'Russia', 'Soviet Union', 'China', 'India', 'Japan', 'EU'];
+    var priceDomain = [0, 223.02];
 
-  dataset.forEach(function(price) {
-    price.launch = parseDate(price.launch);
-    price.finish = parseDate(price.finish);
-  });
-  var parseDate = d3.timeParse('%Y-%m-%d');
-  var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
-  var countryDomain = [
-    'USA',
-    'Russia',
-    'Soviet Union',
-    'China',
-    'India',
-    'Japan',
-    'EU'
-  ];
-  var priceDomain = [0, 223.02];
+    dataset.forEach(function(price) {
+        price.launch = parseDate(price.launch);
+        price.finish = parseDate(price.finish);
 
-  t_filteredData = dataset.filter(function(d) {
-    return d['object'] == 'planet';
-  });
-
-  var agencyNames = d3
-    .set(
-      dataset.map(function(d) {
-        return d.agency;
-      })
-    )
-    .values();
-
-  var nested = d3
-    .nest()
-    .key(function(c) {
-      return c.to;
-    })
-    .entries(t_filteredData);
-
-  var trellisG = t_svg
-    .selectAll('.trellis')
-    .data(nested)
-    .enter()
-    .append('g')
-    .attr('class', 'trellis')
-    .attr('transform', function(d, i) {
-      var tx =
-        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
-      var ty =
-        Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
-        t_padding.t;
-      return 'translate(' + [tx, ty] + ')';
     });
 
-  var xScale = d3
-    .scaleTime()
-    .domain(dateDomain)
-    .range([0, trellisWidth]);
-  var countryNames = d3
-    .set(
-      dataset.map(function(d) {
-        return d.country;
+    t_filteredData = dataset.filter(function (d) {
+        return d['object'] == "planet";
+    });
+
+    var countryNames = d3.set(dataset.map(function(d) {
+      return d.country;})
+    ).values();
+
+    var nested = d3.nest()
+      .key(function(c) {
+        return c.to;
       })
-    )
-    .values();
+      .entries(t_filteredData);
 
-  agencyScale = d3
-    .scaleBand()
-    .domain(countryNames)
-    .range([trellisHeight, 0])
-    .padding(0.1);
+    var trellisG = t_svg.selectAll('.trellis')
+      .data(nested)
+      .enter()
+      .append('g')
+      .attr('class', 'trellis')
+      .attr('transform', function(d, i) {
+        var tx = (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+        var ty = Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) + t_padding.t;
+        return 'translate('+[tx, ty]+')';
+      });
 
-  var planetNames = nested.map(function(d) {
-    return d.key;
-  });
+    var xScale = d3.scaleTime()
+      .domain(dateDomain)
+      .range([0, trellisWidth]);
 
-  var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
+    countryScale = d3.scaleBand().domain(countryNames)
+      .range([trellisHeight, 0]).padding(0.1);
 
-  // add grid
-  var xGrid = d3
-    .axisTop(xScale)
-    .ticks(5)
-    .tickSize(-trellisHeight, 0, 0)
-    .tickFormat('');
-  countryScale = d3
-    .scaleBand()
-    .domain(countryNames)
-    .range([trellisHeight, 0])
-    .padding(0.1);
-
-  trellisG
-    .append('g')
-    .attr('class', 'x grid')
-    .call(xGrid);
-
-  var yGrid = d3
-    .axisLeft(agencyScale)
-    .tickSize(-trellisWidth, 0, 0)
-    .tickFormat('');
-
-  trellisG
-    .append('g')
-    .attr('class', 'y grid')
-    .call(yGrid);
-  var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
-
-  // add grid
-  var xGrid = d3
-    .axisTop(xScale)
-    .ticks(5)
-    .tickSize(-trellisHeight, 0, 0)
-    .tickFormat('');
-
-  var yGrid = d3
-    .axisLeft(countryScale)
-    .tickSize(-trellisWidth, 0, 0)
-    .tickFormat('');
-
-  trellisG
-    .append('g')
-    .attr('class', 'y grid')
-    .attr('opacity', 0.2)
-    .call(yGrid);
-
-  trellisG
-    .selectAll('circle')
-    .data(function(d) {
-      return d.values;
-    })
-    .enter()
-    .append('circle')
-    .attr('r', 2)
-    .attr('cx', function(d) {
-      return xScale(d.launch);
-    })
-    .attr('cy', function(d) {
-      return countryScale(d.country) + 10;
-    })
-    .attr('fill', 'white')
-    .attr('fill-opacity', 1);
-
-  // Axis for trellis
-  var xAxis = d3.axisBottom(xScale).ticks(5);
-
-  trellisG
-    .append('g')
-    .attr('class', 'trellisAxis')
-    .attr('transform', 'translate(0,' + trellisHeight + ')')
-    .call(xAxis);
-
-  var yAxis = d3.axisLeft(countryScale);
-
-  trellisG
-    .append('g')
-    .attr('class', 'y axis')
-    .style('display', (d, i) => {
-      if (d.key != 'mars' && d.key != 'mercury') {
-        return 'none';
-      }
-    })
-    .attr('transform', 'translate(0,0)')
-    .call(yAxis);
-
-  // Label axis
-  trellisG
-    .append('text')
-    .attr('class', 'x axis-label')
-    .attr(
-      'transform',
-      'translate(' + [35 + trellisWidth / 4, trellisHeight + 34] + ')'
-    );
-  // .text('Launch Date');
-
-  trellisG
-    .append('text')
-    .attr('class', 'y axis-label')
-    .attr(
-      'transform',
-      'translate(' + [-50, trellisHeight / 4 + 50] + ') rotate(270)'
-    );
-  // .text('Countries');
-
-  // Append country labels
-  trellisG
-    .append('text')
-    .attr('class', 'company-label')
-    .attr(
-      'transform',
-      'translate(' + [40 + trellisWidth / 4, trellisHeight / 4 - 55] + ')'
-    )
-    .attr('fill', function(d) {
-      return colorScale(d.key);
-    })
-    .text(function(d) {
+    var planetNames = nested.map(function(d){
       return d.key;
     });
 
-  trellisG
-    .selectAll('circle')
-    .data(function(d) {
-      return d.values;
-    })
-    .enter()
-    .append('circle')
-    .attr('r', 2)
-    .attr('cx', function(d) {
-      return xScale(d.launch);
-    })
-    .attr('cy', function(d) {
-      return agencyScale(d.agency) + 20;
-    })
-    .attr('fill', 'black')
-    .attr('fill-opacity', 0.7);
+    var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+      .domain(planetNames);
 
-  // Axis for trellis
-  var xAxis = d3.axisBottom(xScale).ticks(5);
-  trellisG
-    .append('g')
-    .attr('class', 'x axis')
-    .attr('transform', 'translate(0,' + trellisHeight + ')')
-    .call(xAxis);
+    // add grid
+    var xGrid = d3.axisTop(xScale)
+      .ticks(5)
+      .tickSize(-trellisHeight, 0, 0)
+      .tickFormat('');
 
-  var yAxis = d3.axisLeft(agencyScale);
-  trellisG
-    .append('g')
-    .attr('class', 'y axis')
-    .style('display', (d, i) => {
-      console.log(d.key);
-      if (d.key != 'mars' && d.key != 'mercury') {
-        return 'none';
-      }
-    })
-    .attr('transform', 'translate(0,0)')
-    .call(yAxis);
+    var yGrid = d3.axisLeft(countryScale)
+      .tickSize(-trellisWidth, 0, 0)
+      .tickFormat('');
 
-  // Label axis
-  trellisG
-    .append('text')
-    .attr('class', 'x axis-label')
-    .attr(
-      'transform',
-      'translate(' + [trellisWidth / 4, trellisHeight + 34] + ')'
-    )
+    trellisG.append('g')
+      .attr('class', 'y grid')
+      .attr('opacity', 0.2)
+      .call(yGrid);
 
-  trellisG
-    .append('text')
-    .attr('class', 'y axis-label')
-    .attr(
-      'transform',
-      'translate(' + [-40, trellisHeight / 4 + 100] + ') rotate(270)'
-    )
+    trellisG.selectAll('circle')
+      .data(function(d){return d.values;})
+      .enter()
+      .append('circle')
+      .attr('r', 2)
+      .attr('cx', function (d) { 
+        return xScale(d.launch); 
+      })
+      .attr('cy',function(d) { 
+        return countryScale(d.country) + 10;
+      })
+      .attr("fill", "white")
+      .attr("fill-opacity", 1);
 
-  //append company labels
-  trellisG
-    .append('text')
-    .attr('class', 'company-label')
-    .attr(
-      'transform',
-      'translate(' + [trellisWidth / 4, trellisHeight / 4] + ')'
-    )
-    .attr('fill', function(d) {
-      return colorScale(d.key);
-    })
-    .text(function(d) {
-      return d.key;
-    });
+    // Axis for trellis
+    var xAxis = d3.axisBottom(xScale).ticks(5);
+
+    trellisG.append('g')
+      .attr('class', 'trellisAxis')
+      .attr('transform', 'translate(0,'+trellisHeight+')')
+      .call(xAxis);
+
+    var yAxis = d3.axisLeft(countryScale);
+
+    trellisG.append('g')
+      .attr('class', 'y axis')
+      .style('display', (d, i) => {
+        if (d.key != 'mars' && d.key != 'mercury') {
+          return 'none';
+        }
+      })
+      .attr('transform', 'translate(0,0)')
+      .call(yAxis);
+
+    // Label axis
+    trellisG.append('text')
+      .attr('class', 'x axis-label')
+      .attr('transform', 'translate('+[35 + trellisWidth / 4, trellisHeight + 34]+')');
+      // .text('Launch Date');
+
+    trellisG.append('text')
+      .attr('class', 'y axis-label')
+      .attr('transform', 'translate('+[-50, trellisHeight / 4 + 50]+') rotate(270)');
+      // .text('Countries');
+
+    // Append country labels
+    trellisG.append('text')
+      .attr('class', 'company-label')
+      .attr('transform', 'translate('+[40 + trellisWidth / 4, trellisHeight / 4 - 55]+')')
+      .attr('fill', function(d){
+        return colorScale(d.key);
+      })
+      .text(function(d){
+        return d.key;
+      });
+
 }
 
 function drawStackedAreas(parsedData) {
