@@ -1,5 +1,0 @@
-name,success,type,from,to,object,launch,finish,cospar,agency,country
-Pioneer 11,True,flyby,jupiter,saturn,planet,1974-12-03,1979-09-01,,nasa,USA
-Voyager 2,True,flyby,jupiter,saturn,planet,1979-07-09,1981-08-26,,nasa,USA
-Voyager 1,True,flyby,jupiter,saturn,planet,1979-03-05,1980-11-12,,nasa,USA
-Cassini-Huygens,True,orbit,jupiter,saturn,planet,2000-12-30,2004-07-01,1997-061A,nasa,USA

@@ -8,6 +8,14 @@ b {
   font-weight: 900;
 }
 
+.trellisAxis line{
+  stroke: white;
+}
+
+.trellisAxis text{
+  fill: white;
+}
+
 .outline {
   fill: none;
   stroke: #888888;
@@ -97,7 +105,7 @@ b {
 }
 
 .background {
-  fill: #eee;
+  fill: #000;
 }
 
 #main {

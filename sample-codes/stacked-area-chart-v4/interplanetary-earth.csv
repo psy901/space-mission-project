@@ -1,4 +1,0 @@
-name,success,type,from,to,object,launch,finish,cospar,agency,country
-Stardust,True,lander,81P/Wild,earth,planet,2004-01-02,2006-01-15,,nasa,USA
-Hayabusa,True,lander,(25143) Itokawa,earth,planet,2005-11-19,2010-06-13,,jaxa,Japan
-Hayabusa 2,True,flyby,earth,earth,planet,2014-12-03,2015-12-03,2014-076A,jaxa,Japan
