@@ -1,5 +1,6 @@
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
 }
 b {
   font-weight: 900;
@@ -45,6 +46,7 @@ b {
   fill: orangered;
 }
 
+<<<<<<< HEAD
 .infoChart {
   fill: none;
   stroke: royalblue;
@@ -53,4 +55,41 @@ b {
 
 .infoDesc {
   stroke: black;
+=======
+.line-plot {
+    fill: none;
+    stroke-width: 1.5px;
+    stroke: #333;
+}
+
+.company-label {
+  text-anchor: middle;
+  font-size: 20px;
+  font-weight: semibold;
+  opacity: 0.8;
+}
+
+.axis-label {
+  text-anchor: middle;
+  font-size: 12px;
+  font-weight: semibold;
+}
+
+.grid path,
+.grid line {
+  stroke: #fff;
+}
+
+.background {
+  fill: #eee;
+}
+
+/*body {
+  font-family: "Open Sans";
+  margin: 0;
+}*/
+
+#main {
+  margin: 20px;
+>>>>>>> f0662066bbe68f27d165aaf9eb4c99d1195f662d
 }

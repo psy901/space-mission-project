@@ -2,18 +2,18 @@
  * Define the global layout
  *********************************************************/
 const svgWidth = 1400;
-const svgHeight = 600;
+const svgHeight = 500;
 const margin = {
-  t: 0,
+  t: -100,
   r: 50,
   b: 50,
-  l: 50
+  l: 100
 };
 
 // Global layout
 const canvasWidth = svgWidth - margin.l - margin.r;
 const canvasHeight = svgHeight - margin.t - margin.b;
-const chartWidth = 400;
+const chartWidth = 500;
 const chartHeight = 300;
 
 const infoChartWidth = 250;
@@ -53,29 +53,24 @@ const planetColors = {
 /*********************************************************
  * Define global variables for StackedChart
  *********************************************************/
-var sc_svg = d3.select('#main').append('svg');
-var stackedContainer = d3_container
-  .container()
+var sc_svg = d3.select('#main2')
+  .append('svg')
+  .attr('transfrom', 'translate(-100, 0)');
+var stackedContainer = d3_container.container()
   .height(400)
-  .width(400)
-  .margin(10, 10, 50, 50);
+  .width(500)
+  .margin(10, 80, 50, 50);
 var sc_width = stackedContainer.contentWidth();
 var sc_height = stackedContainer.contentHeight();
 sc_svg.call(stackedContainer);
 var content = stackedContainer.content();
 var dateParse = d3.timeParse('%Y');
-var statusArray = [
-  'China',
-  'EU',
-  'India',
-  'Japan',
-  'Russia',
-  'Soviet Union',
-  'USA'
-];
+var statusArray = ['USA', 'Russia', 'Soviet Union', 'China', 'India', 'Japan', 'EU'];
+// 'China', 'EU', 'India', 'Japan', 'Russia', 'Soviet Union', 'USA'];
+
 
 /*********************************************************
- * Read data
+ * Define global variables for trellis
  *********************************************************/
 // Read stacked data
 d3.csv('./data/stacked-all.csv', function(error, data) {
@@ -96,7 +91,20 @@ d3.csv('./data/stacked-all.csv', function(error, data) {
    *********************************************************/
   drawStackedAreas();
 });
+var t_svg = d3.select('#main2')
+  .append('svg')
+  .attr('width', 1000)
+  .attr('height', 500);
 
+var t_svgWidth = +t_svg.attr('width');
+var t_svgHeight = +t_svg.attr('height');
+var t_padding = {t: 20, r: 10, b: 60, l: 70};
+trellisWidth = t_svgWidth / 4 - t_padding.l - t_padding.r;
+trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
+
+/*********************************************************
+ * Read data
+ *********************************************************/
 // read nodes
 d3.json('./data/graph.json', (error,data) => {
   if (error) {
@@ -114,7 +122,7 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
     return
   }
   /*********************************************************
-   * Draw the graph part
+   * Draw the arc graph
    *********************************************************/
   const plot = svg
     .append('g')
@@ -126,13 +134,170 @@ d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   });
   datum = data;
   updateArcChart('show-planets');
+
+  /*********************************************************
+   * Draw the trellis
+   *********************************************************/
+  dataset = data;
+  drawTrellis();
+
 });
+
+// Read stacked data
+d3.csv("./data/stacked-mars.csv", function (error, data) {
+  if (error) throw error;
+  // Convert string values to date, numbers
+  parsedData = data.map(function (d) {
+    var dataObject = {
+      date: dateParse(d.date)
+    };
+    statusArray.forEach(function (s) {
+      dataObject[s] = +d[s];
+    })
+    return dataObject;
+   });
+
+  console.log(data);
+
+  /*********************************************************
+   * Draw the stacked area chart
+   *********************************************************/
+  drawStackedAreas();
+})
+
+
+function drawTrellis() {
+  t_svg.selectAll('.background')
+    .data(['A', 'B', 'C', 'C', 'A', 'B', 'C', 'C']) // dummy data
+    .enter()
+    .append('rect') // Append 4 rectangles
+    .attr('class', 'background')
+    .attr('width', trellisWidth) // Use our trellis dimensions
+    .attr('height', trellisHeight)
+    .attr('transform', function(d, i) {
+        // Position based on the matrix array indices.
+        // i = 1 for column 1, row 0)
+        var tx = (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+        var ty = Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) + t_padding.t;
+        return 'translate('+[tx, ty]+')';
+    });
+
+    var parseDate = d3.timeParse('%Y-%m-%d');
+    var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
+    var agencyDomain = ["soviet", 'nasa','jaxa','esa', 'cnsa','isro','roscosmos']
+    var priceDomain = [0, 223.02];
+
+    dataset.forEach(function(price) {
+        price.launch = parseDate(price.launch);
+        price.finish = parseDate(price.finish);
+
+    });
+
+    t_filteredData = dataset.filter(function (d) {
+        return d['object'] == "planet";
+    });
+
+    var agencyNames = d3.set(dataset.map(function(d) {
+      return d.agency;})
+    ).values();
+
+    var nested = d3.nest()
+      .key(function(c) {
+        return c.to;
+      })
+      .entries(t_filteredData);
+
+    var trellisG = t_svg.selectAll('.trellis')
+      .data(nested)
+      .enter()
+      .append('g')
+      .attr('class', 'trellis')
+      .attr('transform', function(d, i) {
+        var tx = (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+        var ty = Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) + t_padding.t;
+        return 'translate('+[tx, ty]+')';
+      });
+
+    var xScale = d3.scaleTime()
+      .domain(dateDomain)
+      .range([0, trellisWidth]);
+
+    agencyScale = d3.scaleBand().domain(agencyNames)
+      .range([trellisHeight, 0]).padding(0.1);
+
+    var planetNames = nested.map(function(d){
+      return d.key;
+    });
+
+    var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
+      .domain(planetNames);
+
+    // add grid
+    var xGrid = d3.axisTop(xScale)
+      .ticks(5)
+      .tickSize(-trellisHeight, 0, 0)
+      .tickFormat('');
+
+    trellisG.append('g')
+      .attr('class', 'x grid')
+      .call(xGrid);
+
+    var yGrid = d3.axisLeft(agencyScale)
+      .tickSize(-trellisWidth, 0, 0)
+      .tickFormat('')
+
+    trellisG.append('g')
+      .attr('class', 'y grid')
+      .call(yGrid);
+
+    trellisG.selectAll('circle')
+      .data(function(d){return d.values;})
+      .enter()
+      .append('circle')
+      .attr('r', 2)
+      .attr('cx', function (d) { return xScale(d.launch)})
+      .attr('cy',function(d) { return agencyScale(d.agency) + 20;})
+      .attr("fill", "black")
+      .attr("fill-opacity", 0.7);
+
+    // Axis for trellis
+    var xAxis = d3.axisBottom(xScale).ticks(5);
+    trellisG.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,'+trellisHeight+')')
+      .call(xAxis);
+
+    var yAxis = d3.axisLeft(agencyScale);
+    trellisG.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(0,0)')
+      .call(yAxis);
+
+    // Label axis
+    trellisG.append('text')
+      .attr('class', 'x axis-label')
+      .attr('transform', 'translate('+[trellisWidth / 4, trellisHeight + 34]+')')
+      .text('Launch Date');
+
+    trellisG.append('text')
+      .attr('class', 'y axis-label')
+      .attr('transform', 'translate('+[-40, trellisHeight / 4 + 100]+') rotate(270)')
+      .text('Countries');
+
+    //append company labels
+    trellisG.append('text')
+      .attr('class', 'company-label')
+      .attr('transform', 'translate('+[trellisWidth / 4, trellisHeight / 4]+')')
+      .attr('fill', function(d){return colorScale(d.key);})
+      .text(function(d){return d.key;});
+
+}
 
 function drawStackedAreas() {
   var stack = d3
     .stack()
     .keys(statusArray)
-    .offset(d3.stackOffsetDiverging);
+    .offset(d3.stackOffsetNone);
 
   var layers = stack(parsedData);
 
@@ -174,7 +339,7 @@ function drawStackedAreas() {
     .domain(statusArray)
     .range(colors);
 
-  var legendOffset = stackedContainer.margin().left() + 190;
+  var legendOffset = stackedContainer.margin().left() + 300;
 
   var legend = d3
     .legendColor()
@@ -201,8 +366,9 @@ function drawStackedAreas() {
     .selectAll('.layer')
     .data(layers)
     .enter()
-    .append('g')
-    .attr('class', 'layer');
+    .append("g")
+    .attr('width', 400)
+    .attr("class", "layer");
 
   sc_svg
     .append('g')
