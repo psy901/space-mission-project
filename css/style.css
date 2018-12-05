@@ -12,6 +12,9 @@ b {
   stroke: white;
 }
 
+.trellisAxis path{
+  stroke: white;
+}
 .trellisAxis text{
   fill: white;
 }
@@ -27,7 +30,7 @@ b {
   font-weight: 900;
 
   fill: #ffffff;
-  stroke: #ffffff;
+  /* stroke: #ffffff; */
   stroke-width: 0.25px;
 }
 
@@ -48,7 +51,7 @@ b {
 
 .arc {
   fill: none;
-  stroke: #888888;
+  stroke: white;
   stroke-width: 2px;
   stroke-opacity: 0.5;
   /* stroke-dasharray: 5; */
@@ -69,9 +72,8 @@ b {
 }
 
 .infoChart {
-  fill: none;
-  stroke: royalblue;
-  stroke-width: 2px;
+  fill: white;
+  /* stroke-width: 2px; */
   font-size: 20px;
   font-weight: lighter;
 }
@@ -108,6 +110,27 @@ b {
   fill: #000;
 }
 
+.trellisRect {
+  stroke: black;
+}
+
+.stackedArea {
+  margin-right: 30px;
+  fill: white;
+}
+
+.layer {
+  stroke: none;
+}
+
 #main {
   margin: 20px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.legendCells {
+  stroke: none;
 }
