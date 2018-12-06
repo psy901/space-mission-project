@@ -314,7 +314,9 @@ function drawTrellis() {
     .attr('stroke', function(d) {
       return color_of_type[d['type']];
     })
-    .attr('opacity', 1);
+    .attr('opacity', 1)
+    .on('mouseover', handleMouseOverTrellis)
+    .on('mouseout', handleMouseOutTrellis)
 
   trellisG
     .append('g')
@@ -452,6 +454,16 @@ function drawTrellis() {
     })
     .attr('transform', 'translate(350, 50)')
     .call(trellis_legend);
+}
+
+function handleMouseOverTrellis() {
+  const hover = $(this).addClass('trellisMouseOver');
+  $(this).attr('r', 10);
+}
+
+function handleMouseOutTrellis() {
+  $('.trellisMouseOver').attr('r', 4);
+  $('.trellisMouseOver').removeClass('trellisMouseOver');
 }
 
 function drawStackedAreas(parsedData) {

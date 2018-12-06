@@ -173,3 +173,9 @@ b {
 .failed {
   stroke-dasharray: 5;
 }
+
+.trellisMouseOver {
+  fill: #DC5A39;
+  stroke: #DC5A39;
+  border-radius: 200%;
+}
