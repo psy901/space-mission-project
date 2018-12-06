@@ -1,3 +1,8 @@
+variable {
+  --main-text-color: #768E8B;
+  --click-color: #DC5A39;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -44,7 +49,12 @@ b {
 }
 
 .nodeHover {
-  fill: red !important;
+  fill: #D05C3F !important;
+}
+
+.arcHover {
+  stroke: #D05C3F !important;
+  stroke-width: 4px !important;
 }
 
 .arc {
@@ -52,11 +62,10 @@ b {
   stroke: white;
   stroke-width: 2px;
   stroke-opacity: 0.5;
-  /* stroke-dasharray: 5; */
 }
 
 .highlight {
-  stroke: red;
+  stroke: #D05C3F;
   stroke-opacity: 1;
   stroke-width: 1px;
 }
@@ -66,7 +75,8 @@ b {
 }
 
 .clicked {
-  fill: red !important;
+  fill: #DC5A39 !important;
+  stroke: #DC5A39 !important;
 }
 
 .infoChart {
@@ -91,6 +101,7 @@ b {
   font-size: 20px;
   font-weight: semibold;
   opacity: 0.8;
+  fill: var(--main-text-color)
 }
 
 .axis-label {
@@ -131,4 +142,8 @@ b {
 
 .legendCells {
   stroke: none;
+}
+
+.failed {
+  stroke-dasharray: 5;
 }

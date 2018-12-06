@@ -381,13 +381,14 @@ function drawTrellis() {
   trellisG
     .append('text')
     .attr('class', 'company-label')
+    .attr('id', d => d.key)
     .attr(
       'transform',
       'translate(' + [40 + trellisWidth / 4, trellisHeight / 4 - 55] + ')'
     )
-    .attr('fill', function(d) {
-      return colorScale(d.key);
-    })
+    // .attr('fill', function(d) {
+      // return colorScale(d.key);
+    // })
     .text(function(d) {
       return d.key;
     });
@@ -657,18 +658,36 @@ function drawNodes(filterKey) {
 
 function handleMouseClick() {
   const click = d3.select(this);
-  // console.log(click)
   let nodeName = click._groups[0][0].__data__.name;
-  // $('.node').removeClass('clicked');
   
+  // find all the missions that has 'from' == nodeName
+
+  const missions = $('#from-'+nodeName);
+  console.log(missions)
+
+
+  // find all arcs with the mission names, and put clicked class
+
 
   if ($('#'+nodeName).hasClass('clicked')) {
+    // the node was already clicked; remove the 'clicked
     $('#'+nodeName).removeClass('clicked');
+    $('#'+nodeName).removeClass('nodeHover');
+    $('.company-label.clicked').removeClass('clicked');
+
+    
+
   } else {
+    // untoggle any 'clicked' node and add to current one
     $('.node.clicked').removeClass('clicked');
+    $('.company-label.clicked').removeClass('clicked');
+    
     $('#'+nodeName).addClass('clicked');
+    $('.company-label'+'#'+nodeName).addClass('clicked');
+
+    // find all arcs with 'clicked' and remove the class
   }
-  // click.classed('clicked', true);
+
 
   updateStackedAreas(nodeName);
   updateTrellisTitle(nodeName);
@@ -766,6 +785,8 @@ function drawArcs(filteredData) {
     // .transition()
     // .duration(600)
     .attr('id', d => d.name.replace(/[\s()'"]/g, '_'))
+    .attr('class', d => d.success == 'False' ? 'failed' : null)
+    // .attr('id', d => `from-${d.from}`)
     .attr('cx', d => d.link.cx)
     .attr('cy', d => d.link.cy)
     .attr('rx', d => d.link.rx)
@@ -833,8 +854,9 @@ function handleMouseOverArc(d, i) {
   let missionName = hover._groups[0][0].id.replace(/[\s()'"]/g, '_');
   // console.log(missionName)
   d3.selectAll('#' + missionName)
-    .style('stroke', 'red')
-    .style('stroke-width', '4px');
+  .classed('arcHover', true)
+    // .style('stroke', 'red')
+    // .style('stroke-width', '4px');
 
   updateInfoChart(missionName);
 }
@@ -842,9 +864,11 @@ function handleMouseOverArc(d, i) {
 function handleMouseOutArc(d, i) {
   let missionId = d3.select(this)._groups[0][0].id;
   missionId = missionId.replace(/[\s()'"]/g, '_');
+  console.log(missionId)
   d3.selectAll('#' + missionId)
-    .style('stroke', 'white')
-    .style('stroke-width', '2px');
+    .classed('arcHover', false);
+    // .style('stroke', 'white')
+    // .style('stroke-width', '2px');
 
   updateInfoChart(null);
 }
