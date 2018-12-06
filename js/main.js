@@ -26,8 +26,8 @@ const svg = d3
   .select('#main')
   .append('svg')
   .attr('width', svgWidth)
-  .attr('height', svgHeight);
-// .style('border', '3px #000 solid');
+  .attr('height', svgHeight)
+  .attr('class', 'mainBox')
 
 const infoChart = svg
   .append('g')
@@ -201,6 +201,12 @@ function drawTrellis() {
       return c.to;
     })
     .entries(t_filteredData);
+ 
+  function sortFunc(a,b)   {
+    const sortingArr = ['mercury', 'venus', 'earth', 'mars', 'jupiter','saturn','uranus','neptune'];
+    return sortingArr.indexOf(a.key) - sortingArr.indexOf(b.key);
+  }
+  nested.sort(sortFunc);
 
   var trellisG = t_svg
     .selectAll('.trellis')
@@ -656,8 +662,7 @@ function handleMouseClick() {
     $('#'+nodeName).removeClass('clicked');
     $('#'+nodeName).removeClass('nodeHover');
     $('.company-label.clicked').removeClass('clicked');
-
-    
+    updateStackedAreas('all');
 
   } else {
     // untoggle any 'clicked' node and add to current one
@@ -666,12 +671,10 @@ function handleMouseClick() {
     
     $('#'+nodeName).addClass('clicked');
     $('.company-label'+'#'+nodeName).addClass('clicked');
+    updateStackedAreas(nodeName);
 
     // find all arcs with 'clicked' and remove the class
   }
-
-
-  updateStackedAreas(nodeName);
   updateTrellisTitle(nodeName);
 }
 

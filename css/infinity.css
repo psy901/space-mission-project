@@ -1,146 +1,3 @@
-body {
-    font-family: 'Share Tech Mono', monospace;
-    margin: 0;
-    background-color: black;
-    stroke: #ffffff;
-}
-b {
-    font-weight: 900;
-}
-
-.trellisAxis line{
-    stroke: white;
-}
-
-.trellisAxis path{
-    stroke: white;
-}
-.trellisAxis text{
-    fill: white;
-}
-
-.outline {
-    fill: none;
-    stroke: #888888;
-    stroke-width: 1px;
-}
-
-#tooltip {
-    font-size: 10pt;
-    font-weight: 900;
-    fill: #ffffff;
-    stroke-width: 0.25px;
-}
-
-.node {
-    stroke: #ffffff;
-    /*z-index: 2;*/
-    fill: white;
-}
-
-.asteroid {
-    opacity: 0.4;
-    /* fill: none; */
-}
-
-.nodeHover {
-    fill: red !important;
-}
-
-.arc {
-    fill: none;
-    stroke: white;
-    stroke-width: 2px;
-    stroke-opacity: 0.5;
-    /* stroke-dasharray: 5; */
-}
-
-.highlight {
-    stroke: red;
-    stroke-opacity: 1;
-    stroke-width: 1px;
-}
-
-.d3-tip {
-    color: white;
-}
-
-.nodeName {
-    /* stroke: black; */
-
-    font-family: 'Share Tech Mono', monospace;
-    text-transform: uppercase;
-}
-
-.infoChart {
-    fill: white;
-    /* stroke-width: 2px; */
-    font-size: 20px;
-    font-weight: lighter;
-}
-
-.infoDesc {
-    stroke: #ffffff;
-}
-
-.line-plot {
-    fill: none;
-    stroke-width: 1.5px;
-    stroke: #333;
-}
-
-.company-label {
-
-    font-family: 'Share Tech Mono', monospace;
-    text-transform: uppercase;
-
-    text-anchor: middle;
-    font-size: 25px;
-    font-weight: bold;
-    opacity: 0.8;
-}
-
-.axis-label {
-    text-anchor: middle;
-    font-size: 12px;
-    font-weight: semibold;
-}
-
-.grid path,
-.grid line {
-    stroke: #fff;
-}
-
-.background {
-    fill: #000;
-}
-
-.trellisRect {
-    stroke: black;
-}
-
-.stackedArea {
-    margin-right: 30px;
-    fill: white;
-}
-
-.layer {
-    stroke: none;
-}
-
-#main {
-    margin: 20px;
-}
-
-.clickable {
-    cursor: pointer;
-}
-
-.legendCells {
-    stroke: none;
-}
-
-
 
 /*New style*/
 
@@ -211,10 +68,8 @@ figure {
 }
 
 .stacked-padding{
-
-    padding-top: 100px;
+    padding-top: 30px;
     padding-bottom: 30px ;
-
 }
 
 .col-centered{
@@ -223,12 +78,9 @@ figure {
 }
 
 .arc{
-    border-bottom: 1px solid whitesmoke;
-
 }
 
 .area{
-    border-right: 1px solid whitesmoke;
 }
 
 .control-button{

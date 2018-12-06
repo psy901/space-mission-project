@@ -13,6 +13,14 @@ b {
   font-weight: 900;
 }
 
+.nodeName {
+  /* stroke: black; */
+
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
+}
+
+
 .trellisAxis line{
   stroke: white;
 }
@@ -42,6 +50,10 @@ b {
   font-weight: 900;
   fill: #ffffff;
   stroke-width: 0.25px;
+}
+
+.mainBox{
+  background: #333;
 }
 
 .node {
