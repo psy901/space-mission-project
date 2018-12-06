@@ -452,7 +452,7 @@ function drawTrellis() {
         return 'none';
       }
     })
-    .attr('transform', 'translate(350, 50)')
+    .attr('transform', 'translate(-110, -110)')
     .call(trellis_legend);
 }
 
