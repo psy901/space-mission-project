@@ -28,9 +28,7 @@ b {
 #tooltip {
   font-size: 10pt;
   font-weight: 900;
-
   fill: #ffffff;
-  /* stroke: #ffffff; */
   stroke-width: 0.25px;
 }
 
@@ -46,7 +44,7 @@ b {
 }
 
 .nodeHover {
-  fill: yellow !important;
+  fill: red !important;
 }
 
 .arc {

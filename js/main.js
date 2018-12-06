@@ -246,60 +246,67 @@ function drawTrellis() {
     .tickSize(-trellisWidth, 0, 0)
     .tickFormat('');
 
-  var colorScale = d3.scaleOrdinal(d3.schemeCategory10)
-    .domain(planetNames);
+  var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
 
   // Setting for type of missions
-  var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover', 'ongoing']
+  // XXXXXXXXXX
+  var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover', 'ongoing'];
   var blue = '#21BFD1';
   var red = '#E54925';
   var yellow = '#E5D925';
   var color_of_type = {
-    'lander': blue, 
-    'towards': 'black', 
-    'orbit': red, 
-    'flyby': yellow, 
-    'rover': blue, 
-    'ongoing': 'white'};
-  
-  var legendColorScale = d3.scaleOrdinal()
+    lander: blue,
+    towards: 'black',
+    orbit: red,
+    flyby: yellow,
+    rover: blue,
+    ongoing: 'white'
+  };
+
+  var legendColorScale = d3
+    .scaleOrdinal()
     .domain(typeDomain)
     .range(blue, 'black', red, yellow, blue);
 
   // add grid
-  var xGrid = d3.axisTop(xScale)
+  var xGrid = d3
+    .axisTop(xScale)
     .ticks(5)
     .tickSize(-trellisHeight, 0, 0)
     .tickFormat('');
 
-  var yGrid = d3.axisLeft(countryScale)
+  var yGrid = d3
+    .axisLeft(countryScale)
     .tickSize(-trellisWidth, 0, 0)
     .tickFormat('');
 
-  trellisG.append('g')
+  trellisG
+    .append('g')
     .attr('class', 'y grid')
     .attr('opacity', 0.2)
     .call(yGrid);
 
-  trellisG.selectAll('circle')
-    .data(function(d){return d.values;})
+  trellisG
+    .selectAll('circle')
+    .data(function(d) {
+      return d.values;
+    })
     .enter()
     .append('circle')
-    .attr("d", function(d,i, j) { 
-      return d3.svg.symbol().type("triangle-down");
-    })
+    // .attr("d", function(d,i, j) {
+    // return d3.svg.symbol().type("triangle-down");
+    // })
     .attr('r', 4)
-    // .attr('cx', function (d) { 
-    //   return xScale(d.launch); 
-    // })
-    // .attr('cy',function(d) { 
-    //   return countryScale(d.country) + 10;
-    // })
-    .attr("fill", function(d) {
+    .attr('cx', function(d) {
+      return xScale(d.launch);
+    })
+    .attr('cy', function(d) {
+      return countryScale(d.country) + 10;
+    })
+    .attr('fill', function(d) {
       if (d['success'] == 'False') {
         return 'none';
-      }
-      else {
+      } else {
         return color_of_type[d['type']];
       }
     })
@@ -385,7 +392,8 @@ function drawTrellis() {
       return d.key;
     });
 
-  trellisG.append('g')
+  trellisG
+    .append('g')
     .attr('class', 'y axis')
     .style('display', (d, i) => {
       if (d.key != 'mars' && d.key != 'mercury') {
@@ -396,26 +404,39 @@ function drawTrellis() {
     .call(yAxis);
 
   // Label axis
-  trellisG.append('text')
+  trellisG
+    .append('text')
     .attr('class', 'x axis-label')
-    .attr('transform', 'translate('+[35 + trellisWidth / 4, trellisHeight + 34]+')');
-    // .text('Launch Date');
+    .attr(
+      'transform',
+      'translate(' + [35 + trellisWidth / 4, trellisHeight + 34] + ')'
+    );
+  // .text('Launch Date');
 
-  trellisG.append('text')
+  trellisG
+    .append('text')
     .attr('class', 'y axis-label')
-    .attr('transform', 'translate('+[-50, trellisHeight / 4 + 50]+') rotate(270)');
-    // .text('Countries');
+    .attr(
+      'transform',
+      'translate(' + [-50, trellisHeight / 4 + 50] + ') rotate(270)'
+    );
+  // .text('Countries');
 
   // Append country labels
-  trellisG.append('text')
+  trellisG
+    .append('text')
     .attr('class', 'country-label')
-    .attr('transform', 'translate('+[53 + trellisWidth / 4, trellisHeight / 4 - 55]+')')
-    .attr('fill', function(d){
+    .attr(
+      'transform',
+      'translate(' + [53 + trellisWidth / 4, trellisHeight / 4 - 55] + ')'
+    )
+    .attr('fill', function(d) {
       return colorScale(d.key);
     });
 
-  var trellis_legend = d3.legendColor()
-    .labelFormat(d3.format(".2f"))
+  var trellis_legend = d3
+    .legendColor()
+    .labelFormat(d3.format('.2f'))
     .shapeWidth(50)
     .orient('horizontal')
     .labelAlign('start')
@@ -423,7 +444,6 @@ function drawTrellis() {
     .useClass(true);
 
   trellisG.select('trellis').call(trellis_legend);
-
 }
 
 function drawStackedAreas(parsedData) {
@@ -484,10 +504,26 @@ function drawStackedAreas(parsedData) {
     .attr('class', 'axis axis--y')
     .call(yAxis);
 
+  // XXXXXXXXXXXXXXXXXXXXX
+  // var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover', 'ongoing'];
+  // var blue = '#21BFD1';
+  // var red = '#E54925';
+  // var yellow = '#E5D925';
+  // var color_of_type = {
+  //   lander: blue,
+  //   towards: 'black',
+  //   orbit: red,
+  //   flyby: yellow,
+  //   rover: blue,
+  //   ongoing: 'white'
+  // };
+  // d3.colorOrdinal....? // find like this
+  
   var colors = statusArray.map(function(d, i) {
     return d3.interpolateWarm(i / statusArray.length);
   });
 
+  
   var colorScale = d3
     .scaleOrdinal()
     .domain(statusArray)
@@ -617,6 +653,29 @@ function drawNodes(filterKey) {
   prevNodes.exit().remove();
 }
 
+function handleMouseClick(d, i) {
+  const click = d3.select(this);
+  let nodeName = click._groups[0][0].__data__.name;
+  click.classed('clicked', true);
+  // call updateStackedChart
+  updateStackedAreas(nodeName);
+  updateTrellisTitle(nodeName);
+}
+
+function updateTrellisTitle(nodeName) {
+  const items = d3.selectAll('.company-label')._groups[0];
+  // console.log(typeof(items))
+  // console.log(items)
+  const target = Array.from(items).filter(item => {
+    return item.__data__.key == nodeName
+  });
+  // target.attr('stroke', 'none');
+  console.log(target);
+  // d3.select(target).classed("hmm")
+
+  // console.log(target)
+}
+
 function handleMouseOverNode() {
   const hover = d3.select(this);
   let name = hover._groups[0][0].__data__.name;
@@ -632,6 +691,8 @@ function handleMouseOverNode() {
 function handleMouseOutNode() {
   nodeTip.hide();
   const hover = d3.select(this);
+  // console.log(hover)
+  // console.log(hover._groups[0][0].className);
   hover.classed('nodeHover', false);
   hover.classed('clickable', false);
 }
@@ -753,13 +814,7 @@ function drawInfoChart(filteredData) {
     .attr('transform', 'translate(0, 60)');
 }
 
-function handleMouseClick(d, i) {
-  const click = d3.select(this);
-  let nodeName = click._groups[0][0].__data__.name;
 
-  // call updateStackedChart
-  updateStackedAreas(nodeName);
-}
 
 function handleMouseOverArc(d, i) {
   const hover = d3.select(this);
