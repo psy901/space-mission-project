@@ -24,6 +24,13 @@ b {
   fill: white;
 }
 
+.trellis_legend {
+  stroke: 'white';
+  fill: white;
+  stroke-width: 1px;
+}
+
+
 .outline {
   fill: none;
   stroke: #888888;

@@ -91,11 +91,11 @@ var t_svg = d3
   .select('#main3')
   .append('svg')
   .attr('width', 1000)
-  .attr('height', 500);
+  .attr('height', 650);
 
-var t_svgWidth = +t_svg.attr('width');
-var t_svgHeight = +t_svg.attr('height');
 var t_padding = { t: 40, r: 10, b: 40, l: 40 };
+var t_svgWidth = +t_svg.attr('width');
+var t_svgHeight = +t_svg.attr('height') - 100;
 trellisWidth = t_svgWidth / 4 - t_padding.l - t_padding.r;
 trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
 
@@ -213,7 +213,7 @@ function drawTrellis() {
         (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
       var ty =
         Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
-        t_padding.t;
+        t_padding.t + 80;
       return 'translate(' + [tx, ty] + ')';
     });
 
@@ -249,24 +249,21 @@ function drawTrellis() {
   var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
 
   // Setting for type of missions
-  // XXXXXXXXXX
-  var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover', 'ongoing'];
-  var blue = '#21BFD1';
-  var red = '#E54925';
+  var typeDomain = ['ongoing', 'lander', 'towards', 'orbit', 'flyby', 'rover'];
+  var lander_color = '#FFD17A';
+  var towards_color = '#FFA07A';
+  var orbit_color = '#E4609D';
+  var flyby_color = '#BF55D2'
   var yellow = '#E5D925';
+  var typeColors = ['white', lander_color, towards_color, orbit_color, flyby_color, yellow];
   var color_of_type = {
-    lander: blue,
-    towards: 'black',
-    orbit: red,
-    flyby: yellow,
-    rover: blue,
+    lander: lander_color,
+    towards: towards_color,
+    orbit: orbit_color,
+    flyby: flyby_color,
+    rover: yellow,
     ongoing: 'white'
   };
-
-  var legendColorScale = d3
-    .scaleOrdinal()
-    .domain(typeDomain)
-    .range(blue, 'black', red, yellow, blue);
 
   // add grid
   var xGrid = d3
@@ -293,9 +290,6 @@ function drawTrellis() {
     })
     .enter()
     .append('circle')
-    // .attr("d", function(d,i, j) {
-    // return d3.svg.symbol().type("triangle-down");
-    // })
     .attr('r', 4)
     .attr('cx', function(d) {
       return xScale(d.launch);
@@ -360,7 +354,7 @@ function drawTrellis() {
     .attr('transform', 'translate(0,0)')
     .call(yAxis);
 
-  // Label axis
+  // Label x axis
   trellisG
     .append('text')
     .attr('class', 'x axis-label')
@@ -369,6 +363,7 @@ function drawTrellis() {
       'translate(' + [35 + trellisWidth / 4, trellisHeight + 34] + ')'
     );
 
+  // Label y axis
   trellisG
     .append('text')
     .attr('class', 'y axis-label')
@@ -377,7 +372,7 @@ function drawTrellis() {
       'translate(' + [-50, trellisHeight / 4 + 50] + ') rotate(270)'
     );
 
-  // Append country labels
+  // Append planet labels
   trellisG
     .append('text')
     .attr('class', 'company-label')
@@ -386,9 +381,6 @@ function drawTrellis() {
       'transform',
       'translate(' + [40 + trellisWidth / 4, trellisHeight / 4 - 55] + ')'
     )
-    // .attr('fill', function(d) {
-      // return colorScale(d.key);
-    // })
     .text(function(d) {
       return d.key;
     });
@@ -423,28 +415,36 @@ function drawTrellis() {
     );
   // .text('Countries');
 
-  // Append country labels
+  // Trellis legend to show type of mission
+  var legendColorScale = d3
+    .scaleOrdinal()
+    .range(typeColors)
+    .domain(typeDomain);
+
   trellisG
-    .append('text')
-    .attr('class', 'country-label')
-    .attr(
-      'transform',
-      'translate(' + [53 + trellisWidth / 4, trellisHeight / 4 - 55] + ')'
-    )
-    .attr('fill', function(d) {
-      return colorScale(d.key);
-    });
+    .append("g")
+    .attr("class", "trellis_legend");
 
   var trellis_legend = d3
     .legendColor()
-    .labelFormat(d3.format('.2f'))
     .shapeWidth(50)
+    .cells(typeDomain.length)
+    .labelFormat(d3.format('.2f'))
+    .title("Type of Mission")
+    .titleWidth(200)
     .orient('horizontal')
     .labelAlign('start')
-    .scale(legendColorScale)
-    .useClass(true);
+    .scale(legendColorScale);
 
-  trellisG.select('trellis').call(trellis_legend);
+  trellisG
+    .select(".trellis_legend")
+    .style('display', (d, i) => {
+      if (d.key != 'mars') {
+        return 'none';
+      }
+    })
+    .attr('transform', 'translate(350, -100)')
+    .call(trellis_legend);
 }
 
 function drawStackedAreas(parsedData) {
@@ -505,25 +505,7 @@ function drawStackedAreas(parsedData) {
     .attr('class', 'axis axis--y')
     .call(yAxis);
 
-  // XXXXXXXXXXXXXXXXXXXXX
-  // var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover', 'ongoing'];
-  // var blue = '#21BFD1';
-  // var red = '#E54925';
-  // var yellow = '#E5D925';
-  // var color_of_type = {
-  //   lander: blue,
-  //   towards: 'black',
-  //   orbit: red,
-  //   flyby: yellow,
-  //   rover: blue,
-  //   ongoing: 'white'
-  // };
-  // d3.colorOrdinal....? // find like this
-
-  var colors = statusArray.map(function(d, i) {
-    return d3.interpolateWarm(i / statusArray.length);
-  });
-
+  var colors = ['#9ECBF4', '#3587D1', '#453FBC', '#8184FB', '#178580', '#1BF1A3', '#34DAEA'];
   
   var colorScale = d3
     .scaleOrdinal()
