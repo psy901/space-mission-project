@@ -6,10 +6,16 @@ h1 {
     text-align: center;
     margin-bottom: 3rem;
 }
+
+.container-fluid {
+    padding: 0px 0px 0px 0px;
+}
+
 section {
     margin: 0;
     padding: 0;
 }
+
 article {
     padding: 0 1rem 60vh;
     margin: 0 auto;
