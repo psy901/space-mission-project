@@ -14,8 +14,6 @@ b {
 }
 
 .nodeName {
-  /* stroke: black; */
-
   font-family: 'Share Tech Mono', monospace;
   text-transform: uppercase;
 }
@@ -60,6 +58,7 @@ b {
   stroke: #ffffff;
   z-index: 2;
   fill: white;
+  text-transform: uppercase;
 }
 
 .asteroid {
@@ -120,7 +119,15 @@ b {
   font-size: 20px;
   font-weight: semibold;
   opacity: 0.8;
-  fill: var(--main-text-color)
+  text-transform: uppercase;
+}
+
+.stackedChartName {
+  text-anchor: middle;
+  font-size: 20px;
+  font-weight: semibold;
+  opacity: 0.8;
+  text-transform: uppercase;
 }
 
 .axis-label {

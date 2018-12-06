@@ -66,8 +66,8 @@ var sc_svg = d3
   .append('svg')
   .attr('class', 'legend')
   .attr('transfrom', 'translate(-100, 0)')
-  .attr('width', 500)
-  .attr('height', 500);
+  .attr('width', 700)
+  .attr('height', 700);
 var dateParse = d3.timeParse('%Y');
 var statusArray = [
   'China',
@@ -91,7 +91,8 @@ var t_svg = d3
   .select('#main3')
   .append('svg')
   .attr('width', 1000)
-  .attr('height', 650);
+  .attr('height', 650)
+  .attr('transform', 'translate(0,-20)')
 
 var t_padding = { t: 40, r: 10, b: 40, l: 40 };
 var t_svgWidth = +t_svg.attr('width');
@@ -353,7 +354,7 @@ function drawTrellis() {
     .append('g')
     .attr('class', 'trellisAxis')
     .style('display', (d, i) => {
-      if (d.key != 'mars' && d.key != 'mercury') {
+      if (d.key != 'jupiter' && d.key != 'mercury') {
         return 'none';
       }
     })
@@ -395,7 +396,7 @@ function drawTrellis() {
     .append('g')
     .attr('class', 'y axis')
     .style('display', (d, i) => {
-      if (d.key != 'mars' && d.key != 'mercury') {
+      if (d.key != 'jupiter' && d.key != 'mercury') {
         return 'none';
       }
     })
@@ -418,7 +419,7 @@ function drawTrellis() {
     .attr(
       'transform',
       'translate(' + [-50, trellisHeight / 4 + 50] + ') rotate(270)'
-    );
+    )
   // .text('Countries');
 
   // Trellis legend to show type of mission
@@ -449,7 +450,7 @@ function drawTrellis() {
         return 'none';
       }
     })
-    .attr('transform', 'translate(350, -100)')
+    .attr('transform', 'translate(350, 50)')
     .call(trellis_legend);
 }
 
@@ -457,11 +458,11 @@ function drawStackedAreas(parsedData) {
   const stackAreaCanvas = sc_svg
     .append('g')
     .attr('class', 'stackedArea')
-    .attr('transform', 'translate(0, 100)');
+    .attr('transform', 'translate(56, 20)');
   var stackedContainer = d3_container
     .container()
-    .height(400)
-    .width(500)
+    .height(600)
+    .width(700)
     .margin(10, 80, 50, 50);
   var sc_width = stackedContainer.contentWidth();
   var sc_height = stackedContainer.contentHeight();
@@ -557,7 +558,7 @@ function drawStackedAreas(parsedData) {
   stackAreaCanvas
     .select('.legend')
     .call(legend)
-    .attr('transform', 'translate(70, -40)');
+    .attr('transform', 'translate(260, -10)');
 
   layerGroups
     .append('path')
@@ -651,7 +652,7 @@ function handleMouseClick() {
   // find all the missions that has 'from' == nodeName
 
   const missions = $('#from-'+nodeName);
-  console.log(missions)
+  // console.log(missions)
 
 
   // find all arcs with the mission names, and put clicked class
@@ -849,7 +850,7 @@ function handleMouseOverArc(d, i) {
 function handleMouseOutArc(d, i) {
   let missionId = d3.select(this)._groups[0][0].id;
   missionId = missionId.replace(/[\s()'"]/g, '_');
-  console.log(missionId)
+  // console.log(missionId)
   d3.selectAll('#' + missionId)
     .classed('arcHover', false);
     // .style('stroke', 'white')
@@ -898,6 +899,12 @@ function updateStackedAreas(filterKey) {
   }
   currentPlanet = filterKey;
   const filename = `stacked-${filterKey}.csv`;
+
+  d3.select('.stackedChartName').remove();
+  sc_svg.append('text')
+    .text(filterKey)
+    .attr('class', 'stackedChartName')
+    .attr('transform', 'translate(455,90)')
 
   d3.csv(`./data/${filename}`, function(error, data) {
     if (error) throw error;
