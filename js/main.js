@@ -624,9 +624,13 @@ function drawNodes(filterKey) {
   const nodesEnter = prevNodes
     .enter()
     .append('g')
-    .attr('class', 'node');
+    .attr('class', 'node')
+    .attr('id', d => d.name)
+    .on('mouseover', handleMouseOverNode)
+    .on('mouseout', handleMouseOutNode)
+    .on('click', handleMouseClick);
 
-  nodesEnter
+    nodesEnter
     .merge(prevNodes)
     .append('circle')
     // .transition()
@@ -636,35 +640,35 @@ function drawNodes(filterKey) {
     .attr('r', d => (planets.includes(d.name) ? planetRadius : nonPlanetRadius))
     .attr('class', d => (!planets.includes(d.name) ? 'asteroid' : null))
     .attr('id', d => d.name)
-    // .style('fill', d => color(d.name))
-    .on('mouseover', handleMouseOverNode)
-    .on('mouseout', handleMouseOutNode)
-    .on('click', handleMouseClick);
+
 
   nodesEnter
     .append('text')
-    .attr('class', 'nodeName')
+    .attr('class', d => d.name)
     .attr('transform', 'translate(0, 10)')
     .attr('x', d => d.x - 20)
     .attr('y', d => d.y + 20)
     .text(d => {
       if (planets.includes(d['name'])) return d['name'];
     });
-  // console.log(prevNodes);
+
   prevNodes.exit().remove();
 }
 
 function handleMouseClick() {
   const click = d3.select(this);
-  console.log(click)
+  // console.log(click)
   let nodeName = click._groups[0][0].__data__.name;
-  click.classed('clicked', true);
-  // call updateStackedChart
+  // $('.node').removeClass('clicked');
+  
 
-  // console.log(d);
-  const elem = document.getElementById(nodeName);
-  elem.classList.add('testtest');
-  // console.log(elem)
+  if ($('#'+nodeName).hasClass('clicked')) {
+    $('#'+nodeName).removeClass('clicked');
+  } else {
+    $('.node.clicked').removeClass('clicked');
+    $('#'+nodeName).addClass('clicked');
+  }
+  // click.classed('clicked', true);
 
   updateStackedAreas(nodeName);
   updateTrellisTitle(nodeName);
@@ -678,7 +682,7 @@ function updateTrellisTitle(nodeName) {
     return item.__data__.key == nodeName
   });
   // target.attr('stroke', 'none');
-  console.log(target);
+  // console.log(target);
   // d3.select(target).classed("hmm")
 
   // console.log(target)
