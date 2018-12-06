@@ -604,7 +604,6 @@ function drawNodes(filterKey) {
     .range([planetRadius, canvasWidth - planetRadius]);
 
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-
   // set eaeh node's x and y position
   filteredNodes.forEach(function(d, i) {
     d.x = distanceScale(d['distance']);
@@ -615,7 +614,6 @@ function drawNodes(filterKey) {
     .select('.plot')
     .selectAll('.node')
     .data(filteredNodes, d => {
-      // console.log(d);
       data = {};
       data['x'] = d.x;
       data['y'] = d.y;
@@ -664,7 +662,6 @@ function handleMouseClick() {
   // find all the missions that has 'from' == nodeName
 
   const missions = $('#from-'+nodeName);
-  // console.log(missions)
 
 
   // find all arcs with the mission names, and put clicked class
@@ -693,16 +690,9 @@ function handleMouseClick() {
 
 function updateTrellisTitle(nodeName) {
   const items = d3.selectAll('.company-label')._groups[0];
-  // console.log(typeof(items))
-  // console.log(items)
   const target = Array.from(items).filter(item => {
     return item.__data__.key == nodeName
   });
-  // target.attr('stroke', 'none');
-  // console.log(target);
-  // d3.select(target).classed("hmm")
-
-  // console.log(target)
 }
 
 function handleMouseOverNode() {
@@ -720,8 +710,6 @@ function handleMouseOverNode() {
 function handleMouseOutNode() {
   nodeTip.hide();
   const hover = d3.select(this);
-  // console.log(hover)
-  // console.log(hover._groups[0][0].className);
   hover.classed('nodeHover', false);
   hover.classed('clickable', false);
 }
@@ -743,16 +731,12 @@ function drawArcs(filteredData) {
   // make a dictionary for duplicate links e.g. { 'earthToMars': 1}
   const linkCount = {};
 
-  // console.log(filteredData);
   let count = 0;
 
   // generate arc info for each arc
   filteredData.forEach(d => {
     d.fromInfo = nodes.filter(node => d.from == node.name)[0];
     d.toInfo = nodes.filter(node => d.to == node.name)[0];
-    // console.log('after', d.from);
-    // console.log(d.fromInfo, d.toInfo)
-
     const key = d.fromInfo.name + '_to_' + d.toInfo.name;
 
     linkCount[key] = linkCount[key] ? linkCount[key] + 1 : 1;
@@ -783,7 +767,10 @@ function drawArcs(filteredData) {
     // .transition()
     // .duration(600)
     .attr('id', d => d.name.replace(/[\s()'"]/g, '_'))
-    .attr('id', d => d.success == 'False' ? 'failed' : null)
+    .style('stroke-dasharray', d => d.success == 'True' ? 0 : 5)
+    // d => d.success ? 0 : 5)
+    // .style('id', d => d.name.replace(/[\s()'"]/g, '_'))
+    // .attr('class', d => d.success == 'False' ? 'failed' : null)
     // .attr('id', d => `from-${d.from}`)
     .attr('cx', d => d.link.cx)
     .attr('cy', d => d.link.cy)
@@ -802,7 +789,6 @@ function drawInfoChart(filteredData) {
     return;
   }
 
-  // console.log(filteredData);
   const chart = d3
     .select('.infoChart')
     .append('g')
@@ -820,7 +806,6 @@ function drawInfoChart(filteredData) {
   const endDate = String(filteredData[filteredData.length - 1].finish).split(
     '00:'
   )[0];
-  // console.log(endDate == 'null');
   chart
     .append('text')
     .attr('class', 'infoDesc')
@@ -847,22 +832,20 @@ function drawInfoChart(filteredData) {
 
 
 
-function handleMouseOverArc(d, i) {
+function handleMouseOverArc() {
   const hover = d3.select(this);
   let missionName = hover._groups[0][0].id.replace(/[\s()'"]/g, '_');
-  // console.log(missionName)
   d3.selectAll('#' + missionName)
-  .classed('arcHover', true)
+    .classed('arcHover', true)
     // .style('stroke', 'red')
     // .style('stroke-width', '4px');
 
   updateInfoChart(missionName);
 }
 
-function handleMouseOutArc(d, i) {
+function handleMouseOutArc() {
   let missionId = d3.select(this)._groups[0][0].id;
   missionId = missionId.replace(/[\s()'"]/g, '_');
-  // console.log(missionId)
   d3.selectAll('#' + missionId)
     .classed('arcHover', false);
     // .style('stroke', 'white')
@@ -883,7 +866,6 @@ function updateArcChart(filterKey) {
   // Draw Nodes
   drawNodes(filterKey);
 
-  // console.log(datum);
   const filteredData =
     filterKey == 'show-planets'
       ? datum.filter(d => planets.includes(d.from) && planets.includes(d.to))
@@ -896,7 +878,6 @@ function updateArcChart(filterKey) {
 
 function updateInfoChart(missionName) {
   const filteredData = datum.filter(d => d.name == missionName);
-  // console.log(filteredData);
   if (!missionName) {
     d3.select('.chart').remove();
   } else {
@@ -906,7 +887,6 @@ function updateInfoChart(missionName) {
 
 function updateStackedAreas(filterKey) {
   if (currentPlanet == filterKey) {
-    // console.log(currentPlanet, filterKey);
     return;
   }
   currentPlanet = filterKey;
