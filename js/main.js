@@ -88,7 +88,7 @@ var statusArray = [
  * Draw the stacked area chat
  *********************************************************/
 var t_svg = d3
-  .select('#main2')
+  .select('#main3')
   .append('svg')
   .attr('width', 1000)
   .attr('height', 500);

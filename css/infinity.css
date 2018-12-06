@@ -1,0 +1,274 @@
+body {
+    font-family: 'Share Tech Mono', monospace;
+    margin: 0;
+    background-color: black;
+    stroke: #ffffff;
+}
+b {
+    font-weight: 900;
+}
+
+.trellisAxis line{
+    stroke: white;
+}
+
+.trellisAxis path{
+    stroke: white;
+}
+.trellisAxis text{
+    fill: white;
+}
+
+.outline {
+    fill: none;
+    stroke: #888888;
+    stroke-width: 1px;
+}
+
+#tooltip {
+    font-size: 10pt;
+    font-weight: 900;
+    fill: #ffffff;
+    stroke-width: 0.25px;
+}
+
+.node {
+    stroke: #ffffff;
+    /*z-index: 2;*/
+    fill: white;
+}
+
+.asteroid {
+    opacity: 0.4;
+    /* fill: none; */
+}
+
+.nodeHover {
+    fill: red !important;
+}
+
+.arc {
+    fill: none;
+    stroke: white;
+    stroke-width: 2px;
+    stroke-opacity: 0.5;
+    /* stroke-dasharray: 5; */
+}
+
+.highlight {
+    stroke: red;
+    stroke-opacity: 1;
+    stroke-width: 1px;
+}
+
+.d3-tip {
+    color: white;
+}
+
+.nodeName {
+    /* stroke: black; */
+
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+}
+
+.infoChart {
+    fill: white;
+    /* stroke-width: 2px; */
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.infoDesc {
+    stroke: #ffffff;
+}
+
+.line-plot {
+    fill: none;
+    stroke-width: 1.5px;
+    stroke: #333;
+}
+
+.company-label {
+
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+
+    text-anchor: middle;
+    font-size: 25px;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.axis-label {
+    text-anchor: middle;
+    font-size: 12px;
+    font-weight: semibold;
+}
+
+.grid path,
+.grid line {
+    stroke: #fff;
+}
+
+.background {
+    fill: #000;
+}
+
+.trellisRect {
+    stroke: black;
+}
+
+.stackedArea {
+    margin-right: 30px;
+    fill: white;
+}
+
+.layer {
+    stroke: none;
+}
+
+#main {
+    margin: 20px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.legendCells {
+    stroke: none;
+}
+
+
+
+/*New style*/
+
+body {
+    margin: 0 auto;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.container-fluid {
+    padding: 0px 0px 0px 0px;
+}
+
+section {
+    margin: 0;
+    padding: 0;
+}
+
+article {
+    padding: 0 1rem 60vh;
+    margin: 0 auto;
+    /*max-width: 40rem;*/
+}
+
+
+article p {
+    background-color: #FFF8DB;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 25px;
+    line-height: 1.8;
+    margin: 0;
+    padding: 2rem;
+    text-transform: uppercase;
+}
+article p:not(:last-of-type) {
+    margin-bottom: 60vh;
+}
+img {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+figure {
+    align-items: center;
+    align-self: flex-start;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    top: 0;
+    z-index: -1;
+}
+
+
+@media screen and (min-width: 35rem) {
+    figure {
+        position: sticky;
+    }
+}
+
+
+.center{
+    align-content: center;
+}
+
+.stacked-padding{
+
+    padding-top: 100px;
+    padding-bottom: 30px ;
+
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.arc{
+    border-bottom: 1px solid whitesmoke;
+
+}
+
+.area{
+    border-right: 1px solid whitesmoke;
+}
+
+.control-button{
+
+}
+
+.landing{
+    background-image: url("../images/Starting Page.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+}
+
+.title-text{
+
+
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 100px;
+    font-weight: bolder;
+    color: white;
+}
+
+.team-members{
+
+    font-size: 25px;
+    color: white;
+    padding-left: 100px;
+    padding-top: 100px;
+    text-transform:uppercase;
+}
+
+
+.add-drop-shadow {
+    box-shadow: 0px 2px 24px rgba(255, 255, 255, 0.5);
+    /*box-shadow: 10px 50px 100px rgba(255, 255, 255, 0.12);*/
+
+}
