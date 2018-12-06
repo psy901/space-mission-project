@@ -518,7 +518,7 @@ function drawStackedAreas(parsedData) {
   //   ongoing: 'white'
   // };
   // d3.colorOrdinal....? // find like this
-  
+
   var colors = statusArray.map(function(d, i) {
     return d3.interpolateWarm(i / statusArray.length);
   });
@@ -635,6 +635,7 @@ function drawNodes(filterKey) {
     .attr('cy', d => d.y)
     .attr('r', d => (planets.includes(d.name) ? planetRadius : nonPlanetRadius))
     .attr('class', d => (!planets.includes(d.name) ? 'asteroid' : null))
+    .attr('id', d => d.name)
     // .style('fill', d => color(d.name))
     .on('mouseover', handleMouseOverNode)
     .on('mouseout', handleMouseOutNode)
@@ -653,11 +654,18 @@ function drawNodes(filterKey) {
   prevNodes.exit().remove();
 }
 
-function handleMouseClick(d, i) {
+function handleMouseClick() {
   const click = d3.select(this);
+  console.log(click)
   let nodeName = click._groups[0][0].__data__.name;
   click.classed('clicked', true);
   // call updateStackedChart
+
+  // console.log(d);
+  const elem = document.getElementById(nodeName);
+  elem.classList.add('testtest');
+  // console.log(elem)
+
   updateStackedAreas(nodeName);
   updateTrellisTitle(nodeName);
 }
