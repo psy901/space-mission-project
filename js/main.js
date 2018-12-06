@@ -783,7 +783,7 @@ function drawArcs(filteredData) {
     // .transition()
     // .duration(600)
     .attr('id', d => d.name.replace(/[\s()'"]/g, '_'))
-    .attr('class', d => d.success == 'False' ? 'failed' : null)
+    .attr('id', d => d.success == 'False' ? 'failed' : null)
     // .attr('id', d => `from-${d.from}`)
     .attr('cx', d => d.link.cx)
     .attr('cy', d => d.link.cy)

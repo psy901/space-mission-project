@@ -170,7 +170,7 @@ b {
   stroke: none;
 }
 
-.failed {
+#failed {
   stroke-dasharray: 5;
 }
 
