@@ -306,7 +306,11 @@ function drawTrellis() {
       return countryScale(d.country) + 10;
     })
     .attr('fill', function(d) {
-      return color_of_type[d['type']];
+      if (d.type == 'ongoing') {
+        return 'none';
+      } else{ 
+        return color_of_type[d['type']];
+      }
     })
     .attr('stroke', function(d) {
       if (d.type == 'ongoing') {
