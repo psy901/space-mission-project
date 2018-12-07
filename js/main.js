@@ -183,7 +183,6 @@ function drawTrellis() {
     price.launch = parseDate(price.launch);
     price.finish = parseDate(price.finish);
   });
-
   t_filteredData = dataset.filter(function(d) {
     return d['object'] == 'planet';
   });
@@ -208,7 +207,6 @@ function drawTrellis() {
     return sortingArr.indexOf(a.key) - sortingArr.indexOf(b.key);
   }
   nested.sort(sortFunc);
-
   var trellisG = t_svg
     .selectAll('.trellis')
     .data(nested)
@@ -314,6 +312,7 @@ function drawTrellis() {
     .attr('stroke', function(d) {
       return color_of_type[d['type']];
     })
+    .attr('class', d => 'trellis-'+d.name)
     .attr('opacity', 1)
     .on('mouseover', handleMouseOverTrellis)
     .on('mouseout', handleMouseOutTrellis)
@@ -458,7 +457,7 @@ function drawTrellis() {
 
 function handleMouseOverTrellis() {
   const hover = $(this).addClass('trellisMouseOver');
-  $(this).attr('r', 10);
+  $(this).attr('r', 11);
 }
 
 function handleMouseOutTrellis() {
@@ -660,13 +659,9 @@ function handleMouseClick() {
   let nodeName = click._groups[0][0].__data__.name;
   
   // find all the missions that has 'from' == nodeName
-
   const missions = $('#from-'+nodeName);
 
-
   // find all arcs with the mission names, and put clicked class
-
-
   if ($('#'+nodeName).hasClass('clicked')) {
     // the node was already clicked; remove the 'clicked
     $('#'+nodeName).removeClass('clicked');
@@ -764,20 +759,14 @@ function drawArcs(filteredData) {
 
   arcsEnter
     .merge(prevArcs)
-    // .transition()
-    // .duration(600)
     .attr('id', d => d.name.replace(/[\s()'"]/g, '_'))
     .style('stroke-dasharray', d => d.success == 'True' ? 0 : 5)
-    // d => d.success ? 0 : 5)
-    // .style('id', d => d.name.replace(/[\s()'"]/g, '_'))
-    // .attr('class', d => d.success == 'False' ? 'failed' : null)
-    // .attr('id', d => `from-${d.from}`)
     .attr('cx', d => d.link.cx)
     .attr('cy', d => d.link.cy)
     .attr('rx', d => d.link.rx)
     .attr('ry', d => d.link.ry)
     .on('mouseover', handleMouseOverArc)
-    .on('mouseout', handleMouseOutArc);
+    .on('mouseout', handleMouseOutArc)
   // .on('click', handleMouseClick);
 
   prevArcs.exit().remove();
@@ -837,19 +826,23 @@ function handleMouseOverArc() {
   let missionName = hover._groups[0][0].id.replace(/[\s()'"]/g, '_');
   d3.selectAll('#' + missionName)
     .classed('arcHover', true)
-    // .style('stroke', 'red')
-    // .style('stroke-width', '4px');
+
+  const selection = $('.trellis-'+missionName);
+  selection.attr('r', 11);
+  selection.addClass('selectedTrellis');
 
   updateInfoChart(missionName);
 }
 
 function handleMouseOutArc() {
-  let missionId = d3.select(this)._groups[0][0].id;
-  missionId = missionId.replace(/[\s()'"]/g, '_');
-  d3.selectAll('#' + missionId)
+  let missionName = d3.select(this)._groups[0][0].id;
+  missionName = missionName.replace(/[\s()'"]/g, '_');
+  d3.selectAll('#' + missionName)
     .classed('arcHover', false);
-    // .style('stroke', 'white')
-    // .style('stroke-width', '2px');
+
+  const selection = $('.selectedTrellis');
+  selection.attr('r', 4);
+  selection.removeClass('selectedTrellis');
 
   updateInfoChart(null);
 }
@@ -916,4 +909,13 @@ function updateStackedAreas(filterKey) {
       drawStackedAreas(parsedData);
     }
   });
+}
+
+
+function on() {
+  document.getElementById('overlay').style.display='block';
+}
+
+function off() {
+  document.getElementById('overlay').style.display = 'none';
 }
