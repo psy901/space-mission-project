@@ -8,6 +8,7 @@
 
 ## Getting started
 - Internet should be connected!
+- Please use Chrome!
 
 ## How to install the code
 - Go to [Github repository](https://github.com/psy901/space-mission-project)
@@ -18,7 +19,7 @@
 
 ## How to run the code
 - Go to the root directory. The root directory is where `index.html` is.
-- Open the local http server by typpying as follows.
+- Open the local http server by typing as follows.
     ```
     python -m http.server 8080
     ```
@@ -26,7 +27,7 @@
 - Go to local host url `localhost:8080`.
 
 ## How to enjoy demo
-- You can enjoy it at [this web page](....).
+- You can enjoy it at [this web page](https://psy901.github.io/space-mission-project/).
 
 ## How to use the visualization
 - This visualization includes two parts: 
