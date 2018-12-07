@@ -249,7 +249,7 @@ function drawTrellis() {
   var orbit_color = '#E4609D';
   var flyby_color = '#BF55D2'
   var yellow = '#E5D925';
-  var typeColors = ['white', lander_color, towards_color, orbit_color, flyby_color];
+  var typeColors = ['AA4122', lander_color, towards_color, orbit_color, flyby_color];
   var color_of_type = {
     lander: lander_color,
     towards: towards_color,
@@ -440,7 +440,7 @@ function drawTrellis() {
         return 'none';
       }
     })
-    .attr('transform', 'translate(-210, -100)')
+    .attr('transform', 'translate(-750, -100)')
     .call(trellis_legend);
 }
 
@@ -909,4 +909,10 @@ function on() {
 
 function off() {
   document.getElementById('overlay').style.display = 'none';
+}
+
+function scrollDown() {
+  var top = document.getElementById('infovis').offsetTop;
+  window.scrollTo({top: top, behavior: 'smooth'});
+  console.log('scroll!')
 }
