@@ -88,13 +88,13 @@ b {
 }
 
 .arcHover {
-  stroke: #D05C3F !important;
+  stroke: white !important;
   stroke-width: 4px !important;
 }
 
 .arc {
   fill: none;
-  stroke: white;
+  stroke: #9694ad;
   stroke-width: 2px;
   stroke-opacity: 0.5;
 }
@@ -137,6 +137,8 @@ b {
   font-weight: semibold;
   opacity: 0.8;
   text-transform: uppercase;
+  fill: #FFEDBF;
+  stroke: none;
 }
 
 .stackedChartName {
@@ -229,4 +231,9 @@ b {
   background-color: rgba(0,0,0,0.5);
   z-index: 2;
   cursor: pointer;
+}
+
+.tick {
+  stroke: #FFEDBF;
+  font-size: 13px;
 }
