@@ -1,14 +1,14 @@
 variable {
   --main-text-color: #768E8B;
-  --click-color: #DC5A39;
+  --click-color: #E46243;
 }
 
 body {
   /*font-family: Arial, sans-serif;*/
   font-family: 'Share Tech Mono', monospace;
   margin: 0;
-  background-color: black;
-  stroke: #FFEDBF;
+  background-color: #131325;
+  stroke: #ffffff;
 }
 b {
   font-weight: 900;
@@ -68,7 +68,7 @@ b {
 }
 
 .mainBox{
-  background: #333;
+  /* background: #333; */
 }
 
 .node {
@@ -110,8 +110,8 @@ b {
 }
 
 .clicked {
-  fill: #DC5A39 !important;
-  stroke: #DC5A39 !important;
+  fill: #E46243 !important;
+  stroke: #E46243 !important;
 }
 
 .infoChart {
@@ -153,6 +153,10 @@ b {
   font-weight: semibold;
 }
 
+.axis path{
+  stroke: white !important;
+}
+
 .grid path,
 .grid line {
   stroke: #fff;
@@ -192,14 +196,14 @@ b {
 }
 
 .trellisMouseOver {
-  fill: #DC5A39;
-  stroke: #DC5A39;
+  fill: #E46243;
+  stroke: #E46243;
   border-radius: 200%;
 }
 
 .selectedTrellis {
-  fill: #DC5A39;
-  stroke: #DC5A39;
+  fill: #E46243;
+  stroke: #E46243;
 }
 
 
