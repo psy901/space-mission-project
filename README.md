@@ -8,7 +8,7 @@
 
 ## Getting started
 - Internet should be connected!
-- Please use Chorome!
+- Please use Chrome!
 
 ## How to install the code
 - Go to [Github repository](https://github.com/psy901/space-mission-project)
