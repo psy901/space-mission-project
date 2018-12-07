@@ -896,3 +896,9 @@ function on() {
 function off() {
   document.getElementById('overlay').style.display = 'none';
 }
+
+function scrollDown() {
+  var top = document.getElementById('infovis').offsetTop;
+  window.scrollTo({top: top, behavior: 'smooth'});
+  console.log('scroll!')
+}
