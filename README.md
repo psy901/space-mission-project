@@ -10,16 +10,16 @@
 - Internet should be connected!
 
 ## How to install the code
-- Go to [Github repository](http:...)
+- Go to [Github repository](https://github.com/psy901/space-mission-project)
 - Get clone it by typying the following command on your terminal.
-    ```python
-    git clone ...
+    ```
+    git clone git@github.com:psy901/space-mission-project.git
     ```
 
 ## How to run the code
 - Go to the root directory. The root directory is where `index.html` is.
 - Open the local http server by typpying as follows.
-    ```python
+    ```
     python -m http.server 8080
     ```
 - Open your browser
