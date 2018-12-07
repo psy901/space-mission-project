@@ -41,6 +41,21 @@ svg
   .attr('transform', 'translate(20, 20)')
   .text('A HISTORY OF INTERPLANETARY SPACE MISSIONS');
 
+  svg
+  .attr('class', 'total_title')
+  .append('text')
+  .attr('font-size', '15')
+  .attr('transform', 'translate(1250, 200)')
+  .text('_ _ _  FAILED'); 
+
+  svg
+  .attr('class', 'total_title')
+  .append('text')
+  .attr('font-size', '15')
+  .attr('transform', 'translate(1250, 230)')
+  .text('_____ SUCCESS'); 
+  
+  
 /*********************************************************
  * Define global variables for the upper plot parts
  *********************************************************/
