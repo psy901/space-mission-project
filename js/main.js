@@ -98,14 +98,14 @@ var statusArray = [
 var t_svg = d3
   .select('#main3')
   .append('svg')
-  .attr('width', 1000)
+  .attr('width', 1200)
   .attr('height', 650)
   .attr('transform', 'translate(0,-20)')
 
 var t_padding = { t: 40, r: 10, b: 40, l: 40 };
 var t_svgWidth = +t_svg.attr('width');
 var t_svgHeight = +t_svg.attr('height') - 100;
-trellisWidth = t_svgWidth / 4 - t_padding.l - t_padding.r;
+trellisWidth = t_svgWidth / 4 - t_padding.l - t_padding.r - 40;
 trellisHeight = t_svgHeight / 2 - t_padding.t - t_padding.b;
 
 /*********************************************************
@@ -183,7 +183,6 @@ function drawTrellis() {
       })
     )
     .values();
-
   var nested = d3
     .nest()
     .key(function(c) {
@@ -204,7 +203,7 @@ function drawTrellis() {
     .attr('class', 'trellis')
     .attr('transform', function(d, i) {
       var tx =
-        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
+        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l + 45;
       var ty =
         Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
         t_padding.t + 80;
