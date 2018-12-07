@@ -146,25 +146,6 @@ d3.csv('./data/interplanetary-parsed-with-country.csv', (error, data) => {
  *********************************************************/
 
 function drawTrellis() {
-  t_svg
-    .selectAll('.background')
-    .data(['A', 'B', 'C', 'C', 'A', 'B', 'C', 'C']) // dummy data
-    .enter()
-    .append('rect') // Append 4 rectangles
-    .attr('class', 'background')
-    .attr('class', 'trellisRect')
-    .attr('width', trellisWidth) // Use our trellis dimensions
-    .attr('height', trellisHeight)
-    .attr('transform', function(d, i) {
-      // Position based on the matrix array indices.
-      // i = 1 for column 1, row 0)
-      var tx =
-        (i % 4) * (trellisWidth + t_padding.l + t_padding.r) + t_padding.l;
-      var ty =
-        Math.floor(i / 4) * (trellisHeight + t_padding.t + t_padding.b) +
-        t_padding.t;
-      return 'translate(' + [tx, ty] + ')';
-    });
 
   var parseDate = d3.timeParse('%Y-%m-%d');
   var dateDomain = [new Date(1960, 0), new Date(2018, 0)];
@@ -303,11 +284,7 @@ function drawTrellis() {
       return countryScale(d.country) + 10;
     })
     .attr('fill', function(d) {
-      if (d['success'] == 'False') {
-        return 'none';
-      } else {
-        return color_of_type[d['type']];
-      }
+      return color_of_type[d['type']];
     })
     .attr('stroke', function(d) {
       return color_of_type[d['type']];
