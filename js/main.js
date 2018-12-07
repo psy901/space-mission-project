@@ -880,7 +880,7 @@ function updateStackedAreas(filterKey) {
   sc_svg.append('text')
     .text(filterKey)
     .attr('class', 'stackedChartName')
-    .attr('transform', 'translate(430,120)')
+    .attr('transform', 'translate(380,630)')
 
   d3.csv(`./data/${filename}`, function(error, data) {
     if (error) throw error;
