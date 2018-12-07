@@ -426,7 +426,7 @@ function drawTrellis() {
     .shapeWidth(80)
     .cells(typeDomain.length)
     .labelFormat(d3.format('.2f'))
-    .title("MISSIONS PER COUNTRY")
+    .title("MISSIONS PER PLANET")
     .titleWidth(850)
     .orient('horizontal')
     .labelAlign('start')
