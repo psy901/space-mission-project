@@ -198,14 +198,14 @@ b {
 }
 
 .trellisMouseOver {
-  fill: #E46243;
-  stroke: #E46243;
+  fill: #ffffff;
+  stroke: #ffffff;
   border-radius: 200%;
 }
 
 .selectedTrellis {
-  fill: #E46243;
-  stroke: #E46243;
+  fill: #ffffff;
+  stroke: #ffffff;
 }
 
 
