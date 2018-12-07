@@ -444,13 +444,13 @@ function drawTrellis() {
 }
 
 function handleMouseOverTrellis() {
-  const hover = $(this).addClass('trellisMouseOver');
-  $(this).attr('r', 11);
+  // const hover = $(this).addClass('trellisMouseOver');
+  // $(this).attr('r', 11);
 }
 
 function handleMouseOutTrellis() {
-  $('.trellisMouseOver').attr('r', 4);
-  $('.trellisMouseOver').removeClass('trellisMouseOver');
+  // $('.trellisMouseOver').attr('r', 4);
+  // $('.trellisMouseOver').removeClass('trellisMouseOver');
 }
 
 function drawStackedAreas(parsedData) {
