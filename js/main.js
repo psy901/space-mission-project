@@ -34,6 +34,13 @@ const infoChart = svg
   .attr('transform', 'translate(1000, 100)')
   .attr('class', 'infoChart');
 
+svg
+  .attr('class', 'total_title')
+  .append('text')
+  .attr('font-size', '25')
+  .attr('transform', 'translate(20, 20)')
+  .text('A HISTORY OF INTERPLANETARY SPACE MISSIONS');
+
 /*********************************************************
  * Define global variables for the upper plot parts
  *********************************************************/
@@ -68,6 +75,7 @@ var sc_svg = d3
   .attr('transfrom', 'translate(-100, 0)')
   .attr('width', 700)
   .attr('height', 700);
+
 var dateParse = d3.timeParse('%Y');
 var statusArray = [
   'China',
@@ -235,13 +243,13 @@ function drawTrellis() {
   var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
 
   // Setting for type of missions
-  var typeDomain = ['ongoing', 'lander', 'towards', 'orbit', 'flyby', 'rover'];
+  var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover'];
   var lander_color = '#FFD17A';
   var towards_color = '#FFA07A';
   var orbit_color = '#E4609D';
   var flyby_color = '#BF55D2'
   var yellow = '#E5D925';
-  var typeColors = ['white', lander_color, towards_color, orbit_color, flyby_color, yellow];
+  var typeColors = ['white', lander_color, towards_color, orbit_color, flyby_color];
   var color_of_type = {
     lander: lander_color,
     towards: towards_color,
@@ -287,7 +295,11 @@ function drawTrellis() {
       return color_of_type[d['type']];
     })
     .attr('stroke', function(d) {
-      return color_of_type[d['type']];
+      if (d.type == 'ongoing') {
+        return 'none';
+      } else{
+        return color_of_type[d['type']];
+      }
     })
     .attr('class', d => 'trellis-'+d.name)
     .attr('opacity', 1)
@@ -412,11 +424,11 @@ function drawTrellis() {
 
   var trellis_legend = d3
     .legendColor()
-    .shapeWidth(50)
+    .shapeWidth(80)
     .cells(typeDomain.length)
     .labelFormat(d3.format('.2f'))
-    .title("Type of Mission")
-    .titleWidth(200)
+    .title("MISSIONS PER COUNTRY")
+    .titleWidth(850)
     .orient('horizontal')
     .labelAlign('start')
     .scale(legendColorScale);
@@ -428,7 +440,7 @@ function drawTrellis() {
         return 'none';
       }
     })
-    .attr('transform', 'translate(-110, -110)')
+    .attr('transform', 'translate(-210, -100)')
     .call(trellis_legend);
 }
 
@@ -511,10 +523,12 @@ function drawStackedAreas(parsedData) {
 
   var legend = d3
     .legendColor()
-    .shapeWidth(50)
+    .titleWidth(850)
+    .shapeWidth(70)
     .cells(statusArray.length)
     .orient('horizontal')
     .labelAlign('start')
+    .title("MISSIONS PER COUNTRY")
     .scale(colorScale);
 
   var area = d3
@@ -546,7 +560,7 @@ function drawStackedAreas(parsedData) {
   stackAreaCanvas
     .select('.legend')
     .call(legend)
-    .attr('transform', 'translate(260, -10)');
+    .attr('transform', 'translate(80, 0)');
 
   layerGroups
     .append('path')
@@ -866,7 +880,7 @@ function updateStackedAreas(filterKey) {
   sc_svg.append('text')
     .text(filterKey)
     .attr('class', 'stackedChartName')
-    .attr('transform', 'translate(455,90)')
+    .attr('transform', 'translate(430,120)')
 
   d3.csv(`./data/${filename}`, function(error, data) {
     if (error) throw error;
