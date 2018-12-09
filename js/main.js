@@ -138,7 +138,7 @@ d3.json('./data/graph.json', (error, data) => {
 });
 
 // read interplanetary data
-d3.csv('./data/interplanetary-parsed-with-country.csv', (error, data) => {
+d3.csv('./data/interplanetary-parsed.csv', (error, data) => {
   if (error) {
     console.log('error');
     return;
@@ -257,19 +257,18 @@ function drawTrellis() {
   var colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(planetNames);
 
   // Setting for type of missions
-  var typeDomain = ['lander', 'towards', 'orbit', 'flyby', 'rover'];
-  var lander_color = '#FFD17A';
+  var typeDomain = ['lander', 'orbit', 'flyby', 'rover'];
+  var lander_color = '#FFA07A';
   var towards_color = '#FFA07A';
   var orbit_color = '#E4609D';
   var flyby_color = '#BF55D2'
-  var yellow = '#E5D925';
-  var typeColors = ['AA4122', lander_color, towards_color, orbit_color, flyby_color];
+  var rover_color = '#FFD17A';
+  var typeColors = [lander_color, orbit_color, flyby_color, rover_color ];
   var color_of_type = {
     lander: lander_color,
-    towards: towards_color,
     orbit: orbit_color,
     flyby: flyby_color,
-    rover: yellow,
+    rover: rover_color,
     ongoing: 'white'
   };
 
@@ -319,6 +318,7 @@ function drawTrellis() {
         return color_of_type[d['type']];
       }
     })
+    .attr('id', d => d['type'])
     .attr('class', d => 'trellis-'+d.name)
     .attr('opacity', 1)
     .on('mouseover', handleMouseOverTrellis)
@@ -826,6 +826,13 @@ function drawInfoChart(filteredData) {
     .attr('class', 'infoDesc')
     .text(`End: ${endDate == 'null' ? 'Ongoing' : endDate}`)
     .attr('transform', 'translate(0, 60)');
+
+  chart
+    .append('text')
+    .attr('class', 'infoDesc')
+    .text(``)
+    .attr('transform', 'translate(0, 60)');
+  
 }
 
 
