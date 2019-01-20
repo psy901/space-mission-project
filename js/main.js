@@ -530,8 +530,9 @@ function drawStackedAreas(parsedData) {
     .attr('class', 'axis axis--y')
     .call(yAxis);
 
-  var colors = ['#9ECBF4', '#3587D1', '#453FBC', '#8184FB', '#178580', '#1BF1A3', '#34DAEA'];
-  
+  // var colors = ['#9ECBF4', '#3587D1', '#453FBC', '#8184FB', '#178580', '#1BF1A3', '#34DAEA'];
+    var colors = ['#530EA0', '#1C0DBA', '#1BBF21', '#098285', '#0094FF' , '#89F8EB', '#C88DEA'];
+
   var colorScale = d3
     .scaleOrdinal()
     .domain(statusArray)
