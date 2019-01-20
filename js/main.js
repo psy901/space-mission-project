@@ -654,7 +654,14 @@ function drawNodes(filterKey) {
   nodesEnter
     .append('text')
     .attr('class', d => d.name)
-    .attr('transform', 'translate(0, 10)')
+    .attr('transform', d => {
+      const length = d.name.length
+      if (length < 6) return 'translate(0,10)';
+      else {
+        const extraSpace = (10 - length) * -3;
+        return `translate(${extraSpace}, 10)`
+      }
+    })
     .attr('x', d => d.x - 20)
     .attr('y', d => d.y + 20)
     .text(d => {
