@@ -260,9 +260,9 @@ function drawTrellis() {
   var typeDomain = ['lander', 'orbit', 'flyby', 'rover'];
   var lander_color = '#FF8555';
   var towards_color = '#FF7E22';
-  var orbit_color = '#FFE252';
+  var orbit_color = '#CB4080';
   var flyby_color = '#7655D2'
-  var rover_color = '#FF2086';
+  var rover_color = '#FFE252';
   var typeColors = [lander_color, orbit_color, flyby_color, rover_color ];
   var color_of_type = {
     lander: lander_color,
