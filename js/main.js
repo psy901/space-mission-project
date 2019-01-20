@@ -258,11 +258,11 @@ function drawTrellis() {
 
   // Setting for type of missions
   var typeDomain = ['lander', 'orbit', 'flyby', 'rover'];
-  var lander_color = '#FFA07A';
-  var towards_color = '#FFA07A';
-  var orbit_color = '#E4609D';
-  var flyby_color = '#BF55D2'
-  var rover_color = '#FFD17A';
+  var lander_color = '#FFB937';
+  var towards_color = '#FF7E22';
+  var orbit_color = '#FF7E22';
+  var flyby_color = '#DC3232'
+  var rover_color = '#D255C2';
   var typeColors = [lander_color, orbit_color, flyby_color, rover_color ];
   var color_of_type = {
     lander: lander_color,
