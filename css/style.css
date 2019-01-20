@@ -155,7 +155,7 @@ b {
   font-weight: semibold;
 }
 
-.axis path{
+.content .axis path{
   stroke: white !important;
 }
 
